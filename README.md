@@ -59,6 +59,7 @@ ls /dev/
 ## Demostración
 
 El sistema permite la teleoperación del robot y la ejecución de tareas como el apilado de bloques en tiempo real.
+https://www.youtube.com/watch?v=vmkai2tdlqk
 
 ## Autor
 Salvador Patricio Lázaro Herrero.
