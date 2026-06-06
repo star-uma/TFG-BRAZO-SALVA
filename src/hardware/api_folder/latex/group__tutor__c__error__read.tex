@@ -1,0 +1,101 @@
+\hypertarget{group__tutor__c__error__read}{}\doxysection{Reading device errors}
+\label{group__tutor__c__error__read}\index{Reading device errors@{Reading device errors}}
+The tutorial describes how to read the total number of errors that occurred on the servo and to display their description.
+
+
+\begin{DoxyEnumerate}
+\item Initialize the interface. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__can__interface__t}{rr\_can\_interface\_t}} *iface = \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\_init\_interface}}(argv[1]);}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!iface)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Interface init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+
+\item Initialize the servo. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__servo__t}{rr\_servo\_t}} *servo = \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\_init\_servo}}(iface, \textcolor{keywordtype}{id});}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!servo)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Servo init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+ {\bfseries{ Reading the current error count}}
+\item Create a variable where the function will read the current error count. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    uint32\_t \_size;}
+
+\end{DoxyCodeInclude}
+
+\item Read the current error count. {\bfseries{Note}}\+: The \char`\"{}array\char`\"{} argument is zero (we don\textquotesingle{}t need to read error bits). 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group___err_ga62c37a4c7c13756d1fc612992edc48c7}{rr\_read\_error\_status}}(servo, \&\_size, 0);}
+
+\end{DoxyCodeInclude}
+ {\bfseries{ Reading the current error count and error bits}}
+\item Create an array where the function will read the current error bits. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    uint8\_t array[100];}
+
+\end{DoxyCodeInclude}
+
+\item Create a variable where the function will read the current error count. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    uint32\_t size;}
+
+\end{DoxyCodeInclude}
+
+\item Read the current error count and error bits (if any). 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group___err_ga62c37a4c7c13756d1fc612992edc48c7}{rr\_read\_error\_status}}(servo, \&\_size, 0);}
+
+\end{DoxyCodeInclude}
+
+\item Cycle print of error bits (described by \mbox{\hyperlink{group___err_gaa949cec80a64afa06ed9816fe1132888}{rr\+\_\+describe\+\_\+emcy\+\_\+bit}} function). 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < size; i++)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)tError: \%s\(\backslash\)n"{}}, \mbox{\hyperlink{group___err_gaa949cec80a64afa06ed9816fe1132888}{rr\_describe\_emcy\_bit}}(array[i]));}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+ {\bfseries{ Complete tutorial code\+: }} 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__can__interface__t}{rr\_can\_interface\_t}} *iface = \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\_init\_interface}}(argv[1]);}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!iface)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Interface init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__servo__t}{rr\_servo\_t}} *servo = \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\_init\_servo}}(iface, \textcolor{keywordtype}{id});}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!servo)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Servo init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Reading servo error count ..."{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{    uint32\_t \_size;}
+\DoxyCodeLine{    \mbox{\hyperlink{group___err_ga62c37a4c7c13756d1fc612992edc48c7}{rr\_read\_error\_status}}(servo, \&\_size, 0);}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}\(\backslash\)tError count: \%d \%s\(\backslash\)n"{}}, \_size, \_size ? \textcolor{stringliteral}{"{}"{}} : \textcolor{stringliteral}{"{}(No errors)"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Reading servo error list ..."{}});}
+\DoxyCodeLine{    uint8\_t array[100];}
+\DoxyCodeLine{    uint32\_t size;}
+\DoxyCodeLine{    \mbox{\hyperlink{group___err_ga62c37a4c7c13756d1fc612992edc48c7}{rr\_read\_error\_status}}(servo, \&size, array);}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}\(\backslash\)tError count: \%d \%s\(\backslash\)n"{}}, size, size ? \textcolor{stringliteral}{"{}"{}} : \textcolor{stringliteral}{"{}(No errors)"{}});}
+\DoxyCodeLine{    \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < size; i++)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)tError: \%s\(\backslash\)n"{}}, \mbox{\hyperlink{group___err_gaa949cec80a64afa06ed9816fe1132888}{rr\_describe\_emcy\_bit}}(array[i]));}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyEnumerate}

@@ -1,0 +1,119 @@
+\hypertarget{group__tutor__c__check__motion__points}{}\doxysection{Checking PVT points}
+\label{group__tutor__c__check__motion__points}\index{Checking PVT points@{Checking PVT points}}
+The tutorial demonstrates how to verify validity of PVT points in a servo trajectory without actually connecting a servo, while checking for PVT velocities over maximum limits. Maximum velocity limits (degrees per seconds) for RDrive motors (@48V)\+: 
+\begin{DoxyItemize}
+\item RD50\+: 267.\+84 $\sim$= 260 
+\item RD60\+: 267.\+84 $\sim$= 260 
+\item RD85\+: 244.\+80 $\sim$= 240
+\end{DoxyItemize}
+
+
+\begin{DoxyEnumerate}
+\item Create an array of PVT points to define the desired motion trajectory. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int} \mbox{\hyperlink{calibrate__cogging_8c_a0ddf1224851353fc92bfbff6f499fa97}{main}}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[])}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    \textcolor{keyword}{typedef} \textcolor{keyword}{struct}}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \textcolor{keywordtype}{float} pos;}
+\DoxyCodeLine{        \textcolor{keywordtype}{float} vel;}
+\DoxyCodeLine{        \textcolor{keywordtype}{float} time;}
+\DoxyCodeLine{    \} point\_t;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    point\_t points[] = \{}
+\DoxyCodeLine{        \{343.77, 0, 0\},}
+\DoxyCodeLine{        \{202.57, 1.33, 1537.4\},}
+\DoxyCodeLine{        \{205.63, 9.20, 1148.9\},}
+\DoxyCodeLine{        \{210.00, 21.24, 277.9\},}
+\DoxyCodeLine{        \{215.61, 32.27, 209.5\},}
+\DoxyCodeLine{        \{222.35, 42.94, 178.5\},}
+\DoxyCodeLine{        \{230.14, 52.62, 161.8\},}
+\DoxyCodeLine{        \{238.85, 60.75, 152.6\},}
+\DoxyCodeLine{        \{248.41, 67.20, 148.5\},}
+\DoxyCodeLine{        \{258.72, 72.29, 147.1\},}
+\DoxyCodeLine{        \{269.68, 76.51, 147.1\},}
+\DoxyCodeLine{        \{281.23, 79.88, 147.1\},}
+\DoxyCodeLine{        \{293.29, 81.69, 148.4\},}
+\DoxyCodeLine{        \{305.8, 81.01, 152.4\},}
+\DoxyCodeLine{        \{318.72, 77.22, 161.6\},}
+\DoxyCodeLine{        \{331.98, 69.83, 178.0\},}
+\DoxyCodeLine{        \{345.56, 57.72, 208.5\},}
+\DoxyCodeLine{        \{359.42, 35.09, 275.4\},}
+\DoxyCodeLine{        \{373.52, 0.00, 709.8\}\};}
+
+\end{DoxyCodeInclude}
+
+\item Check the PVT points for velocities over the maximum limit. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{for}(uint32\_t i = 0; i < \textcolor{keyword}{sizeof}(points) / \textcolor{keyword}{sizeof}(points[0]) -\/ 1; i++)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \textcolor{keywordtype}{float} calc\_velocity;}
+\DoxyCodeLine{        \textcolor{keywordtype}{bool} over\_speed = \mbox{\hyperlink{api_8c_a54a489e7c2900705848c52acde7213a0}{rr\_check\_point}}(\mbox{\hyperlink{check__motion__points_8c_af5c20b3a568c8f616ca560e3db173396}{velocity\_limit}}, \&calc\_velocity,}
+\DoxyCodeLine{                points[i].pos, points[i].vel,}
+\DoxyCodeLine{                points[i + 1].pos, points[i + 1].vel,}
+\DoxyCodeLine{                points[i + 1].time);}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Point Angles (Velocities): \%.3f (\%.3f) -\/> \%.3f (\%.3f) [\%d ms] \# Limit Vel: \%.3f | Max Vel: \%.3f \%s\(\backslash\)n"{}},}
+\DoxyCodeLine{                points[i].pos, points[i].vel,}
+\DoxyCodeLine{                points[i + 1].pos, points[i + 1].vel,}
+\DoxyCodeLine{                (\textcolor{keywordtype}{int})points[i + 1].time,}
+\DoxyCodeLine{                \mbox{\hyperlink{check__motion__points_8c_af5c20b3a568c8f616ca560e3db173396}{velocity\_limit}}, calc\_velocity,}
+\DoxyCodeLine{                over\_speed ? \textcolor{stringliteral}{"{}is too high"{}} : \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+ Finally, the function displays calculation results for each of the PVT points.
+\end{DoxyEnumerate}
+
+{\bfseries{ Complete tutorial code\+: }} 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{float} \mbox{\hyperlink{check__motion__points_8c_af5c20b3a568c8f616ca560e3db173396}{velocity\_limit}} = 80.0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} \mbox{\hyperlink{calibrate__cogging_8c_a0ddf1224851353fc92bfbff6f499fa97}{main}}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[])}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    \textcolor{keyword}{typedef} \textcolor{keyword}{struct}}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \textcolor{keywordtype}{float} pos;}
+\DoxyCodeLine{        \textcolor{keywordtype}{float} vel;}
+\DoxyCodeLine{        \textcolor{keywordtype}{float} time;}
+\DoxyCodeLine{    \} point\_t;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    point\_t points[] = \{}
+\DoxyCodeLine{        \{343.77, 0, 0\},}
+\DoxyCodeLine{        \{202.57, 1.33, 1537.4\},}
+\DoxyCodeLine{        \{205.63, 9.20, 1148.9\},}
+\DoxyCodeLine{        \{210.00, 21.24, 277.9\},}
+\DoxyCodeLine{        \{215.61, 32.27, 209.5\},}
+\DoxyCodeLine{        \{222.35, 42.94, 178.5\},}
+\DoxyCodeLine{        \{230.14, 52.62, 161.8\},}
+\DoxyCodeLine{        \{238.85, 60.75, 152.6\},}
+\DoxyCodeLine{        \{248.41, 67.20, 148.5\},}
+\DoxyCodeLine{        \{258.72, 72.29, 147.1\},}
+\DoxyCodeLine{        \{269.68, 76.51, 147.1\},}
+\DoxyCodeLine{        \{281.23, 79.88, 147.1\},}
+\DoxyCodeLine{        \{293.29, 81.69, 148.4\},}
+\DoxyCodeLine{        \{305.8, 81.01, 152.4\},}
+\DoxyCodeLine{        \{318.72, 77.22, 161.6\},}
+\DoxyCodeLine{        \{331.98, 69.83, 178.0\},}
+\DoxyCodeLine{        \{345.56, 57.72, 208.5\},}
+\DoxyCodeLine{        \{359.42, 35.09, 275.4\},}
+\DoxyCodeLine{        \{373.52, 0.00, 709.8\}\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keywordflow}{for}(uint32\_t i = 0; i < \textcolor{keyword}{sizeof}(points) / \textcolor{keyword}{sizeof}(points[0]) -\/ 1; i++)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \textcolor{keywordtype}{float} calc\_velocity;}
+\DoxyCodeLine{        \textcolor{keywordtype}{bool} over\_speed = \mbox{\hyperlink{api_8c_a54a489e7c2900705848c52acde7213a0}{rr\_check\_point}}(\mbox{\hyperlink{check__motion__points_8c_af5c20b3a568c8f616ca560e3db173396}{velocity\_limit}}, \&calc\_velocity,}
+\DoxyCodeLine{                points[i].pos, points[i].vel,}
+\DoxyCodeLine{                points[i + 1].pos, points[i + 1].vel,}
+\DoxyCodeLine{                points[i + 1].time);}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Point Angles (Velocities): \%.3f (\%.3f) -\/> \%.3f (\%.3f) [\%d ms] \# Limit Vel: \%.3f | Max Vel: \%.3f \%s\(\backslash\)n"{}},}
+\DoxyCodeLine{                points[i].pos, points[i].vel,}
+\DoxyCodeLine{                points[i + 1].pos, points[i + 1].vel,}
+\DoxyCodeLine{                (\textcolor{keywordtype}{int})points[i + 1].time,}
+\DoxyCodeLine{                \mbox{\hyperlink{check__motion__points_8c_af5c20b3a568c8f616ca560e3db173396}{velocity\_limit}}, calc\_velocity,}
+\DoxyCodeLine{                over\_speed ? \textcolor{stringliteral}{"{}is too high"{}} : \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}

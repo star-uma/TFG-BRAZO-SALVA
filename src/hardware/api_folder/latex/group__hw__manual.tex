@@ -1,0 +1,226 @@
+\hypertarget{group__hw__manual}{}\doxysection{Servo box specs \& manual}
+\label{group__hw__manual}\index{Servo box specs \& manual@{Servo box specs \& manual}}
+\hypertarget{group__hw__manual_sect_descr}{}\doxysubsection{1. Product overview}\label{group__hw__manual_sect_descr}
+A {\bfseries{servobox}} is a set of deliverables enabling users to easily connect, control, and operate RDrive servo motors in the designed range of loads. The set comprises the following components\+:
+\begin{DoxyItemize}
+\item an energy eater complete with a power supply connector (see Section 2.\+1)
+\item a capacitor module incorporating one or more capacitors (see Section 2.\+2)
+\item a CAN-\/\+USB dongle and a USB-\/A to Micro USB cable (1 m long) to provide communication with RDrive servos
+\item a 120 Ohm terminating resistor (see Section 3.\+2)
+\item a quick-\/start cable set comprising power supply (1 m long) and CAN (0.\+5 m long) cables (1 pcs of each type per servo)
+\end{DoxyItemize}
+
+It is the user\textquotesingle{}s responsibility to additionally provide {\bfseries{a power supply unit}}. The power supply unit must meet the following requirements\+:
+\begin{DoxyItemize}
+\item Supply voltage—48 V max
+\item Power equal to the total nominal power of all servo motors connected to it multiplied by a factor of 2.\+5 to 3
+\end{DoxyItemize}\hypertarget{group__hw__manual_sect1}{}\doxysubsection{2. Servobox components}\label{group__hw__manual_sect1}
+\hypertarget{group__hw__manual_eater}{}\doxysubsubsection{2.\+1 Energy eater}\label{group__hw__manual_eater}
+An energy eater is used to dissipate dynamic braking energy. When not dissipated, this energy can cause servos to generate voltages in excess of the power supply voltage, which can damage servos beyond repair. 
+
+The Rozum Robotics model range includes the following two models of energy eaters\+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Model 1}}—for applications with average dissipated power (at 60 degrees C max.) of {\bfseries{less than 25 W}}  
+\begin{DoxyImage}
+\includegraphics[width=150pt]{Servo_box_model_1.png}
+\doxyfigcaption{Energy eater—\+Model 1}
+\end{DoxyImage}
+  
+\item {\bfseries{Model 2}}—for applications with average dissipated power (at 60 degrees C max.) {\bfseries{from 25 W to 120 W (1,000 W peak)}}  
+\begin{DoxyImage}
+\includegraphics[width=150pt]{eater_isometric.PNG}
+\doxyfigcaption{Energy eater—\+Model 2}
+\end{DoxyImage}
+  
+\end{DoxyItemize}
+
+When the average dissipated power of your application is less than 25 W (at 60 degrees C max.), you can also assemble an energy eater on your own based on the schematic below.
+
+ 
+\begin{DoxyImage}
+\includegraphics[width=150pt]{eater.png}
+\doxyfigcaption{Eater module schematic}
+\end{DoxyImage}
+ {\bfseries{Required components\+:}} \tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Component   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Type   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Other options   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Comments    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Component   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Type   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Other options   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Comments    }\\\cline{1-4}
+\endhead
+D1 -\/ Diode   &APT30\+S20\+BG   &Schottky diode, I\textsubscript{f} {$\ge$} 20 A, V\textsubscript{r} {$\ge$} 96 V   &I\textsubscript{f} {$\ge$} 1.\+5 × Total current of all connected servos    \\\cline{1-4}
+Q1 -\/ Transistor   &TIP147   &PNP darlington transistor, V\textsubscript{ce} {$\ge$} 96V, I\textsubscript{c} {$\ge$} 10 A   &\\\cline{1-4}
+R1 -\/ Resistor   &1K Ohm, 1 W   &&\\\cline{1-4}
+R2 -\/ Resistor   &4.\+7 Ohm, P\textsubscript{d} {$\ge$} 25 W   &&\\\cline{1-4}
+X1 -\/ Connector   &&&Input connector (from the power source to the power supply)    \\\cline{1-4}
+X2 -\/ Connector   &&&Output connector (from the power consumer to the capacitor and servo)   \\\cline{1-4}
+\end{longtabu}
+
+
+{\bfseries{Heatsink requirements}}~\newline
+ 
+
+As you can see in the Eater module schematic, D1, Q1, and R2 should be connected to an appropriate heatsink.
+
+Because the energy eater as shown in the schematic dissipates 25 W of average power at the ambient temperature of 60 degrees C max, the heatsink should have thermal resistance of at least 1W/deg C.
+
+To comply with the requirement, select a heatsink with the following characteristics\+: 
+\begin{DoxyItemize}
+\item forced air convection with the flow rate of 15m3/h 
+\item heat dissipating surface of 600 cm2
+\end{DoxyItemize}
+
+For example, this can be a heatsink as described below\+: 
+\begin{DoxyItemize}
+\item heatsink size—100 x 100 mm 
+\item fan size—40 x 40 mm 
+\item fin quantity—12 
+\item fin height—25 mm
+\end{DoxyItemize}\hypertarget{group__hw__manual_capacitor}{}\doxysubsubsection{2.\+2 Capacitor module}\label{group__hw__manual_capacitor}
+In the servobox solution, capacitors are intended to accumulate electric energy and supply it to servos. The devices allow for compensating short-\/term power consumption peaks that are due to inductive resistance. This is important because inductive resistance values in the servo\textquotesingle{}s power supply circuit are high when the distance from a servo to the supply unit is long. Therefore, the general requirement is to place capacitors as close to servos as possible. For exact distances, refer to Section 3.\+1, Table 1 (\char`\"{}\+L3\char`\"{} column). As part of the servobox solution, capacitor modules are supplied attached to servo motors. However, you can detach them to subsequently mount at admissible distances (see Table 1, \char`\"{}\+L3\char`\"{} column).
+
+ 
+\begin{DoxyImage}
+\includegraphics[width=150pt]{Servo_and_capacitor_attached.png}
+\doxyfigcaption{An RDrive servo with an attached capacitor module}
+\end{DoxyImage}
+ 
+
+Alternatively, you can assemble a capacitor module on your own, using the schematic below\+:
+
+ 
+\begin{DoxyImage}
+\includegraphics[width=200pt]{capacitor.png}
+\doxyfigcaption{Capacitor module schematic}
+\end{DoxyImage}
+ {\bfseries{Requirements\+:}} \tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Component   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Type   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Comments    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Component   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Type   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Comments    }\\\cline{1-3}
+\endhead
+X1 -\/ Connector   &&Input connector (power source)    \\\cline{1-3}
+X2 -\/ Connector   &&Output connector (from the power consumer to the servo)    \\\cline{1-3}
+C1...Cn   &Aluminum electrolytic capacitor or tantalum/polymer capacitor, U {$\ge$} 80 V   &Total capacitance should be {$\ge$} 5 uF per 1 W of connected servo power   \\\cline{1-3}
+\end{longtabu}
+{\bfseries{Note\+:}} Total capacitor ESR {$\le$} 0.\+1 Ohm\hypertarget{group__hw__manual_sect_conn}{}\doxysubsection{3. Connecting servos to a power supply and a servobox}\label{group__hw__manual_sect_conn}
+To integrate an RDrive servo into one circuit with a power supply unit and a servobox, you need to provide the following connections\+:
+
+
+\begin{DoxyItemize}
+\item power supply connection (two wires on the servo housing)
+\item CAN communication connection (two wires on the servo housing)
+\end{DoxyItemize}
+
+For connection diagrams and requirements, see Sections 3.\+1 and 3.\+2. For eater and capacitor requirements and schematic, see Section 2.\+1 and 2.\+2.\hypertarget{group__hw__manual_sect_21}{}\doxysubsubsection{3.\+1. Power supply connection}\label{group__hw__manual_sect_21}
+{\bfseries{Note\+:}} Never supply power before a servo (servos) is (are) fully integrated with a servo box and a power supply unit into one circuit. Charging current of the capacitor(s) can damage the power supply unit or injure the user!
+
+The configuration of the servo box solution (e.\+g., how many eaters and capacitors it uses) and the electrical connection diagram depend on whether your intention is\+:
+\begin{DoxyItemize}
+\item to connect a single servo, in which case the configuration and the connection diagram are as below\+:  
+\begin{DoxyImage}
+\includegraphics[width=300pt]{single_servo_conn_1.png}
+\doxyfigcaption{Connecting single RDrive servo to power supply}
+\end{DoxyImage}
+
+\item to connect multiple servos, in which case the configuration and the connection diagram are as below\+:  
+\begin{DoxyImage}
+\includegraphics[width=300pt]{multiple_servo_conn_1.png}
+\doxyfigcaption{Connecting multiple RDrive servos to power supply}
+\end{DoxyImage}
+
+\end{DoxyItemize}
+
+In any case, make sure to meet the following electrical connection requirements\+:
+\begin{DoxyItemize}
+\item The total circuit length from the power supply unit to any servo motor must not exceed 10 meters.
+\item The L1 length must not be longer than 10 meters.
+\begin{DoxyItemize}
+\item When the total connected motor power is {\bfseries{less than 250 W}}, the cable cross-\/section within the segment must be at least 1.\+00 mm2.
+\item When the total connected motor power is {\bfseries{less than 500 W}}, the cable cross-\/section within the segment must be at least 2.\+00 mm2.
+\end{DoxyItemize}
+\item The L2 length (from the eater to the capacitor) must not exceed the values from Table 1.
+\item The L3 length (from the capacitor to any servo) must not exceed the values from Table 1.
+\end{DoxyItemize}
+
+{\bfseries{Table 1\+: Line segment lengths vs. cross-\/sections}} \tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{15}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Servo model   }&\multicolumn{6}{c|}{\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ L2   }}&\multicolumn{8}{c|}{\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ L3    }}\\\cline{1-15}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Servo model   }&\multicolumn{6}{c|}{\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ L2   }}&\multicolumn{8}{c|}{\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ L3    }}\\\cline{1-15}
+\endhead
+&0.\+75 mm\textsuperscript{2}   &1.\+0 mm\textsuperscript{2}   &1.\+5 mm\textsuperscript{2}   &2.\+5 mm\textsuperscript{2}   &4.\+0 mm\textsuperscript{2}   &6.\+0 mm\textsuperscript{2}   &0.\+25 mm\textsuperscript{2}   &0.\+5 mm\textsuperscript{2}   &0.\+75 mm\textsuperscript{2}   &1.\+0 mm\textsuperscript{2}   &1.\+5 mm\textsuperscript{2}   &2.\+5 mm\textsuperscript{2}   &4.\+0 mm\textsuperscript{2}   &6.\+0 mm\textsuperscript{2}    \\\cline{1-15}
+RD50   &4 m   &5 m   &8 m   &10 m   &10 m   &10 m   &0.\+1 m   &0.\+1 m   &0.\+2 m   &0.\+2 m   &0.\+4 m   &0.\+7 m   &1.\+0 m   &1.\+0 m    \\\cline{1-15}
+RD60   &2 m   &3 m   &5 m   &9 m   &10 m   &10 m   &-\/   &0.\+1 m   &0.\+1 m   &0.\+1 m   &0.\+2 m   &0.\+4 m   &1.\+0 m   &1.\+0 m    \\\cline{1-15}
+RD85   &0.\+8 m   &1 m   &1 m   &2 m   &4 m   &6 m   &-\/   &-\/   &-\/   &-\/   &0.\+08 m   &0.\+13 m   &0.\+21 m   &0.\+32 m   \\\cline{1-15}
+\end{longtabu}
+\hypertarget{group__hw__manual_sect_22}{}\doxysubsubsection{3.\+2. CAN connection}\label{group__hw__manual_sect_22}
+The CAN connection of RDrive servos is a two-\/wire bus line transmitting differential signals\+: CAN\+\_\+\+HIGH and CAN\+\_\+\+LOW. The configuration of the bus line is as illustrated below\+:  
+\begin{DoxyImage}
+\includegraphics[width=300pt]{servobox_CAN_new_1.png}
+\doxyfigcaption{Connecting RDrive servos to USB-\/\+CAN}
+\end{DoxyImage}
+
+
+Providing the CAN connection, make sure to comply with the following requirements\+:
+\begin{DoxyItemize}
+\item CAN bus lines of less than 40 m long should be terminated with 120 Ohm resistors at both ends. For bus lines of over 40 m long, use 150-\/300 Ohm resistors.~\newline
+ {\bfseries{Note\+:}} You have to provide only one resistor because one is already integrated into the CAN-\/\+USB dongle supplied as part of the servobox solution.
+\item The bus line cable must be a twisted pair cable with the lay length of 2 to 4 cm.
+\item For the cross section of the bus line, see Table 2.
+\item To ensure the baud rate required for your application, L{$\Sigma$} should meet the specific values as indicated in Table 2.
+\end{DoxyItemize}
+
+{\bfseries{Table 2\+: CAN line parameters}} \tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{6}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Baud Rate   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ 50 kbit/s   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ 100 kbit/s   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ 250 kbit/s   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ 500 kbit/s   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ 1 Mbit/s    }\\\cline{1-6}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Baud Rate   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ 50 kbit/s   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ 100 kbit/s   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ 250 kbit/s   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ 500 kbit/s   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ 1 Mbit/s    }\\\cline{1-6}
+\endhead
+Total line length, L{$\Sigma$}, m   &$<$ 1000   &$<$ 500   &$<$ 200   &$<$ 100   &$<$ 40    \\\cline{1-6}
+Cross-\/section, mm2   &0.\+75 to 0.\+8   &0.\+5 to 0.\+6   &0.\+34 to 0.\+6   &0.\+34 to 0.\+6   &0.\+25 to 0.\+34   \\\cline{1-6}
+\end{longtabu}
+
+
+{\bfseries{Connecting multiple servos to a CAN bus}}
+
+To avoid collisions, each servo connected to a CAN bus line must have a unique CAN identifier. However, RDrive servo motors are all supplied with the same {\bfseries{default ID—32}}. Therefore, an important step of connecting multiple RDrive servos to a single CAN bus line is to change their default IDs to unique ones.
+
+Start with connecting each of your multiple servos, one by one, to a CAN bus line, following the sequence as described below\+:~\newline
+
+
+{\bfseries{Caution!}} Never connect or disconnect servos when power supply is on!~\newline
+
+
+
+\begin{DoxyEnumerate}
+\item Take servo 1 and connect it to the CAN bus line as desribed in this section above.~\newline
+
+\item Run the \mbox{\hyperlink{group__tutor__c__change_i_d1}{Changing CAN ID of a single servo}} tutorial to change the servo\textquotesingle{}s default ID.~\newline
+
+\item Remember or write down the newly assigned CAN ID and disconnect the servo.~\newline
+
+\item Repeat Steps 1 to 3 for all the servos you want to connect to the same CAN bus line.~\newline
+
+\end{DoxyEnumerate}
+
+Once you have changed all CAN IDs as appropriate, you can connect all the servos back to the CAN bus line and start working with them.
+
+{\bfseries{Note}}\+: In total, you can connect up to 127 devices to a single CAN bus. So, the admissible CAN ID pool is from 1 to 127. 

@@ -1,0 +1,175 @@
+\hypertarget{group___aux}{}\doxysection{Auxiliary functions}
+\label{group___aux}\index{Auxiliary functions@{Auxiliary functions}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group___aux_gaeb26028b83635e028ebc901e1cbf33a1}{rr\+\_\+sleep\+\_\+ms}} (int ms)
+\begin{DoxyCompactList}\small\item\em The function sets an idle period for the user program (e.\+g., to wait till a servo executes a motion trajectory). Until the period expires, the user program will not execute any further operations. However, the network management, CAN communication, emergency, and Heartbeat functions remain available. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___aux_gaa57ed02a9338e34b3f4d78475bd7d295}{rr\+\_\+write\+\_\+raw\+\_\+sdo}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, uint16\+\_\+t idx, uint8\+\_\+t sidx, uint8\+\_\+t $\ast$data, int sz, int retry, int tout)
+\begin{DoxyCompactList}\small\item\em The function sends an arbitrary SDO write request to the specified servo. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___aux_gabb168d0d8dd55cc8098c7e318309336d}{rr\+\_\+send\+\_\+com\+\_\+frame}} (const \mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface, uint32\+\_\+t cob\+\_\+id, int dlc, uint8\+\_\+t $\ast$data)
+\begin{DoxyCompactList}\small\item\em This function sends arbitrary CAN frame. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___aux_gaf817b6d93977f93c8274c7cf40d0d568}{rr\+\_\+read\+\_\+raw\+\_\+sdo}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, uint16\+\_\+t idx, uint8\+\_\+t sidx, uint8\+\_\+t $\ast$data, int $\ast$sz, int retry, int tout)
+\begin{DoxyCompactList}\small\item\em The function sends an arbitrary SDO read request to the specified servo. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___aux_gae984912ec497e2b203f1cf2b3f51d741}{rr\+\_\+setup\+\_\+com\+\_\+frame\+\_\+callback}} (\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface, \mbox{\hyperlink{api_8h_aee5ef69e1f68701368c5844dd42e7662}{rr\+\_\+com\+\_\+frame\+\_\+cb\+\_\+t}} cb)
+\begin{DoxyCompactList}\small\item\em The function sets a user callback for incoming CAN frames. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___aux_gaf5cf9b482485997c41f018a76402c152}{rr\+\_\+change\+\_\+id\+\_\+and\+\_\+save}} (\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface, \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$$\ast$servo, uint8\+\_\+t new\+\_\+can\+\_\+id)
+\begin{DoxyCompactList}\small\item\em The function enables changing the default CAN identifier (ID) of the specified servo to avoid collisions on a bus line. {\bfseries{Important!}} Each servo connected to a CAN bus must have {\bfseries{a unique ID}}.~\newline
+ \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group___aux_gaf5cf9b482485997c41f018a76402c152}\label{group___aux_gaf5cf9b482485997c41f018a76402c152}} 
+\index{Auxiliary functions@{Auxiliary functions}!rr\_change\_id\_and\_save@{rr\_change\_id\_and\_save}}
+\index{rr\_change\_id\_and\_save@{rr\_change\_id\_and\_save}!Auxiliary functions@{Auxiliary functions}}
+\doxysubsubsection{\texorpdfstring{rr\_change\_id\_and\_save()}{rr\_change\_id\_and\_save()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+change\+\_\+id\+\_\+and\+\_\+save (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$}]{iface,  }\item[{\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$$\ast$}]{servo,  }\item[{uint8\+\_\+t}]{new\+\_\+can\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+The function enables changing the default CAN identifier (ID) of the specified servo to avoid collisions on a bus line. {\bfseries{Important!}} Each servo connected to a CAN bus must have {\bfseries{a unique ID}}.~\newline
+ 
+
+When called, the function resets CAN communication for the specified servo, checks that Heartbeats are generated for the new ID, and saves the new CAN ID to the EEPROM memory of the servo.
+
+{\bfseries{Note\+:}} The EEPROM memory limit is 1,000 write cycles. Therefore, it is advisable to use the function with discretion.
+
+
+\begin{DoxyParams}{Parameters}
+{\em iface} & Descriptor of the interface (as returned by the \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\+\_\+init\+\_\+interface}} function) \\
+\hline
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function. {\bfseries{Note}}\+: All RDrive servos are supplied with {\bfseries{the same default CAN ID—32}}. \\
+\hline
+{\em new\+\_\+can\+\_\+id} & New CAN ID. You can set any value within the range from 1 to 127, only make sure {\bfseries{no other servo has the same ID}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___aux_gaf817b6d93977f93c8274c7cf40d0d568}\label{group___aux_gaf817b6d93977f93c8274c7cf40d0d568}} 
+\index{Auxiliary functions@{Auxiliary functions}!rr\_read\_raw\_sdo@{rr\_read\_raw\_sdo}}
+\index{rr\_read\_raw\_sdo@{rr\_read\_raw\_sdo}!Auxiliary functions@{Auxiliary functions}}
+\doxysubsubsection{\texorpdfstring{rr\_read\_raw\_sdo()}{rr\_read\_raw\_sdo()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+read\+\_\+raw\+\_\+sdo (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{servo,  }\item[{uint16\+\_\+t}]{idx,  }\item[{uint8\+\_\+t}]{sidx,  }\item[{uint8\+\_\+t $\ast$}]{data,  }\item[{int $\ast$}]{sz,  }\item[{int}]{retry,  }\item[{int}]{tout }\end{DoxyParamCaption})}
+
+
+
+The function sends an arbitrary SDO read request to the specified servo. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em idx} & Index of the SDO object to which the request refers \\
+\hline
+{\em sidx} & Subindex \\
+\hline
+{\em data} & Data to read to \\
+\hline
+{\em sz} & Size of the {\ttfamily data} in bytes, is writed with the number of readed bytes \\
+\hline
+{\em retry} & Number of retries (if a communication error occured during the request) \\
+\hline
+{\em tout} & Request timeout in milliseconds \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___aux_gabb168d0d8dd55cc8098c7e318309336d}\label{group___aux_gabb168d0d8dd55cc8098c7e318309336d}} 
+\index{Auxiliary functions@{Auxiliary functions}!rr\_send\_com\_frame@{rr\_send\_com\_frame}}
+\index{rr\_send\_com\_frame@{rr\_send\_com\_frame}!Auxiliary functions@{Auxiliary functions}}
+\doxysubsubsection{\texorpdfstring{rr\_send\_com\_frame()}{rr\_send\_com\_frame()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+send\+\_\+com\+\_\+frame (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$}]{iface,  }\item[{uint32\+\_\+t}]{cob\+\_\+id,  }\item[{int}]{dlc,  }\item[{uint8\+\_\+t $\ast$}]{data }\end{DoxyParamCaption})}
+
+
+
+This function sends arbitrary CAN frame. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em iface} & interface descriptor \\
+\hline
+{\em cob\+\_\+id} & CAN frame ID \\
+\hline
+{\em dlc} & Data Length Code (length of data field in bytes) \\
+\hline
+{\em data} & pointer to data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___aux_gae984912ec497e2b203f1cf2b3f51d741}\label{group___aux_gae984912ec497e2b203f1cf2b3f51d741}} 
+\index{Auxiliary functions@{Auxiliary functions}!rr\_setup\_com\_frame\_callback@{rr\_setup\_com\_frame\_callback}}
+\index{rr\_setup\_com\_frame\_callback@{rr\_setup\_com\_frame\_callback}!Auxiliary functions@{Auxiliary functions}}
+\doxysubsubsection{\texorpdfstring{rr\_setup\_com\_frame\_callback()}{rr\_setup\_com\_frame\_callback()}}
+{\footnotesize\ttfamily void rr\+\_\+setup\+\_\+com\+\_\+frame\+\_\+callback (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$}]{iface,  }\item[{\mbox{\hyperlink{api_8h_aee5ef69e1f68701368c5844dd42e7662}{rr\+\_\+com\+\_\+frame\+\_\+cb\+\_\+t}}}]{cb }\end{DoxyParamCaption})}
+
+
+
+The function sets a user callback for incoming CAN frames. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em iface} & Descriptor of the interface (as returned by the \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\+\_\+init\+\_\+interface}} function) \\
+\hline
+{\em cb} & (\mbox{\hyperlink{api_8h_aee5ef69e1f68701368c5844dd42e7662}{rr\+\_\+com\+\_\+frame\+\_\+cb\+\_\+t}}) callback function \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___aux_gaeb26028b83635e028ebc901e1cbf33a1}\label{group___aux_gaeb26028b83635e028ebc901e1cbf33a1}} 
+\index{Auxiliary functions@{Auxiliary functions}!rr\_sleep\_ms@{rr\_sleep\_ms}}
+\index{rr\_sleep\_ms@{rr\_sleep\_ms}!Auxiliary functions@{Auxiliary functions}}
+\doxysubsubsection{\texorpdfstring{rr\_sleep\_ms()}{rr\_sleep\_ms()}}
+{\footnotesize\ttfamily void rr\+\_\+sleep\+\_\+ms (\begin{DoxyParamCaption}\item[{int}]{ms }\end{DoxyParamCaption})}
+
+
+
+The function sets an idle period for the user program (e.\+g., to wait till a servo executes a motion trajectory). Until the period expires, the user program will not execute any further operations. However, the network management, CAN communication, emergency, and Heartbeat functions remain available. 
+
+{\bfseries{Note\+:}}The user can also call system-\/specific sleep functions directly. However, using this sleep function is preferable to ensure compatibility with subsequent API library versions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ms} & Idle period (in milleseconds) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___aux_gaa57ed02a9338e34b3f4d78475bd7d295}\label{group___aux_gaa57ed02a9338e34b3f4d78475bd7d295}} 
+\index{Auxiliary functions@{Auxiliary functions}!rr\_write\_raw\_sdo@{rr\_write\_raw\_sdo}}
+\index{rr\_write\_raw\_sdo@{rr\_write\_raw\_sdo}!Auxiliary functions@{Auxiliary functions}}
+\doxysubsubsection{\texorpdfstring{rr\_write\_raw\_sdo()}{rr\_write\_raw\_sdo()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+write\+\_\+raw\+\_\+sdo (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{servo,  }\item[{uint16\+\_\+t}]{idx,  }\item[{uint8\+\_\+t}]{sidx,  }\item[{uint8\+\_\+t $\ast$}]{data,  }\item[{int}]{sz,  }\item[{int}]{retry,  }\item[{int}]{tout }\end{DoxyParamCaption})}
+
+
+
+The function sends an arbitrary SDO write request to the specified servo. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em idx} & Index of the SDO object to which the request refers \\
+\hline
+{\em sidx} & Subindex \\
+\hline
+{\em data} & Data to write to \\
+\hline
+{\em sz} & Size of the {\ttfamily data} in bytes \\
+\hline
+{\em retry} & Number of retries (if a communication error occured during the request) \\
+\hline
+{\em tout} & Request timeout in milliseconds \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}

@@ -1,0 +1,64 @@
+\hypertarget{group__tutor__c__get__max__velocity}{}\doxysection{Reading maximum servo velocity}
+\label{group__tutor__c__get__max__velocity}\index{Reading maximum servo velocity@{Reading maximum servo velocity}}
+This tutorial describes how to read the maximum velocity at which the servo can move at the current moment. {\bfseries{Note\+:}} The function will return the least of the three limits\+: the servo motor specifications, the user-\/defined maximum velocity limit (see \mbox{\hyperlink{group___motion_ga95263ea708d42d21f94cddaa8a43286e}{rr\+\_\+set\+\_\+velocity\+\_\+with\+\_\+limits}}), or the calculated value based on the input voltage.
+
+
+\begin{DoxyEnumerate}
+\item Initialize the interface. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__can__interface__t}{rr\_can\_interface\_t}} *iface = \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\_init\_interface}}(argv[1]);}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!iface)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Interface init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+
+\item Initialize the servo. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__servo__t}{rr\_servo\_t}} *servo = \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\_init\_servo}}(iface, \textcolor{keywordtype}{id});}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!servo)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Servo init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+ {\bfseries{ Reading the maximum servo velocity }}
+\item Create a variable where the function will return the maximum servo velocity. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \textcolor{keywordtype}{float} velocity;}
+
+\end{DoxyCodeInclude}
+
+\item Read the maximum servo velocity. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group___config_ga3fbab9a19159bdcd53d7a4b061848c2b}{rr\_get\_max\_velocity}}(servo, \&velocity);}
+
+\end{DoxyCodeInclude}
+ {\bfseries{ Complete tutorial code\+: }} 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__can__interface__t}{rr\_can\_interface\_t}} *iface = \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\_init\_interface}}(argv[1]);}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!iface)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Interface init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__servo__t}{rr\_servo\_t}} *servo = \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\_init\_servo}}(iface, \textcolor{keywordtype}{id});}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!servo)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Servo init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}========== Tutorial of the \%s ==========\(\backslash\)n"{}}, \textcolor{stringliteral}{"{}reading servo max velocity"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keywordtype}{float} velocity;}
+\DoxyCodeLine{    \mbox{\hyperlink{group___config_ga3fbab9a19159bdcd53d7a4b061848c2b}{rr\_get\_max\_velocity}}(servo, \&velocity);}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}\(\backslash\)tMax velocity: \%.3f Deg/sec\(\backslash\)n"{}}, velocity);}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyEnumerate}

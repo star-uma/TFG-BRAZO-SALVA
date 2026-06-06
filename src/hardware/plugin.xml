@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<library path="hardware">
+  <class 
+    name="hardware/HwInterface"
+    type="hardware::HwInterface"
+    base_class_type="hardware_interface::SystemInterface">
+    <description>
+      {Hardware interface for servos}
+    </description>
+  </class>
+</library>

@@ -1,0 +1,192 @@
+\hypertarget{group__tutor__c__discovery}{}\doxysection{Detecting available CAN devices}
+\label{group__tutor__c__discovery}\index{Detecting available CAN devices@{Detecting available CAN devices}}
+The tutorial demonstrates how to identify all devices connected to a CAN interface and to get device data, such as device name, as well as its hardware and software versions.
+
+
+\begin{DoxyEnumerate}
+\item Create variables to save the states of potentially available CAN devices. The total number of variables is up to 128. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int} \mbox{\hyperlink{calibrate__cogging_8c_a0ddf1224851353fc92bfbff6f499fa97}{main}}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[])}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29}{rr\_nmt\_state\_t}} states[\mbox{\hyperlink{api_8h_ad4e46fb36fa8b433b71490d55395177f}{MAX\_CO\_DEV}}];}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29}{rr\_nmt\_state\_t}} state;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(argc != 2)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Wrong format!\(\backslash\)nUsage: \%s interface\(\backslash\)n"{}}, argv[0]);}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+
+\item Initiate the interface. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__can__interface__t}{rr\_can\_interface\_t}} *iface = \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\_init\_interface}}(argv[1]);}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!iface)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Interface init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+
+\item Enable the RR\+\_\+\+NMT\+\_\+\+HB\+\_\+\+TIMEOUT variable. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{api_8h_ad4e46fb36fa8b433b71490d55395177f}{MAX\_CO\_DEV}}; i++)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        states[i] = \mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29af745eff49927034f66cbd67835b2fd26}{RR\_NMT\_HB\_TIMEOUT}};}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+
+\item Run a work cycle to scan the CAN bus, reading the states of potentially available CAN devices every 100 ms. Compare the read values with the previous states. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{while}(\textcolor{keyword}{true})}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{group___aux_gaeb26028b83635e028ebc901e1cbf33a1}{rr\_sleep\_ms}}(100);}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{api_8h_ad4e46fb36fa8b433b71490d55395177f}{MAX\_CO\_DEV}}; i++)}
+\DoxyCodeLine{        \{}
+\DoxyCodeLine{            \mbox{\hyperlink{group___state_ga86b9ac632a3f3f66f057f69a7c1d753e}{rr\_net\_get\_state}}(iface, i, \&state);}
+\DoxyCodeLine{            \textcolor{keywordflow}{if}(states[i] != state)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                states[i] = state;}
+\DoxyCodeLine{                \textcolor{keywordflow}{if}(state != \mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29af745eff49927034f66cbd67835b2fd26}{RR\_NMT\_HB\_TIMEOUT}})}
+\DoxyCodeLine{                \{}
+\DoxyCodeLine{                    \mbox{\hyperlink{discovery_8c_a90d89009f2b3cb0bc8f9110dfa268756}{get\_dev\_info}}(iface, i);}
+\DoxyCodeLine{                \}}
+\DoxyCodeLine{                \textcolor{keywordflow}{else}}
+\DoxyCodeLine{                \{}
+\DoxyCodeLine{                    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}DEVICE \%d disappeared\(\backslash\)n"{}}, i);}
+\DoxyCodeLine{                \}}
+\DoxyCodeLine{            \}}
+\DoxyCodeLine{        \}}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+
+\item Run an auxiliary function to display the following data about available CAN devices\+: 
+\begin{DoxyItemize}
+\item Hardware and software version 
+\item Device name
+\end{DoxyItemize}
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void} \mbox{\hyperlink{discovery_8c_a90d89009f2b3cb0bc8f9110dfa268756}{get\_dev\_info}}(\mbox{\hyperlink{structrr__can__interface__t}{rr\_can\_interface\_t}} *iface, \textcolor{keywordtype}{int} \textcolor{keywordtype}{id})}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__servo__t}{rr\_servo\_t}} *servo = \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\_init\_servo}}(iface, \textcolor{keywordtype}{id});}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keywordtype}{char} name[1024];}
+\DoxyCodeLine{    \textcolor{keywordtype}{char} hw[1024];}
+\DoxyCodeLine{    \textcolor{keywordtype}{char} sw[1024];}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{discovery_8c_ac53be0f708baaebed339fea69425a13c}{sdo\_read\_str}}(servo, 0x1008, 0, name, \textcolor{keyword}{sizeof}(name));}
+\DoxyCodeLine{    \mbox{\hyperlink{discovery_8c_ac53be0f708baaebed339fea69425a13c}{sdo\_read\_str}}(servo, 0x1009, 0, hw, \textcolor{keyword}{sizeof}(hw));}
+\DoxyCodeLine{    \mbox{\hyperlink{discovery_8c_ac53be0f708baaebed339fea69425a13c}{sdo\_read\_str}}(servo, 0x100a, 0, sw, \textcolor{keyword}{sizeof}(sw));}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Device \%d:\(\backslash\)n  NAME: \%s\(\backslash\)n  HW: \%s\(\backslash\)n  SW: \%s\(\backslash\)n"{}}, \textcolor{keywordtype}{id},}
+\DoxyCodeLine{            name[0] ? name : \textcolor{stringliteral}{"{}N/A"{}},}
+\DoxyCodeLine{            hw[0] ? hw : \textcolor{stringliteral}{"{}N/A"{}},}
+\DoxyCodeLine{            sw[0] ? sw : \textcolor{stringliteral}{"{}N/A"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{group___init_gad0fe154cb7865534aa7a8582e5bc681c}{rr\_deinit\_servo}}(\&servo);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+The same sequence of scanning the CAN bus repeats multiple times until you stop the program by pressing the Ctrl-\/C hotkey combination.
+
+{\bfseries{ Complete tutorial code\+: }} 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void} \mbox{\hyperlink{discovery_8c_ac53be0f708baaebed339fea69425a13c}{sdo\_read\_str}}(\mbox{\hyperlink{structrr__servo__t}{rr\_servo\_t}} *servo, uint16\_t idx, uint8\_t sidx, \textcolor{keywordtype}{char} *buf, \textcolor{keywordtype}{int} max\_sz)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!buf)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \textcolor{keywordflow}{return};}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(max\_sz <= 0)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        buf[0] = 0;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    max\_sz-\/-\/;}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(\mbox{\hyperlink{group___aux_gaf817b6d93977f93c8274c7cf40d0d568}{rr\_read\_raw\_sdo}}(servo, idx, sidx, buf, \&max\_sz, 1, 200) == \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdca4894234446e2d92068943b3d6d3a0bdc}{RET\_OK}})}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        buf[max\_sz] = \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    \textcolor{keywordflow}{else}}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        buf[0] = \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void} \mbox{\hyperlink{discovery_8c_a90d89009f2b3cb0bc8f9110dfa268756}{get\_dev\_info}}(\mbox{\hyperlink{structrr__can__interface__t}{rr\_can\_interface\_t}} *iface, \textcolor{keywordtype}{int} \textcolor{keywordtype}{id})}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__servo__t}{rr\_servo\_t}} *servo = \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\_init\_servo}}(iface, \textcolor{keywordtype}{id});}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keywordtype}{char} name[1024];}
+\DoxyCodeLine{    \textcolor{keywordtype}{char} hw[1024];}
+\DoxyCodeLine{    \textcolor{keywordtype}{char} sw[1024];}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{discovery_8c_ac53be0f708baaebed339fea69425a13c}{sdo\_read\_str}}(servo, 0x1008, 0, name, \textcolor{keyword}{sizeof}(name));}
+\DoxyCodeLine{    \mbox{\hyperlink{discovery_8c_ac53be0f708baaebed339fea69425a13c}{sdo\_read\_str}}(servo, 0x1009, 0, hw, \textcolor{keyword}{sizeof}(hw));}
+\DoxyCodeLine{    \mbox{\hyperlink{discovery_8c_ac53be0f708baaebed339fea69425a13c}{sdo\_read\_str}}(servo, 0x100a, 0, sw, \textcolor{keyword}{sizeof}(sw));}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Device \%d:\(\backslash\)n  NAME: \%s\(\backslash\)n  HW: \%s\(\backslash\)n  SW: \%s\(\backslash\)n"{}}, \textcolor{keywordtype}{id},}
+\DoxyCodeLine{            name[0] ? name : \textcolor{stringliteral}{"{}N/A"{}},}
+\DoxyCodeLine{            hw[0] ? hw : \textcolor{stringliteral}{"{}N/A"{}},}
+\DoxyCodeLine{            sw[0] ? sw : \textcolor{stringliteral}{"{}N/A"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{group___init_gad0fe154cb7865534aa7a8582e5bc681c}{rr\_deinit\_servo}}(\&servo);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} \mbox{\hyperlink{calibrate__cogging_8c_a0ddf1224851353fc92bfbff6f499fa97}{main}}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[])}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29}{rr\_nmt\_state\_t}} states[\mbox{\hyperlink{api_8h_ad4e46fb36fa8b433b71490d55395177f}{MAX\_CO\_DEV}}];}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29}{rr\_nmt\_state\_t}} state;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(argc != 2)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Wrong format!\(\backslash\)nUsage: \%s interface\(\backslash\)n"{}}, argv[0]);}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__can__interface__t}{rr\_can\_interface\_t}} *iface = \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\_init\_interface}}(argv[1]);}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!iface)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Interface init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{api_8h_ad4e46fb36fa8b433b71490d55395177f}{MAX\_CO\_DEV}}; i++)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        states[i] = \mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29af745eff49927034f66cbd67835b2fd26}{RR\_NMT\_HB\_TIMEOUT}};}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Waiting for devices ...\(\backslash\)nPress Ctrl-\/C to stop\(\backslash\)n"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{group___dbg_ga74cb6dc4d15701eaf5c6fd84b1325fc9}{rr\_set\_debug\_log\_stream}}(NULL);}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keywordflow}{while}(\textcolor{keyword}{true})}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{group___aux_gaeb26028b83635e028ebc901e1cbf33a1}{rr\_sleep\_ms}}(100);}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{api_8h_ad4e46fb36fa8b433b71490d55395177f}{MAX\_CO\_DEV}}; i++)}
+\DoxyCodeLine{        \{}
+\DoxyCodeLine{            \mbox{\hyperlink{group___state_ga86b9ac632a3f3f66f057f69a7c1d753e}{rr\_net\_get\_state}}(iface, i, \&state);}
+\DoxyCodeLine{            \textcolor{keywordflow}{if}(states[i] != state)}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                states[i] = state;}
+\DoxyCodeLine{                \textcolor{keywordflow}{if}(state != \mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29af745eff49927034f66cbd67835b2fd26}{RR\_NMT\_HB\_TIMEOUT}})}
+\DoxyCodeLine{                \{}
+\DoxyCodeLine{                    \mbox{\hyperlink{discovery_8c_a90d89009f2b3cb0bc8f9110dfa268756}{get\_dev\_info}}(iface, i);}
+\DoxyCodeLine{                \}}
+\DoxyCodeLine{                \textcolor{keywordflow}{else}}
+\DoxyCodeLine{                \{}
+\DoxyCodeLine{                    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}DEVICE \%d disappeared\(\backslash\)n"{}}, i);}
+\DoxyCodeLine{                \}}
+\DoxyCodeLine{            \}}
+\DoxyCodeLine{        \}}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyEnumerate}

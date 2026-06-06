@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['ret_5fbad_5finstance_448',['RET_BAD_INSTANCE',['../api_8h.html#a92d5be5038abcf89837faf85a08debdcada2fa397afd6b90ecb1c5b9ca3a2d0ee',1,'api.h']]],
+  ['ret_5fbusy_449',['RET_BUSY',['../api_8h.html#a92d5be5038abcf89837faf85a08debdcacdd796ae2972988d689257753a05b9dd',1,'api.h']]],
+  ['ret_5ferror_450',['RET_ERROR',['../api_8h.html#a92d5be5038abcf89837faf85a08debdcae8ed27c1aabd77d519426a8ad340d76c',1,'api.h']]],
+  ['ret_5flocked_451',['RET_LOCKED',['../api_8h.html#a92d5be5038abcf89837faf85a08debdca2840a6ac495b0fe4b9e8565d9f76e29a',1,'api.h']]],
+  ['ret_5fok_452',['RET_OK',['../api_8h.html#a92d5be5038abcf89837faf85a08debdca4894234446e2d92068943b3d6d3a0bdc',1,'api.h']]],
+  ['ret_5fsize_5fmismatch_453',['RET_SIZE_MISMATCH',['../api_8h.html#a92d5be5038abcf89837faf85a08debdca639f91af3521a375df0778f9cd60d60b',1,'api.h']]],
+  ['ret_5fstopped_454',['RET_STOPPED',['../api_8h.html#a92d5be5038abcf89837faf85a08debdcad456500c4074aeffb3e5e132bf7d996c',1,'api.h']]],
+  ['ret_5ftimeout_455',['RET_TIMEOUT',['../api_8h.html#a92d5be5038abcf89837faf85a08debdcadf2eed18ed159c7517505568b0f261dd',1,'api.h']]],
+  ['ret_5fwrong_5farg_456',['RET_WRONG_ARG',['../api_8h.html#a92d5be5038abcf89837faf85a08debdca6368c40539ccc8fe56a2b433d13370dc',1,'api.h']]],
+  ['ret_5fwrong_5ftraj_457',['RET_WRONG_TRAJ',['../api_8h.html#a92d5be5038abcf89837faf85a08debdcadf1d978b055d00c4036019387acfc60c',1,'api.h']]],
+  ['ret_5fzero_5fsize_458',['RET_ZERO_SIZE',['../api_8h.html#a92d5be5038abcf89837faf85a08debdcac2c7bf0285c804ae03c6628659ce366e',1,'api.h']]],
+  ['rr_5fnmt_5fboot_459',['RR_NMT_BOOT',['../api_8h.html#afaf255d20b35be64a488b42e11feab29a4b2cf9b28688f7985afff0c25a7da61b',1,'api.h']]],
+  ['rr_5fnmt_5fhb_5ftimeout_460',['RR_NMT_HB_TIMEOUT',['../api_8h.html#afaf255d20b35be64a488b42e11feab29af745eff49927034f66cbd67835b2fd26',1,'api.h']]],
+  ['rr_5fnmt_5finitializing_461',['RR_NMT_INITIALIZING',['../api_8h.html#afaf255d20b35be64a488b42e11feab29ac2550cce228ff5512ea417e2b035b665',1,'api.h']]],
+  ['rr_5fnmt_5foperational_462',['RR_NMT_OPERATIONAL',['../api_8h.html#afaf255d20b35be64a488b42e11feab29a57e41d0fd4f218c20acc57061b28f52d',1,'api.h']]],
+  ['rr_5fnmt_5fpre_5foperational_463',['RR_NMT_PRE_OPERATIONAL',['../api_8h.html#afaf255d20b35be64a488b42e11feab29ace8deaf0d4ce3230fb48c15de516e474',1,'api.h']]],
+  ['rr_5fnmt_5fstopped_464',['RR_NMT_STOPPED',['../api_8h.html#afaf255d20b35be64a488b42e11feab29a0b3bd632c9abf67a54795f902b0cb2f8',1,'api.h']]]
+];

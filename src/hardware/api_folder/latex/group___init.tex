@@ -1,0 +1,114 @@
+\hypertarget{group___init}{}\doxysection{Initialization and deinitialization}
+\label{group___init}\index{Initialization and deinitialization@{Initialization and deinitialization}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$ \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\+\_\+init\+\_\+interface}} (const char $\ast$interface\+\_\+name)
+\begin{DoxyCompactList}\small\item\em The function is the first to call to be able to work with the user API. It opens the COM port where the corresponding CAN-\/\+USB dongle is connected, enabling communication between the user program and the servo motors on the respective CAN bus. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___init_ga21ce47691585633f65af366e8a89edad}{rr\+\_\+deinit\+\_\+interface}} (\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$$\ast$iface)
+\begin{DoxyCompactList}\small\item\em The function closes the COM port where the corresponding CAN-\/\+USB dongle is connected, clearing all data associated with the interface descriptor. It is advisable to call the function every time before quitting the user program. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$ \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} (\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface, const uint8\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em The function determines whether the servo motor with the specified ID is connected to the specified interface. It waits for 2 seconds to receive a Heartbeat message from the servo. When the message arrives within the interval, the servo is identified as successfully connected.~\newline
+ \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___init_gad0fe154cb7865534aa7a8582e5bc681c}{rr\+\_\+deinit\+\_\+servo}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$$\ast$servo)
+\begin{DoxyCompactList}\small\item\em The function deinitializes the servo, clearing all data associated with the servo descriptor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group___init_ga21ce47691585633f65af366e8a89edad}\label{group___init_ga21ce47691585633f65af366e8a89edad}} 
+\index{Initialization and deinitialization@{Initialization and deinitialization}!rr\_deinit\_interface@{rr\_deinit\_interface}}
+\index{rr\_deinit\_interface@{rr\_deinit\_interface}!Initialization and deinitialization@{Initialization and deinitialization}}
+\doxysubsubsection{\texorpdfstring{rr\_deinit\_interface()}{rr\_deinit\_interface()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+deinit\+\_\+interface (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$$\ast$}]{iface }\end{DoxyParamCaption})}
+
+
+
+The function closes the COM port where the corresponding CAN-\/\+USB dongle is connected, clearing all data associated with the interface descriptor. It is advisable to call the function every time before quitting the user program. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em iface} & Interface descriptor (see \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\+\_\+init\+\_\+interface}}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___init_gad0fe154cb7865534aa7a8582e5bc681c}\label{group___init_gad0fe154cb7865534aa7a8582e5bc681c}} 
+\index{Initialization and deinitialization@{Initialization and deinitialization}!rr\_deinit\_servo@{rr\_deinit\_servo}}
+\index{rr\_deinit\_servo@{rr\_deinit\_servo}!Initialization and deinitialization@{Initialization and deinitialization}}
+\doxysubsubsection{\texorpdfstring{rr\_deinit\_servo()}{rr\_deinit\_servo()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+deinit\+\_\+servo (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$$\ast$}]{servo }\end{DoxyParamCaption})}
+
+
+
+The function deinitializes the servo, clearing all data associated with the servo descriptor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___init_ga472a4890dcc7d7a13123c56a06946d91}\label{group___init_ga472a4890dcc7d7a13123c56a06946d91}} 
+\index{Initialization and deinitialization@{Initialization and deinitialization}!rr\_init\_interface@{rr\_init\_interface}}
+\index{rr\_init\_interface@{rr\_init\_interface}!Initialization and deinitialization@{Initialization and deinitialization}}
+\doxysubsubsection{\texorpdfstring{rr\_init\_interface()}{rr\_init\_interface()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}}$\ast$ rr\+\_\+init\+\_\+interface (\begin{DoxyParamCaption}\item[{const char $\ast$}]{interface\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+The function is the first to call to be able to work with the user API. It opens the COM port where the corresponding CAN-\/\+USB dongle is connected, enabling communication between the user program and the servo motors on the respective CAN bus. 
+
+{\bfseries{Example\+:}}
+
+\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface = rr\+\_\+init\+\_\+interface (\char`\"{}/dev/tty\+ACM0\char`\"{});
+
+{\ttfamily if(!iface)~\newline
+ \{~\newline
+ ... handle errors ...~\newline
+ \}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em interface\+\_\+name} & Full path to the COM port to open. The path can vary, depending on the operating system. \\
+\hline
+\end{DoxyParams}
+{\bfseries{Examples\+:}}
+
+OS Linux\+: \char`\"{}/dev/tty\+ACM0\char`\"{}
+
+mac OS\+: \char`\"{}/dev/cu.\+modem301\char`\"{}
+
+\begin{DoxyReturn}{Returns}
+Interface descriptor (\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}})~\newline
+ or NULL when an error occurs 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___init_ga88467da814964fd147ab9c7c7af0ed21}\label{group___init_ga88467da814964fd147ab9c7c7af0ed21}} 
+\index{Initialization and deinitialization@{Initialization and deinitialization}!rr\_init\_servo@{rr\_init\_servo}}
+\index{rr\_init\_servo@{rr\_init\_servo}!Initialization and deinitialization@{Initialization and deinitialization}}
+\doxysubsubsection{\texorpdfstring{rr\_init\_servo()}{rr\_init\_servo()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}}$\ast$ rr\+\_\+init\+\_\+servo (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$}]{iface,  }\item[{const uint8\+\_\+t}]{id }\end{DoxyParamCaption})}
+
+
+
+The function determines whether the servo motor with the specified ID is connected to the specified interface. It waits for 2 seconds to receive a Heartbeat message from the servo. When the message arrives within the interval, the servo is identified as successfully connected.~\newline
+ 
+
+The function returns the servo descriptor that you will need for subsequent API calls to the servo.
+
+
+\begin{DoxyParams}{Parameters}
+{\em iface} & Descriptor of the interface (returned by the \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\+\_\+init\+\_\+interface}} function) where the servo is connected \\
+\hline
+{\em id} & Unique identifier of the servo in the specified interface. The available value range is from 0 to 127. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Servo descriptor (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}}) ~\newline
+ or NULL when no Heartbeat message is received within the specified interval 
+\end{DoxyReturn}

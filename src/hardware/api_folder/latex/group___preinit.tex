@@ -1,0 +1,16 @@
+\hypertarget{group___preinit}{}\doxysection{Preparing for servo intialization}
+\label{group___preinit}\index{Preparing for servo intialization@{Preparing for servo intialization}}
+Once you have completed the servo integration procedure in accordance with the User (or servobox) manual and before you can start motion or send the majority of API commands, {\bfseries{it is essential to switch the servo(s) to the OPERATIONAL state}}. In this case, follow the instructions below\+:~\newline
+
+\begin{DoxyEnumerate}
+\item Get the servo state, using \mbox{\hyperlink{group___state_ga86b9ac632a3f3f66f057f69a7c1d753e}{rr\+\_\+net\+\_\+get\+\_\+state}}.
+\item Your further actions depend on the output of the \mbox{\hyperlink{group___state_ga86b9ac632a3f3f66f057f69a7c1d753e}{rr\+\_\+net\+\_\+get\+\_\+state}} function.~\newline
+~\newline
+ {\bfseries{ A. In case the output is PRE-\/\+OPERATIONAL\+:}}~\newline
+ Send the \mbox{\hyperlink{group___state_ga26e6d7795e5245e8feb747ffa8634c71}{rr\+\_\+net\+\_\+set\+\_\+state\+\_\+operational}}. The servo switches to the OPERATIONAL STATE, and you can start motion or send other API commands.~\newline
+~\newline
+ {\bfseries{Important!}} When the servo has some critical error(s) from previous sessions or otherwise in the PRE-\/\+OPERATIONAL state, it will not be able to switch to OPERATIONAL. In this case, you need to reset the errors, using the \mbox{\hyperlink{api_8c_a54b0250a895954c12ec8080dd1af1b49}{rr\+\_\+clear\+\_\+errors}} function. Once the errors are reset, you can re-\/send the \mbox{\hyperlink{group___state_ga26e6d7795e5245e8feb747ffa8634c71}{rr\+\_\+net\+\_\+set\+\_\+state\+\_\+operational}} command to switch the servo to OPERATIONAL.~\newline
+~\newline
+ {\bfseries{B.\+In case the ouput is STOPPED\+:}}~\newline
+ Switch the servo to the PRE-\/\+OPERATIONAL state using the \mbox{\hyperlink{group___state_ga0bd6abfcc6afa931507fa23d50a6f73e}{rr\+\_\+net\+\_\+set\+\_\+state\+\_\+pre\+\_\+operational}} function. Then, reset errors with the \mbox{\hyperlink{api_8c_a54b0250a895954c12ec8080dd1af1b49}{rr\+\_\+clear\+\_\+errors}} function. The final step is to switch to the OPERATIONAL with \mbox{\hyperlink{group___state_ga26e6d7795e5245e8feb747ffa8634c71}{rr\+\_\+net\+\_\+set\+\_\+state\+\_\+operational}}. 
+\end{DoxyEnumerate}

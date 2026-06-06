@@ -1,0 +1,102 @@
+\hypertarget{group__tutor__c__change_i_d1}{}\doxysection{Changing CAN ID of a single servo}
+\label{group__tutor__c__change_i_d1}\index{Changing CAN ID of a single servo@{Changing CAN ID of a single servo}}
+The tutorial describes how to change the CAN identifier of a single servo and save it to the EEPROM memory. 
+
+{\bfseries{Important!}} RDrive servos are all supplied with {\bfseries{the same default CAN IDs ranging from 32 to 37.}}. To avoid collisions, you need to assign {\bfseries{ a unique CAN ID}} to each servo on the same CAN bus.
+
+
+\begin{DoxyEnumerate}
+\item Create two variables—one for the default (current) CAN ID and one for the new CAN ID. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    uint8\_t id\_old;}
+\DoxyCodeLine{    uint8\_t id\_new;}
+
+\end{DoxyCodeInclude}
+
+\item Set the default (current) ID and a new one to replace it. In the example below, we get the current and new ID values from the console return. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(argc == 4)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        id\_old = strtol(argv[2], NULL, 0);}
+\DoxyCodeLine{        id\_new = strtol(argv[3], NULL, 0);}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    \textcolor{keywordflow}{else}}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Wrong format!\(\backslash\)nUsage: \%s interface old\_id new\_id\(\backslash\)n"{}}, argv[0]);}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+
+\item Initialize the interface. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__can__interface__t}{rr\_can\_interface\_t}} *iface = \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\_init\_interface}}(argv[1]);}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!iface)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Interface init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+
+\item Initialize the servo. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__servo__t}{rr\_servo\_t}} *servo = \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\_init\_servo}}(iface, id\_old);}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!servo)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Servo init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+
+\end{DoxyCodeInclude}
+
+\item Change the default (current) servo ID to a new one. You use any value from 1 to 127, only make sure no other servo on the CAN bus has the same ID. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\_ret\_status\_t}} status = \mbox{\hyperlink{group___aux_gaf5cf9b482485997c41f018a76402c152}{rr\_change\_id\_and\_save}}(iface, \&servo, id\_new);}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(status != \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdca4894234446e2d92068943b3d6d3a0bdc}{RET\_OK}})}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Failed to change servo CAN ID and save it to the EEPROM: \%d\(\backslash\)n"{}}, status);}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+ {\bfseries{ Complete tutorial code\+: }} 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    uint8\_t id\_old;}
+\DoxyCodeLine{    uint8\_t id\_new;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(argc == 4)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        id\_old = strtol(argv[2], NULL, 0);}
+\DoxyCodeLine{        id\_new = strtol(argv[3], NULL, 0);}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    \textcolor{keywordflow}{else}}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Wrong format!\(\backslash\)nUsage: \%s interface old\_id new\_id\(\backslash\)n"{}}, argv[0]);}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__can__interface__t}{rr\_can\_interface\_t}} *iface = \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\_init\_interface}}(argv[1]);}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!iface)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Interface init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__servo__t}{rr\_servo\_t}} *servo = \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\_init\_servo}}(iface, id\_old);}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!servo)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Servo init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}========== Tutorial of the \%s ==========\(\backslash\)n"{}}, \textcolor{stringliteral}{"{}changing CAN ID of one servo and saving it to the EEPROM"{}});}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\_ret\_status\_t}} status = \mbox{\hyperlink{group___aux_gaf5cf9b482485997c41f018a76402c152}{rr\_change\_id\_and\_save}}(iface, \&servo, id\_new);}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(status != \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdca4894234446e2d92068943b3d6d3a0bdc}{RET\_OK}})}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Failed to change servo CAN ID and save it to the EEPROM: \%d\(\backslash\)n"{}}, status);}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyEnumerate}

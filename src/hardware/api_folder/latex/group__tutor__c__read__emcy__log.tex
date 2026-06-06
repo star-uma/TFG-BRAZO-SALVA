@@ -1,0 +1,98 @@
+\hypertarget{group__tutor__c__read__emcy__log}{}\doxysection{Reading emergency (EMY) log}
+\label{group__tutor__c__read__emcy__log}\index{Reading emergency (EMY) log@{Reading emergency (EMY) log}}
+The tutorial describes how to get and read messages from the emergency log buffer. The EMCY log stores EMCY messages about any events when a servo is out of normal operating state (e.\+g., overcurrent, high temperature)or goes back to the normal state.
+
+
+\begin{DoxyEnumerate}
+\item Read the parameters as required to run the tutorial. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int} \mbox{\hyperlink{calibrate__cogging_8c_a0ddf1224851353fc92bfbff6f499fa97}{main}}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[])}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    uint8\_t id;}
+\DoxyCodeLine{    \mbox{\hyperlink{structemcy__log__entry__t}{emcy\_log\_entry\_t}} *emcy;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(argc == 3)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \textcolor{keywordtype}{id} = strtol(argv[2], NULL, 0);}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    \textcolor{keywordflow}{else}}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Wrong format!\(\backslash\)nUsage: \%s interface id\(\backslash\)n"{}}, argv[0]);}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+
+\item Initiate the interface. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__can__interface__t}{rr\_can\_interface\_t}} *iface = \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\_init\_interface}}(argv[1]);}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!iface)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Interface init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+
+\item Initiate the servo. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__servo__t}{rr\_servo\_t}} *servo = \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\_init\_servo}}(iface, \textcolor{keywordtype}{id});}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!servo)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Servo init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+
+\item Read EMCY messages from the EMCY log. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{while}((emcy = \mbox{\hyperlink{group___err_ga8ea7aedec0dcdfa50dd434f92f3a7f30}{rr\_emcy\_log\_pop}}(iface)))}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        printf(\textcolor{stringliteral}{"{}id: \%d, code: 0x\%."{}} PRIx16 \textcolor{stringliteral}{"{}, reg: 0x\%.2"{}} PRIx8 \textcolor{stringliteral}{"{}, bits: 0x\%.2"{}} PRIx8 \textcolor{stringliteral}{"{}, info: 0x\%.8"{}} PRIx32 \textcolor{stringliteral}{"{}\(\backslash\)n"{}},}
+\DoxyCodeLine{                (\textcolor{keywordtype}{int})emcy-\/>id, emcy-\/>err\_code, emcy-\/>err\_reg, emcy-\/>err\_bits, emcy-\/>err\_info);}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+Reading the messages is according to the first in-\/fist out pinciple. The function continues running until it reads the last EMCY message from the log.
+\end{DoxyEnumerate}
+
+{\bfseries{ Complete tutorial code\+: }} 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} \mbox{\hyperlink{calibrate__cogging_8c_a0ddf1224851353fc92bfbff6f499fa97}{main}}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[])}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    uint8\_t id;}
+\DoxyCodeLine{    \mbox{\hyperlink{structemcy__log__entry__t}{emcy\_log\_entry\_t}} *emcy;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(argc == 3)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \textcolor{keywordtype}{id} = strtol(argv[2], NULL, 0);}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    \textcolor{keywordflow}{else}}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Wrong format!\(\backslash\)nUsage: \%s interface id\(\backslash\)n"{}}, argv[0]);}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__can__interface__t}{rr\_can\_interface\_t}} *iface = \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\_init\_interface}}(argv[1]);}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!iface)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Interface init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__servo__t}{rr\_servo\_t}} *servo = \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\_init\_servo}}(iface, \textcolor{keywordtype}{id});}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!servo)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Servo init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keywordflow}{while}((emcy = \mbox{\hyperlink{group___err_ga8ea7aedec0dcdfa50dd434f92f3a7f30}{rr\_emcy\_log\_pop}}(iface)))}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        printf(\textcolor{stringliteral}{"{}id: \%d, code: 0x\%."{}} PRIx16 \textcolor{stringliteral}{"{}, reg: 0x\%.2"{}} PRIx8 \textcolor{stringliteral}{"{}, bits: 0x\%.2"{}} PRIx8 \textcolor{stringliteral}{"{}, info: 0x\%.8"{}} PRIx32 \textcolor{stringliteral}{"{}\(\backslash\)n"{}},}
+\DoxyCodeLine{                (\textcolor{keywordtype}{int})emcy-\/>id, emcy-\/>err\_code, emcy-\/>err\_reg, emcy-\/>err\_bits, emcy-\/>err\_info);}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}

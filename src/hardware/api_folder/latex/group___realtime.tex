@@ -1,0 +1,188 @@
+\hypertarget{group___realtime}{}\doxysection{Reading realtime parameters}
+\label{group___realtime}\index{Reading realtime parameters@{Reading realtime parameters}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___realtime_ga95a1707406a0cb3f665a4ee529d066f5}{rr\+\_\+param\+\_\+cache\+\_\+update}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo)
+\begin{DoxyCompactList}\small\item\em The function is always used in combination with the \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\+\_\+param\+\_\+cache\+\_\+setup\+\_\+entry}} function. It retreives from the servo the array of parameters that was set up using \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\+\_\+param\+\_\+cache\+\_\+setup\+\_\+entry}} function and saves the array to the program cache. You can subsequently read the parameters from the program cache with the \mbox{\hyperlink{group___realtime_ga4e21be75a34c6d2862e6d78e6add4c2a}{rr\+\_\+read\+\_\+cached\+\_\+parameter}} function. For more information, see \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\+\_\+param\+\_\+cache\+\_\+setup\+\_\+entry}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___realtime_gaf070f53f5fb1597821794840746cd897}{rr\+\_\+param\+\_\+cache\+\_\+update\+\_\+with\+\_\+timestamp}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo)
+\begin{DoxyCompactList}\small\item\em Same as \mbox{\hyperlink{group___realtime_ga95a1707406a0cb3f665a4ee529d066f5}{rr\+\_\+param\+\_\+cache\+\_\+update}} but with timestamp functionality. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\+\_\+param\+\_\+cache\+\_\+setup\+\_\+entry}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276d}{rr\+\_\+servo\+\_\+param\+\_\+t}} param, bool enabled)
+\begin{DoxyCompactList}\small\item\em The function is the fist one in the API call sequence that enables reading multiple servo paramaters (e.\+g., velocity, voltage, and position) as a data array. Using the sequence is advisable when you need to read {\bfseries{more than one parameter at a time}}. The user can set up the array to include up to 50 parameters. In all, the sequence comprises the following functions\+: \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___realtime_ga4e21e268034d9564da77bc23004fc56c}{rr\+\_\+read\+\_\+parameter}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276d}{rr\+\_\+servo\+\_\+param\+\_\+t}} param, float $\ast$value)
+\begin{DoxyCompactList}\small\item\em The function enables reading a single parameter directly from the servo specified in the \textquotesingle{}servo\textquotesingle{} parameter of the function. The function returns the current value of the parameter. Additionally, the parameter is saved to the program cache, irrespective of whether it was enabled/ disabled with the \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\+\_\+param\+\_\+cache\+\_\+setup\+\_\+entry}} function. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___realtime_ga582ec862f311c55bab380830eae5d3bc}{rr\+\_\+read\+\_\+parameter\+\_\+with\+\_\+timestamp}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276d}{rr\+\_\+servo\+\_\+param\+\_\+t}} param, float $\ast$value, uint32\+\_\+t $\ast$timestamp)
+\begin{DoxyCompactList}\small\item\em Same \mbox{\hyperlink{group___realtime_ga4e21e268034d9564da77bc23004fc56c}{rr\+\_\+read\+\_\+parameter}} but with timestamp functionality. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___realtime_ga4e21be75a34c6d2862e6d78e6add4c2a}{rr\+\_\+read\+\_\+cached\+\_\+parameter}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276d}{rr\+\_\+servo\+\_\+param\+\_\+t}} param, float $\ast$value)
+\begin{DoxyCompactList}\small\item\em The function is always used in combination with the \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\+\_\+param\+\_\+cache\+\_\+setup\+\_\+entry}} and the \mbox{\hyperlink{group___realtime_ga95a1707406a0cb3f665a4ee529d066f5}{rr\+\_\+param\+\_\+cache\+\_\+update}} functions. For more information, see \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\+\_\+param\+\_\+cache\+\_\+setup\+\_\+entry}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___realtime_gaca9055c4e8d07427a28d45e8fc870d5a}{rr\+\_\+read\+\_\+cached\+\_\+parameter\+\_\+with\+\_\+timestamp}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276d}{rr\+\_\+servo\+\_\+param\+\_\+t}} param, float $\ast$value, uint32\+\_\+t $\ast$timestamp)
+\begin{DoxyCompactList}\small\item\em Same as \mbox{\hyperlink{group___realtime_ga4e21be75a34c6d2862e6d78e6add4c2a}{rr\+\_\+read\+\_\+cached\+\_\+parameter}} but with timestamp functionality. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}\label{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}} 
+\index{Reading realtime parameters@{Reading realtime parameters}!rr\_param\_cache\_setup\_entry@{rr\_param\_cache\_setup\_entry}}
+\index{rr\_param\_cache\_setup\_entry@{rr\_param\_cache\_setup\_entry}!Reading realtime parameters@{Reading realtime parameters}}
+\doxysubsubsection{\texorpdfstring{rr\_param\_cache\_setup\_entry()}{rr\_param\_cache\_setup\_entry()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+param\+\_\+cache\+\_\+setup\+\_\+entry (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{servo,  }\item[{const \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276d}{rr\+\_\+servo\+\_\+param\+\_\+t}}}]{param,  }\item[{bool}]{enabled }\end{DoxyParamCaption})}
+
+
+
+The function is the fist one in the API call sequence that enables reading multiple servo paramaters (e.\+g., velocity, voltage, and position) as a data array. Using the sequence is advisable when you need to read {\bfseries{more than one parameter at a time}}. The user can set up the array to include up to 50 parameters. In all, the sequence comprises the following functions\+: 
+
+
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\+\_\+param\+\_\+cache\+\_\+setup\+\_\+entry}} for setting up an array of servo parameters to read 
+\item \mbox{\hyperlink{group___realtime_ga95a1707406a0cb3f665a4ee529d066f5}{rr\+\_\+param\+\_\+cache\+\_\+update}} for retreiving the parameters from the servo and saving them to the program cache 
+\item \mbox{\hyperlink{group___realtime_ga4e21be75a34c6d2862e6d78e6add4c2a}{rr\+\_\+read\+\_\+cached\+\_\+parameter}} for reading parameters from the program cache
+\end{DoxyItemize}Using the sequence of API calls allows for speeding up data acquisition by nearly two times. Let\textquotesingle{}s assume you need to read 49 parameters. At a bit rate of 1 MBit/s, reading them one by one will take about 35 ms, whereas reading them as an array will only take 10 ms. 
+
+{\bfseries{Note\+:}} When you need to read a single parameter, it is better to use the \mbox{\hyperlink{group___realtime_ga4e21e268034d9564da77bc23004fc56c}{rr\+\_\+read\+\_\+parameter}} function.
+
+
+\begin{DoxyParams}{Parameters}
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em param} & Index of the parameter to read as indicated in the \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276d}{rr\+\_\+servo\+\_\+param\+\_\+t}} list (e.\+g., APP\+\_\+\+PARAM\+\_\+\+POSITION\+\_\+\+ROTOR) \\
+\hline
+{\em enabled} & Set True/\+False to enable/ disable the specified parameter for reading \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___realtime_ga95a1707406a0cb3f665a4ee529d066f5}\label{group___realtime_ga95a1707406a0cb3f665a4ee529d066f5}} 
+\index{Reading realtime parameters@{Reading realtime parameters}!rr\_param\_cache\_update@{rr\_param\_cache\_update}}
+\index{rr\_param\_cache\_update@{rr\_param\_cache\_update}!Reading realtime parameters@{Reading realtime parameters}}
+\doxysubsubsection{\texorpdfstring{rr\_param\_cache\_update()}{rr\_param\_cache\_update()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+param\+\_\+cache\+\_\+update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{servo }\end{DoxyParamCaption})}
+
+
+
+The function is always used in combination with the \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\+\_\+param\+\_\+cache\+\_\+setup\+\_\+entry}} function. It retreives from the servo the array of parameters that was set up using \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\+\_\+param\+\_\+cache\+\_\+setup\+\_\+entry}} function and saves the array to the program cache. You can subsequently read the parameters from the program cache with the \mbox{\hyperlink{group___realtime_ga4e21be75a34c6d2862e6d78e6add4c2a}{rr\+\_\+read\+\_\+cached\+\_\+parameter}} function. For more information, see \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\+\_\+param\+\_\+cache\+\_\+setup\+\_\+entry}}. 
+
+{\bfseries{Note}}\+: After you exit the program, the cache will be cleared.
+
+
+\begin{DoxyParams}{Parameters}
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___realtime_gaf070f53f5fb1597821794840746cd897}\label{group___realtime_gaf070f53f5fb1597821794840746cd897}} 
+\index{Reading realtime parameters@{Reading realtime parameters}!rr\_param\_cache\_update\_with\_timestamp@{rr\_param\_cache\_update\_with\_timestamp}}
+\index{rr\_param\_cache\_update\_with\_timestamp@{rr\_param\_cache\_update\_with\_timestamp}!Reading realtime parameters@{Reading realtime parameters}}
+\doxysubsubsection{\texorpdfstring{rr\_param\_cache\_update\_with\_timestamp()}{rr\_param\_cache\_update\_with\_timestamp()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+param\+\_\+cache\+\_\+update\+\_\+with\+\_\+timestamp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{servo }\end{DoxyParamCaption})}
+
+
+
+Same as \mbox{\hyperlink{group___realtime_ga95a1707406a0cb3f665a4ee529d066f5}{rr\+\_\+param\+\_\+cache\+\_\+update}} but with timestamp functionality. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___realtime_ga4e21be75a34c6d2862e6d78e6add4c2a}\label{group___realtime_ga4e21be75a34c6d2862e6d78e6add4c2a}} 
+\index{Reading realtime parameters@{Reading realtime parameters}!rr\_read\_cached\_parameter@{rr\_read\_cached\_parameter}}
+\index{rr\_read\_cached\_parameter@{rr\_read\_cached\_parameter}!Reading realtime parameters@{Reading realtime parameters}}
+\doxysubsubsection{\texorpdfstring{rr\_read\_cached\_parameter()}{rr\_read\_cached\_parameter()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+read\+\_\+cached\+\_\+parameter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{servo,  }\item[{const \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276d}{rr\+\_\+servo\+\_\+param\+\_\+t}}}]{param,  }\item[{float $\ast$}]{value }\end{DoxyParamCaption})}
+
+
+
+The function is always used in combination with the \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\+\_\+param\+\_\+cache\+\_\+setup\+\_\+entry}} and the \mbox{\hyperlink{group___realtime_ga95a1707406a0cb3f665a4ee529d066f5}{rr\+\_\+param\+\_\+cache\+\_\+update}} functions. For more information, see \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\+\_\+param\+\_\+cache\+\_\+setup\+\_\+entry}}. 
+
+The function enables reading parameters from the program cache. If you want to read more than one parameter, you will need to make a separate API call for each of them.
+
+{\bfseries{Note}}\+: Prior to reading a parameter, make sure to update the program cache using the \mbox{\hyperlink{group___realtime_ga95a1707406a0cb3f665a4ee529d066f5}{rr\+\_\+param\+\_\+cache\+\_\+update}} function. 
+\begin{DoxyParams}{Parameters}
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em param} & Index of the parameter to read; you can find these indices in the \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276d}{rr\+\_\+servo\+\_\+param\+\_\+t}} list (e.\+g., APP\+\_\+\+PARAM\+\_\+\+POSITION\+\_\+\+ROTOR) \\
+\hline
+{\em value} & Pointer to the variable where the function will save the reading \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___realtime_gaca9055c4e8d07427a28d45e8fc870d5a}\label{group___realtime_gaca9055c4e8d07427a28d45e8fc870d5a}} 
+\index{Reading realtime parameters@{Reading realtime parameters}!rr\_read\_cached\_parameter\_with\_timestamp@{rr\_read\_cached\_parameter\_with\_timestamp}}
+\index{rr\_read\_cached\_parameter\_with\_timestamp@{rr\_read\_cached\_parameter\_with\_timestamp}!Reading realtime parameters@{Reading realtime parameters}}
+\doxysubsubsection{\texorpdfstring{rr\_read\_cached\_parameter\_with\_timestamp()}{rr\_read\_cached\_parameter\_with\_timestamp()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+read\+\_\+cached\+\_\+parameter\+\_\+with\+\_\+timestamp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{servo,  }\item[{const \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276d}{rr\+\_\+servo\+\_\+param\+\_\+t}}}]{param,  }\item[{float $\ast$}]{value,  }\item[{uint32\+\_\+t $\ast$}]{timestamp }\end{DoxyParamCaption})}
+
+
+
+Same as \mbox{\hyperlink{group___realtime_ga4e21be75a34c6d2862e6d78e6add4c2a}{rr\+\_\+read\+\_\+cached\+\_\+parameter}} but with timestamp functionality. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em param} & Index of the parameter to read; you can find these indices in the \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276d}{rr\+\_\+servo\+\_\+param\+\_\+t}} list (e.\+g., APP\+\_\+\+PARAM\+\_\+\+POSITION\+\_\+\+ROTOR) \\
+\hline
+{\em value} & Pointer to the variable where the function will save the reading \\
+\hline
+{\em timestamp} & pointer to variable to receive timestamp value (timestamp range is 0 to 599999999 microseconds) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___realtime_ga4e21e268034d9564da77bc23004fc56c}\label{group___realtime_ga4e21e268034d9564da77bc23004fc56c}} 
+\index{Reading realtime parameters@{Reading realtime parameters}!rr\_read\_parameter@{rr\_read\_parameter}}
+\index{rr\_read\_parameter@{rr\_read\_parameter}!Reading realtime parameters@{Reading realtime parameters}}
+\doxysubsubsection{\texorpdfstring{rr\_read\_parameter()}{rr\_read\_parameter()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+read\+\_\+parameter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{servo,  }\item[{const \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276d}{rr\+\_\+servo\+\_\+param\+\_\+t}}}]{param,  }\item[{float $\ast$}]{value }\end{DoxyParamCaption})}
+
+
+
+The function enables reading a single parameter directly from the servo specified in the \textquotesingle{}servo\textquotesingle{} parameter of the function. The function returns the current value of the parameter. Additionally, the parameter is saved to the program cache, irrespective of whether it was enabled/ disabled with the \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\+\_\+param\+\_\+cache\+\_\+setup\+\_\+entry}} function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em param} & Index of the parameter to read; you can find these indices in the \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276d}{rr\+\_\+servo\+\_\+param\+\_\+t}} list (e.\+g., APP\+\_\+\+PARAM\+\_\+\+POSITION\+\_\+\+ROTOR). \\
+\hline
+{\em value} & Pointer to the variable where the function will save the reading \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___realtime_ga582ec862f311c55bab380830eae5d3bc}\label{group___realtime_ga582ec862f311c55bab380830eae5d3bc}} 
+\index{Reading realtime parameters@{Reading realtime parameters}!rr\_read\_parameter\_with\_timestamp@{rr\_read\_parameter\_with\_timestamp}}
+\index{rr\_read\_parameter\_with\_timestamp@{rr\_read\_parameter\_with\_timestamp}!Reading realtime parameters@{Reading realtime parameters}}
+\doxysubsubsection{\texorpdfstring{rr\_read\_parameter\_with\_timestamp()}{rr\_read\_parameter\_with\_timestamp()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+read\+\_\+parameter\+\_\+with\+\_\+timestamp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{servo,  }\item[{const \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276d}{rr\+\_\+servo\+\_\+param\+\_\+t}}}]{param,  }\item[{float $\ast$}]{value,  }\item[{uint32\+\_\+t $\ast$}]{timestamp }\end{DoxyParamCaption})}
+
+
+
+Same \mbox{\hyperlink{group___realtime_ga4e21e268034d9564da77bc23004fc56c}{rr\+\_\+read\+\_\+parameter}} but with timestamp functionality. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em param} & Index of the parameter to read; you can find these indices in the \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276d}{rr\+\_\+servo\+\_\+param\+\_\+t}} list (e.\+g., APP\+\_\+\+PARAM\+\_\+\+POSITION\+\_\+\+ROTOR). \\
+\hline
+{\em value} & Pointer to the variable where the function will save the reading \\
+\hline
+{\em timestamp} & pointer to variable to receive timestamp value (timestamp range is 0 to 599999999 microseconds) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}

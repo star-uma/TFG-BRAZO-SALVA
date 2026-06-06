@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>hardware</name>
+  <version>0.0.0</version>
+  <description>TODO: Package description</description>
+  <maintainer email="sptrcio@todo.todo">sptrcio</maintainer>
+  <license>TODO: License declaration</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+ <!-- ESTO DE ABAJO ES LO NUEVO DE LA INTERFAZ-->
+
+  <depend>rclcpp</depend>
+  <depend>rclcpp_lifecycle</depend>
+  <depend>hardware_interface</depend>
+  <depend>pluginlib</depend>
+  <depend>lifecycle_msgs</depend>
+
+
+
+  <!--> ESTO ES DEL DINAMIXEL <!-->
+  <build_depend>dynamixel_ros2</build_depend>
+  <exec_depend>dynamixel_ros2</exec_depend>
+  <build_depend>dynamixel_sdk</build_depend>
+  <exec_depend>dynamixel_sdk</exec_depend>
+  <!--> HASTA AQUI <!-->
+
+
+  
+
+  <!--  API esta aquí -->
+  <!--<build_depend>servo_api</build_depend> -->
+
+<!-- hasta aqui-->
+
+
+  <export>
+    <hardware_interface plugin="${prefix}/plugin.xml"/>
+    <build_type>ament_cmake</build_type>
+  </export>
+
+
+
+</package>

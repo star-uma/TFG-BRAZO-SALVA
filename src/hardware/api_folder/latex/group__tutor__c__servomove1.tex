@@ -1,0 +1,111 @@
+\hypertarget{group__tutor__c__servomove1}{}\doxysection{PVT trajectory for one servo}
+\label{group__tutor__c__servomove1}\index{PVT trajectory for one servo@{PVT trajectory for one servo}}
+The tutorial describes how to set up and execute a motion trajectory for one servo. In this example, the motion trajectory comprises two PVT (position-\/velocity-\/time) points\+: 
+\begin{DoxyItemize}
+\item one PVT commanding the servo to move to the position of 100 degrees in 6,000 milliseconds 
+\item one PVT commanding the servo to move to the position of -\/100 degrees in 6,000 milliseconds
+\end{DoxyItemize}
+
+
+\begin{DoxyEnumerate}
+\item Initialize the interface. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__can__interface__t}{rr\_can\_interface\_t}} *iface = \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\_init\_interface}}(argv[1]);}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!iface)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Interface init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+
+\item Initialize the servo. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__servo__t}{rr\_servo\_t}} *servo = \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\_init\_servo}}(iface, \textcolor{keywordtype}{id});}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!servo)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Servo init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+
+\item Clear the motion queue. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group___trajectory_ga7b5be2d97da325eefde671c2e65e8055}{rr\_clear\_points\_all}}(servo);}
+
+\end{DoxyCodeInclude}
+ {\bfseries{ Adding PVT points to form a motion queue }}
+\item Set the first PVT point, commanding the servo to move to the position of 100 degrees in 6,000 milliseconds. {\bfseries{Note}}\+: When a point is added successfully to the motion queue, the function will return OK. Otherwise, the function returns an error warning and quits the program. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \textcolor{keywordtype}{int} status = \mbox{\hyperlink{group___trajectory_gacf26f2966a4f2035a128e1fcecd08f58}{rr\_add\_motion\_point}}(servo, 100.0, 0.0, 6000);}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(status != \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdca4894234446e2d92068943b3d6d3a0bdc}{RET\_OK}})}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Error in the trjectory point calculation: \%d\(\backslash\)n"{}}, status);}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+
+\item Set the second PVT point, commanding the servo to move to the position of -\/100 degrees in 6,000 milliseconds. {\bfseries{Note}}\+: When a point is added successfully to the motion queue, the function will return OK. Otherwise, the function returns an error warning and quits the program. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    status = \mbox{\hyperlink{group___trajectory_gacf26f2966a4f2035a128e1fcecd08f58}{rr\_add\_motion\_point}}(servo, -\/100.0, 0.0, 6000);}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(status != \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdca4894234446e2d92068943b3d6d3a0bdc}{RET\_OK}})}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Error in the trjectory point calculation: \%d\(\backslash\)n"{}}, status);}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+ {\bfseries{ Executing the resulting motion queue }}
+\item Command the servo to move through the PVT points you added to the motion queue. Set the function parameter to 0 to get the servo moving without a delay. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group___trajectory_ga639ef9f16dd649cbedfd65daca35ee18}{rr\_start\_motion}}(iface, 0);}
+
+\end{DoxyCodeInclude}
+
+\item To ensure the program will not move on to execute another operation, set an idle period of 14,000 milliseconds. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group___aux_gaeb26028b83635e028ebc901e1cbf33a1}{rr\_sleep\_ms}}(14000); \textcolor{comment}{// wait till the movement ends}}
+
+\end{DoxyCodeInclude}
+ {\bfseries{ Complete tutorial code\+: }} 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__can__interface__t}{rr\_can\_interface\_t}} *iface = \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\_init\_interface}}(argv[1]);}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!iface)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Interface init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__servo__t}{rr\_servo\_t}} *servo = \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\_init\_servo}}(iface, \textcolor{keywordtype}{id});}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!servo)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Servo init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{group___state_ga0b1d17a317892471c6df1440e92da9d8}{rr\_servo\_set\_state\_operational}}(servo);}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}========== Tutorial of the \%s ==========\(\backslash\)n"{}}, \textcolor{stringliteral}{"{}controlling one servo"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{group___trajectory_ga7b5be2d97da325eefde671c2e65e8055}{rr\_clear\_points\_all}}(servo);}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Appending points\(\backslash\)n"{}});}
+\DoxyCodeLine{    \textcolor{keywordtype}{int} status = \mbox{\hyperlink{group___trajectory_gacf26f2966a4f2035a128e1fcecd08f58}{rr\_add\_motion\_point}}(servo, 100.0, 0.0, 6000);}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(status != \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdca4894234446e2d92068943b3d6d3a0bdc}{RET\_OK}})}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Error in the trjectory point calculation: \%d\(\backslash\)n"{}}, status);}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    status = \mbox{\hyperlink{group___trajectory_gacf26f2966a4f2035a128e1fcecd08f58}{rr\_add\_motion\_point}}(servo, -\/100.0, 0.0, 6000);}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(status != \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdca4894234446e2d92068943b3d6d3a0bdc}{RET\_OK}})}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Error in the trjectory point calculation: \%d\(\backslash\)n"{}}, status);}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    \mbox{\hyperlink{group___trajectory_ga639ef9f16dd649cbedfd65daca35ee18}{rr\_start\_motion}}(iface, 0);}
+\DoxyCodeLine{    \mbox{\hyperlink{group___aux_gaeb26028b83635e028ebc901e1cbf33a1}{rr\_sleep\_ms}}(14000); \textcolor{comment}{// wait till the movement ends}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyEnumerate}

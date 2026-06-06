@@ -1,0 +1,287 @@
+\hypertarget{group___motion}{}\doxysection{Simple motion control (duty, current, velocity, position)}
+\label{group___motion}\index{Simple motion control (duty, current, velocity, position)@{Simple motion control (duty, current, velocity, position)}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___motion_ga6e7fd0a86c918fd05c5d5351f4998b01}{rr\+\_\+release}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo)
+\begin{DoxyCompactList}\small\item\em The function sets the specified servo to the released state. The servo is de-\/energized and continues rotating for as long as it is affected by external forces (e.\+g., inertia, gravity). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___motion_gae69ccc1f8747fdce7dd6837032de5714}{rr\+\_\+freeze}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo)
+\begin{DoxyCompactList}\small\item\em The function sets the specified servo to the freeze state. The servo stops, retaining its last position. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___motion_ga1d963f00e544819350750fae4ba684dd}{rr\+\_\+set\+\_\+current}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const float current\+\_\+a)
+\begin{DoxyCompactList}\small\item\em The function sets the current supplied to the stator of the servo specified in the \textquotesingle{}servo\textquotesingle{} parameter. Changing the \textquotesingle{}current\+\_\+a parameter\textquotesingle{} value, it is possible to adjust the servo\textquotesingle{}s torque (Torque = stator current$\ast$\+Kt). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___motion_ga67284ebdeadb0b4a2e283e5ff37b8013}{rr\+\_\+brake\+\_\+engage}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const bool en)
+\begin{DoxyCompactList}\small\item\em The function applies or releases the servo\textquotesingle{}s built-\/in brake. If a servo is supplied without a brake, the function will not work. In this case, to stop a servo, use either the \mbox{\hyperlink{group___motion_gae69ccc1f8747fdce7dd6837032de5714}{rr\+\_\+freeze()}} or \mbox{\hyperlink{group___motion_ga6e7fd0a86c918fd05c5d5351f4998b01}{rr\+\_\+release()}} function. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___motion_ga9842cddb12cb8da6ca65a4106ba78473}{rr\+\_\+set\+\_\+velocity}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const float velocity\+\_\+deg\+\_\+per\+\_\+sec)
+\begin{DoxyCompactList}\small\item\em The function sets the output shaft velocity with which the specified servo should move at its maximum current. The maximum current is in accordance with the servo motor specification. When you need to set a lower current limit, use the \mbox{\hyperlink{group___motion_ga95263ea708d42d21f94cddaa8a43286e}{rr\+\_\+set\+\_\+velocity\+\_\+with\+\_\+limits}} function. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___motion_ga1e7436f43eace662979f3a8fc9db5773}{rr\+\_\+set\+\_\+velocity\+\_\+motor}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const float velocity\+\_\+rpm)
+\begin{DoxyCompactList}\small\item\em The function sets the velocity with which the motor of the specified servo should move at its maximum current. The maximum current is in accordance with the servo motor specification. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___motion_gab7c78ac3d124f04010812a81c8b6ec09}{rr\+\_\+set\+\_\+position}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const float position\+\_\+deg)
+\begin{DoxyCompactList}\small\item\em The function sets the position that the specified servo should reach as a result of executing the command. The velocity and current are maximum values in accordance with the servo motor specifications. For setting lower velocity and current limits, use the \mbox{\hyperlink{group___motion_ga0242e01b5abae886866ff8d174e64575}{rr\+\_\+set\+\_\+position\+\_\+with\+\_\+limits}} function. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___motion_ga60472dfd9b2feb9c1959ac534dac1c12}{rr\+\_\+set\+\_\+velocity\+\_\+rate}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const float velocity\+\_\+rate\+\_\+rpm\+\_\+per\+\_\+sec)
+\begin{DoxyCompactList}\small\item\em The function changes velocity rate limiter acceleration value,. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___motion_ga85e6e6a1f9256ff4bfb169f99762b1a4}{rr\+\_\+get\+\_\+velocity\+\_\+rate}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, float $\ast$const velocity\+\_\+rate\+\_\+rpm\+\_\+per\+\_\+sec)
+\begin{DoxyCompactList}\small\item\em The function reads velocity rate limiter acceleration value,. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___motion_ga95263ea708d42d21f94cddaa8a43286e}{rr\+\_\+set\+\_\+velocity\+\_\+with\+\_\+limits}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const float velocity\+\_\+deg\+\_\+per\+\_\+sec, const float current\+\_\+a)
+\begin{DoxyCompactList}\small\item\em Function is deprecated!. Use \mbox{\hyperlink{group___motion_ga85e6e6a1f9256ff4bfb169f99762b1a4}{rr\+\_\+get\+\_\+velocity\+\_\+rate}} and \mbox{\hyperlink{group___motion_ga60472dfd9b2feb9c1959ac534dac1c12}{rr\+\_\+set\+\_\+velocity\+\_\+rate}} to get or set velocity rate limiter acceleration value. The function commands the specified servo to rotate at the specified velocity, while setting the maximum limit for the servo current (below the servo motor specifications). The velocity value is the velocity of the servo’s output shaft. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___motion_ga0242e01b5abae886866ff8d174e64575}{rr\+\_\+set\+\_\+position\+\_\+with\+\_\+limits}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const float position\+\_\+deg, const float velocity\+\_\+deg\+\_\+per\+\_\+sec, const float accel\+\_\+deg\+\_\+per\+\_\+sec\+\_\+sq, uint32\+\_\+t $\ast$time\+\_\+ms)
+\begin{DoxyCompactList}\small\item\em The function sets the position that the servo should reach with velocity and acceleration limits on generated trajectory. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___motion_ga271af72696dc3fb5ea8bc65fcb1f63d2}{rr\+\_\+set\+\_\+duty}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, float duty\+\_\+percent)
+\begin{DoxyCompactList}\small\item\em The function limits the input voltage supplied to the servo, enabling to adjust its motion velocity. For instance, when the input voltage is 20V, setting the duty\+\_\+percent parameter to 40\% will result in 8V supplied to the servo. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group___motion_ga67284ebdeadb0b4a2e283e5ff37b8013}\label{group___motion_ga67284ebdeadb0b4a2e283e5ff37b8013}} 
+\index{Simple motion control (duty, current, velocity, position)@{Simple motion control (duty, current, velocity, position)}!rr\_brake\_engage@{rr\_brake\_engage}}
+\index{rr\_brake\_engage@{rr\_brake\_engage}!Simple motion control (duty, current, velocity, position)@{Simple motion control (duty, current, velocity, position)}}
+\doxysubsubsection{\texorpdfstring{rr\_brake\_engage()}{rr\_brake\_engage()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+brake\+\_\+engage (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{servo,  }\item[{const bool}]{en }\end{DoxyParamCaption})}
+
+
+
+The function applies or releases the servo\textquotesingle{}s built-\/in brake. If a servo is supplied without a brake, the function will not work. In this case, to stop a servo, use either the \mbox{\hyperlink{group___motion_gae69ccc1f8747fdce7dd6837032de5714}{rr\+\_\+freeze()}} or \mbox{\hyperlink{group___motion_ga6e7fd0a86c918fd05c5d5351f4998b01}{rr\+\_\+release()}} function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em en} & Desired action\+: true -\/ engage brake, false -\/ disengage \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___motion_gae69ccc1f8747fdce7dd6837032de5714}\label{group___motion_gae69ccc1f8747fdce7dd6837032de5714}} 
+\index{Simple motion control (duty, current, velocity, position)@{Simple motion control (duty, current, velocity, position)}!rr\_freeze@{rr\_freeze}}
+\index{rr\_freeze@{rr\_freeze}!Simple motion control (duty, current, velocity, position)@{Simple motion control (duty, current, velocity, position)}}
+\doxysubsubsection{\texorpdfstring{rr\_freeze()}{rr\_freeze()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+freeze (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{servo }\end{DoxyParamCaption})}
+
+
+
+The function sets the specified servo to the freeze state. The servo stops, retaining its last position. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___motion_ga85e6e6a1f9256ff4bfb169f99762b1a4}\label{group___motion_ga85e6e6a1f9256ff4bfb169f99762b1a4}} 
+\index{Simple motion control (duty, current, velocity, position)@{Simple motion control (duty, current, velocity, position)}!rr\_get\_velocity\_rate@{rr\_get\_velocity\_rate}}
+\index{rr\_get\_velocity\_rate@{rr\_get\_velocity\_rate}!Simple motion control (duty, current, velocity, position)@{Simple motion control (duty, current, velocity, position)}}
+\doxysubsubsection{\texorpdfstring{rr\_get\_velocity\_rate()}{rr\_get\_velocity\_rate()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+get\+\_\+velocity\+\_\+rate (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{servo,  }\item[{float $\ast$const}]{velocity\+\_\+rate\+\_\+rpm\+\_\+per\+\_\+sec }\end{DoxyParamCaption})}
+
+
+
+The function reads velocity rate limiter acceleration value,. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em velocity\+\_\+rate\+\_\+rpm\+\_\+per\+\_\+sec} & Pointer to put velocity rate in. See \mbox{\hyperlink{group___motion_ga60472dfd9b2feb9c1959ac534dac1c12}{rr\+\_\+set\+\_\+velocity\+\_\+rate}} for details. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___motion_ga6e7fd0a86c918fd05c5d5351f4998b01}\label{group___motion_ga6e7fd0a86c918fd05c5d5351f4998b01}} 
+\index{Simple motion control (duty, current, velocity, position)@{Simple motion control (duty, current, velocity, position)}!rr\_release@{rr\_release}}
+\index{rr\_release@{rr\_release}!Simple motion control (duty, current, velocity, position)@{Simple motion control (duty, current, velocity, position)}}
+\doxysubsubsection{\texorpdfstring{rr\_release()}{rr\_release()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+release (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{servo }\end{DoxyParamCaption})}
+
+
+
+The function sets the specified servo to the released state. The servo is de-\/energized and continues rotating for as long as it is affected by external forces (e.\+g., inertia, gravity). 
+
+{\bfseries{Note\+:}} Affected by external force, the servo may also begin rotating in the opposite direction.
+
+
+\begin{DoxyParams}{Parameters}
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___motion_ga1d963f00e544819350750fae4ba684dd}\label{group___motion_ga1d963f00e544819350750fae4ba684dd}} 
+\index{Simple motion control (duty, current, velocity, position)@{Simple motion control (duty, current, velocity, position)}!rr\_set\_current@{rr\_set\_current}}
+\index{rr\_set\_current@{rr\_set\_current}!Simple motion control (duty, current, velocity, position)@{Simple motion control (duty, current, velocity, position)}}
+\doxysubsubsection{\texorpdfstring{rr\_set\_current()}{rr\_set\_current()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+set\+\_\+current (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{servo,  }\item[{const float}]{current\+\_\+a }\end{DoxyParamCaption})}
+
+
+
+The function sets the current supplied to the stator of the servo specified in the \textquotesingle{}servo\textquotesingle{} parameter. Changing the \textquotesingle{}current\+\_\+a parameter\textquotesingle{} value, it is possible to adjust the servo\textquotesingle{}s torque (Torque = stator current$\ast$\+Kt). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em current\+\_\+a} & Phase current of the stator in Amperes \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___motion_ga271af72696dc3fb5ea8bc65fcb1f63d2}\label{group___motion_ga271af72696dc3fb5ea8bc65fcb1f63d2}} 
+\index{Simple motion control (duty, current, velocity, position)@{Simple motion control (duty, current, velocity, position)}!rr\_set\_duty@{rr\_set\_duty}}
+\index{rr\_set\_duty@{rr\_set\_duty}!Simple motion control (duty, current, velocity, position)@{Simple motion control (duty, current, velocity, position)}}
+\doxysubsubsection{\texorpdfstring{rr\_set\_duty()}{rr\_set\_duty()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+set\+\_\+duty (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{servo,  }\item[{float}]{duty\+\_\+percent }\end{DoxyParamCaption})}
+
+
+
+The function limits the input voltage supplied to the servo, enabling to adjust its motion velocity. For instance, when the input voltage is 20V, setting the duty\+\_\+percent parameter to 40\% will result in 8V supplied to the servo. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em duty\+\_\+percent} & User-\/defined percentage of the input voltage to be supplied to the servo \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___motion_gab7c78ac3d124f04010812a81c8b6ec09}\label{group___motion_gab7c78ac3d124f04010812a81c8b6ec09}} 
+\index{Simple motion control (duty, current, velocity, position)@{Simple motion control (duty, current, velocity, position)}!rr\_set\_position@{rr\_set\_position}}
+\index{rr\_set\_position@{rr\_set\_position}!Simple motion control (duty, current, velocity, position)@{Simple motion control (duty, current, velocity, position)}}
+\doxysubsubsection{\texorpdfstring{rr\_set\_position()}{rr\_set\_position()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+set\+\_\+position (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{servo,  }\item[{const float}]{position\+\_\+deg }\end{DoxyParamCaption})}
+
+
+
+The function sets the position that the specified servo should reach as a result of executing the command. The velocity and current are maximum values in accordance with the servo motor specifications. For setting lower velocity and current limits, use the \mbox{\hyperlink{group___motion_ga0242e01b5abae886866ff8d174e64575}{rr\+\_\+set\+\_\+position\+\_\+with\+\_\+limits}} function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em position\+\_\+deg} & Position of the servo (in degrees) to be reached. The parameter is a multi-\/turn value (e.\+g., when set to 720, the servo will make two turns, 360 degrees each). When the parameter is set to a \char`\"{}-\/\char`\"{} sign value, the servo will rotate in the opposite direction. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___motion_ga0242e01b5abae886866ff8d174e64575}\label{group___motion_ga0242e01b5abae886866ff8d174e64575}} 
+\index{Simple motion control (duty, current, velocity, position)@{Simple motion control (duty, current, velocity, position)}!rr\_set\_position\_with\_limits@{rr\_set\_position\_with\_limits}}
+\index{rr\_set\_position\_with\_limits@{rr\_set\_position\_with\_limits}!Simple motion control (duty, current, velocity, position)@{Simple motion control (duty, current, velocity, position)}}
+\doxysubsubsection{\texorpdfstring{rr\_set\_position\_with\_limits()}{rr\_set\_position\_with\_limits()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+set\+\_\+position\+\_\+with\+\_\+limits (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{servo,  }\item[{const float}]{position\+\_\+deg,  }\item[{const float}]{velocity\+\_\+deg\+\_\+per\+\_\+sec,  }\item[{const float}]{accel\+\_\+deg\+\_\+per\+\_\+sec\+\_\+sq,  }\item[{uint32\+\_\+t $\ast$}]{time\+\_\+ms }\end{DoxyParamCaption})}
+
+
+
+The function sets the position that the servo should reach with velocity and acceleration limits on generated trajectory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em position\+\_\+deg} & Final position of the servo flange (in degrees) to be reached \\
+\hline
+{\em velocity\+\_\+deg\+\_\+per\+\_\+sec} & Maximum Velocity on generated trajectory (in degrees/sec) \\
+\hline
+{\em accel\+\_\+deg\+\_\+per\+\_\+sec\+\_\+sq} & Maximum acceleration on generated trajectory (in degrees/(sec$\ast$sec)) \\
+\hline
+{\em time\+\_\+ms} & Trajectory execution time (im milliseconds)\+: int \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___motion_ga9842cddb12cb8da6ca65a4106ba78473}\label{group___motion_ga9842cddb12cb8da6ca65a4106ba78473}} 
+\index{Simple motion control (duty, current, velocity, position)@{Simple motion control (duty, current, velocity, position)}!rr\_set\_velocity@{rr\_set\_velocity}}
+\index{rr\_set\_velocity@{rr\_set\_velocity}!Simple motion control (duty, current, velocity, position)@{Simple motion control (duty, current, velocity, position)}}
+\doxysubsubsection{\texorpdfstring{rr\_set\_velocity()}{rr\_set\_velocity()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+set\+\_\+velocity (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{servo,  }\item[{const float}]{velocity\+\_\+deg\+\_\+per\+\_\+sec }\end{DoxyParamCaption})}
+
+
+
+The function sets the output shaft velocity with which the specified servo should move at its maximum current. The maximum current is in accordance with the servo motor specification. When you need to set a lower current limit, use the \mbox{\hyperlink{group___motion_ga95263ea708d42d21f94cddaa8a43286e}{rr\+\_\+set\+\_\+velocity\+\_\+with\+\_\+limits}} function. 
+
+The \mbox{\hyperlink{group___motion_ga9842cddb12cb8da6ca65a4106ba78473}{rr\+\_\+set\+\_\+velocity()}} function works with geared servos only. When a servo includes no gearhead, use the \mbox{\hyperlink{group___motion_ga1e7436f43eace662979f3a8fc9db5773}{rr\+\_\+set\+\_\+velocity\+\_\+motor()}} for setting servo velocity.
+
+
+\begin{DoxyParams}{Parameters}
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em velocity\+\_\+deg\+\_\+per\+\_\+sec} & Velocity (in degrees/sec) at the servo flange \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___motion_ga1e7436f43eace662979f3a8fc9db5773}\label{group___motion_ga1e7436f43eace662979f3a8fc9db5773}} 
+\index{Simple motion control (duty, current, velocity, position)@{Simple motion control (duty, current, velocity, position)}!rr\_set\_velocity\_motor@{rr\_set\_velocity\_motor}}
+\index{rr\_set\_velocity\_motor@{rr\_set\_velocity\_motor}!Simple motion control (duty, current, velocity, position)@{Simple motion control (duty, current, velocity, position)}}
+\doxysubsubsection{\texorpdfstring{rr\_set\_velocity\_motor()}{rr\_set\_velocity\_motor()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+set\+\_\+velocity\+\_\+motor (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{servo,  }\item[{const float}]{velocity\+\_\+rpm }\end{DoxyParamCaption})}
+
+
+
+The function sets the velocity with which the motor of the specified servo should move at its maximum current. The maximum current is in accordance with the servo motor specification. 
+
+You can use the function for both geared servos and servos without a gearhead. When a servo is geared, the velocity at the output flange will depend on the applied gear ratio (refer to the servo motor specification).
+
+
+\begin{DoxyParams}{Parameters}
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em velocity\+\_\+rpm} & Velocity of the motor (in revolutions per minute) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___motion_ga60472dfd9b2feb9c1959ac534dac1c12}\label{group___motion_ga60472dfd9b2feb9c1959ac534dac1c12}} 
+\index{Simple motion control (duty, current, velocity, position)@{Simple motion control (duty, current, velocity, position)}!rr\_set\_velocity\_rate@{rr\_set\_velocity\_rate}}
+\index{rr\_set\_velocity\_rate@{rr\_set\_velocity\_rate}!Simple motion control (duty, current, velocity, position)@{Simple motion control (duty, current, velocity, position)}}
+\doxysubsubsection{\texorpdfstring{rr\_set\_velocity\_rate()}{rr\_set\_velocity\_rate()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+set\+\_\+velocity\+\_\+rate (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{servo,  }\item[{const float}]{velocity\+\_\+rate\+\_\+rpm\+\_\+per\+\_\+sec }\end{DoxyParamCaption})}
+
+
+
+The function changes velocity rate limiter acceleration value,. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em velocity\+\_\+rate\+\_\+rpm\+\_\+per\+\_\+sec} & Velocity rate (in RPM/sec) at the motor flange. Take into account gear reduction ratio. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___motion_ga95263ea708d42d21f94cddaa8a43286e}\label{group___motion_ga95263ea708d42d21f94cddaa8a43286e}} 
+\index{Simple motion control (duty, current, velocity, position)@{Simple motion control (duty, current, velocity, position)}!rr\_set\_velocity\_with\_limits@{rr\_set\_velocity\_with\_limits}}
+\index{rr\_set\_velocity\_with\_limits@{rr\_set\_velocity\_with\_limits}!Simple motion control (duty, current, velocity, position)@{Simple motion control (duty, current, velocity, position)}}
+\doxysubsubsection{\texorpdfstring{rr\_set\_velocity\_with\_limits()}{rr\_set\_velocity\_with\_limits()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+set\+\_\+velocity\+\_\+with\+\_\+limits (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{servo,  }\item[{const float}]{velocity\+\_\+deg\+\_\+per\+\_\+sec,  }\item[{const float}]{current\+\_\+a }\end{DoxyParamCaption})}
+
+
+
+Function is deprecated!. Use \mbox{\hyperlink{group___motion_ga85e6e6a1f9256ff4bfb169f99762b1a4}{rr\+\_\+get\+\_\+velocity\+\_\+rate}} and \mbox{\hyperlink{group___motion_ga60472dfd9b2feb9c1959ac534dac1c12}{rr\+\_\+set\+\_\+velocity\+\_\+rate}} to get or set velocity rate limiter acceleration value. The function commands the specified servo to rotate at the specified velocity, while setting the maximum limit for the servo current (below the servo motor specifications). The velocity value is the velocity of the servo’s output shaft. 
+
+Similarly to \mbox{\hyperlink{group___motion_ga9842cddb12cb8da6ca65a4106ba78473}{rr\+\_\+set\+\_\+velocity()}}, this function can be used for geared servos only.
+
+
+\begin{DoxyParams}{Parameters}
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em velocity\+\_\+deg\+\_\+per\+\_\+sec} & Velocity (in degrees/sec) at the servo flange. The value can have a \char`\"{}-\/\char`\"{} sign, in which case the servo will rotate in the opposite direction. \\
+\hline
+{\em current\+\_\+a} & Maximum user-\/defined current limit in Amperes. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}

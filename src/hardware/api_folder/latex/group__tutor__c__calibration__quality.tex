@@ -1,0 +1,339 @@
+\hypertarget{group__tutor__c__calibration__quality}{}\doxysection{Checking calibration quality}
+\label{group__tutor__c__calibration__quality}\index{Checking calibration quality@{Checking calibration quality}}
+The tutorial describes how to verify the results of the calibration to mitigate cogging effects. The verification is by reading rotor position and phase current at 4 RPM and -\/4RPM into CSV files. Based on the files, dependance curves are built, making it possible to evaluate whether current settings of the cogging compensation table provide the required mitigation effect.
+
+
+\begin{DoxyEnumerate}
+\item Read the parameters as required to run the tutorial to check the calibration quality. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int} \mbox{\hyperlink{calibrate__cogging_8c_a0ddf1224851353fc92bfbff6f499fa97}{main}}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[])}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    uint8\_t id;}
+\DoxyCodeLine{    \textcolor{keyword}{struct }timespec tprev, tnow, tstart;}
+\DoxyCodeLine{    \textcolor{keywordtype}{float} pos, curr, vel;}
+\DoxyCodeLine{    FILE *f;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(argc == 3)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \textcolor{keywordtype}{id} = strtol(argv[2], NULL, 0);}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    \textcolor{keywordflow}{else}}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Wrong format!\(\backslash\)nUsage: \%s interface id\(\backslash\)n"{}}, argv[0]);}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+
+\item Initialize the interface. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__can__interface__t}{rr\_can\_interface\_t}} *iface = \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\_init\_interface}}(argv[1]);}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!iface)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Interface init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+
+\item Initialize the servo. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__servo__t}{rr\_servo\_t}} *servo = \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\_init\_servo}}(iface, \textcolor{keywordtype}{id});}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!servo)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Servo init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+
+\item Set the servo to the operational state. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group___state_ga0b1d17a317892471c6df1440e92da9d8}{rr\_servo\_set\_state\_operational}}(servo);}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29}{rr\_nmt\_state\_t}} state = 0;}
+\DoxyCodeLine{    \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < 20; i++)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{group___aux_gaeb26028b83635e028ebc901e1cbf33a1}{rr\_sleep\_ms}}(100);}
+\DoxyCodeLine{        \mbox{\hyperlink{group___state_ga1ff7a888f39947e12b8340f43761c072}{rr\_servo\_get\_state}}(servo, \&state);}
+\DoxyCodeLine{        \textcolor{keywordflow}{if}(state == \mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29a57e41d0fd4f218c20acc57061b28f52d}{RR\_NMT\_OPERATIONAL}})}
+\DoxyCodeLine{        \{}
+\DoxyCodeLine{            \textcolor{keywordflow}{break};}
+\DoxyCodeLine{        \}}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(state != \mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29a57e41d0fd4f218c20acc57061b28f52d}{RR\_NMT\_OPERATIONAL}})}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Can't switch tot operational mode\(\backslash\)n"{}});}
+\DoxyCodeLine{        exit(1);}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+
+\item Set up a parameter array to read, comprising\+: 
+\begin{DoxyItemize}
+\item rotor position 
+\item phase current
+\end{DoxyItemize}
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\_param\_cache\_setup\_entry}} (servo, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276daa8dafaaa373617ef2f8585b3d4177115}{APP\_PARAM\_POSITION\_ROTOR}}, \textcolor{keyword}{true});}
+\DoxyCodeLine{    \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\_param\_cache\_setup\_entry}} (servo, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dad60719b243d4c9abd6c6c2566266fa52}{APP\_PARAM\_CURRENT\_PHASE}}, \textcolor{keyword}{true});}
+\DoxyCodeLine{    \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\_param\_cache\_setup\_entry}} (servo, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dade3db1d484cf6dd69b115e37ab77051b}{APP\_PARAM\_VELOCITY\_ROTOR}}, \textcolor{keyword}{true});}
+
+\end{DoxyCodeInclude}
+
+\item Disable the cogging compensation table. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{calibration__quality_8c_a809d5482fcf075f6536f69f3e8dcc4d7}{enable\_compensation}}(servo, \textcolor{keyword}{false});}
+
+\end{DoxyCodeInclude}
+
+\item Set the servo to rotate at 4 RPM. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group___motion_ga1e7436f43eace662979f3a8fc9db5773}{rr\_set\_velocity\_motor}}(servo, 4.0);}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Setting 4 RPM @ motor without cogging comp.\(\backslash\)n"{}});}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Collecting data (\string~60sec) ...\(\backslash\)n"{}});}
+
+\end{DoxyCodeInclude}
+
+\item Open a CSV file to save the measured values of the parameters you set at Step 5. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    f = fopen(\textcolor{stringliteral}{"{}without\_comp.csv"{}}, \textcolor{stringliteral}{"{}w+"{}});}
+
+\end{DoxyCodeInclude}
+
+\item Record the start time of the measurements. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    fprintf(f, \textcolor{stringliteral}{"{}time\_us, mpos\_deg, mcurr\_amp\(\backslash\)n"{}});}
+\DoxyCodeLine{    clock\_gettime(CLOCK\_REALTIME, \&tnow);}
+\DoxyCodeLine{    tprev = tnow;}
+\DoxyCodeLine{    tstart = tnow;}
+
+\end{DoxyCodeInclude}
+
+\item Start a measurement cycle, saving measured values. The total measurement cycle time is 1 minute. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{while}(\textcolor{keyword}{true})}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        clock\_gettime(CLOCK\_REALTIME, \&tnow);}
+\DoxyCodeLine{        \mbox{\hyperlink{group___realtime_ga95a1707406a0cb3f665a4ee529d066f5}{rr\_param\_cache\_update}}(servo);}
+\DoxyCodeLine{        \mbox{\hyperlink{group___realtime_ga4e21be75a34c6d2862e6d78e6add4c2a}{rr\_read\_cached\_parameter}}(servo, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276daa8dafaaa373617ef2f8585b3d4177115}{APP\_PARAM\_POSITION\_ROTOR}}, \&pos);}
+\DoxyCodeLine{        \mbox{\hyperlink{group___realtime_ga4e21be75a34c6d2862e6d78e6add4c2a}{rr\_read\_cached\_parameter}}(servo, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dad60719b243d4c9abd6c6c2566266fa52}{APP\_PARAM\_CURRENT\_PHASE}}, \&curr);}
+\DoxyCodeLine{        \mbox{\hyperlink{group___realtime_ga4e21be75a34c6d2862e6d78e6add4c2a}{rr\_read\_cached\_parameter}}(servo, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dade3db1d484cf6dd69b115e37ab77051b}{APP\_PARAM\_VELOCITY\_ROTOR}}, \&vel);}
+\DoxyCodeLine{}
+\DoxyCodeLine{        fprintf(f, \textcolor{stringliteral}{"{}\%"{}} PRId64 \textcolor{stringliteral}{"{}, \%f, \%f, \%f\(\backslash\)n"{}}, calcdiff(tnow, tprev), pos, curr, vel);}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keywordflow}{if}(calcdiff(tnow, tstart) >= 60000000)}
+\DoxyCodeLine{        \{}
+\DoxyCodeLine{            \textcolor{keywordflow}{break};}
+\DoxyCodeLine{        \}}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+
+\item Close the CSV file you opened at Step 8. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    fclose(f);}
+
+\end{DoxyCodeInclude}
+
+\item Enable the cogging compensation table. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{calibration__quality_8c_a809d5482fcf075f6536f69f3e8dcc4d7}{enable\_compensation}}(servo, \textcolor{keyword}{true});}
+
+\end{DoxyCodeInclude}
+
+\item Set the servo to rotate at -\/4RPM. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group___motion_ga1e7436f43eace662979f3a8fc9db5773}{rr\_set\_velocity\_motor}}(servo, -\/4.0);}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Setting -\/4 RPM @ motor with cogging comp.\(\backslash\)n"{}});}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Collecting data (\string~60sec) ...\(\backslash\)n"{}});}
+
+\end{DoxyCodeInclude}
+
+\item Open a new CSV file to save measurements. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    f = fopen(\textcolor{stringliteral}{"{}with\_comp.csv"{}}, \textcolor{stringliteral}{"{}w+"{}});}
+
+\end{DoxyCodeInclude}
+
+\item Record the start time of the measurements. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    fprintf(f, \textcolor{stringliteral}{"{}time\_us, mpos\_deg, mcurr\_amp\(\backslash\)n"{}});}
+\DoxyCodeLine{    clock\_gettime(CLOCK\_REALTIME, \&tnow);}
+\DoxyCodeLine{    tprev = tnow;}
+\DoxyCodeLine{    tstart = tnow;}
+
+\end{DoxyCodeInclude}
+
+\item Start a new measurement cycle, saving measured values. The total measurement cycle time is 1 minute. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{while}(\textcolor{keyword}{true})}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        clock\_gettime(CLOCK\_REALTIME, \&tnow);}
+\DoxyCodeLine{        \mbox{\hyperlink{group___realtime_ga95a1707406a0cb3f665a4ee529d066f5}{rr\_param\_cache\_update}}(servo);}
+\DoxyCodeLine{        \mbox{\hyperlink{group___realtime_ga4e21be75a34c6d2862e6d78e6add4c2a}{rr\_read\_cached\_parameter}}(servo, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276daa8dafaaa373617ef2f8585b3d4177115}{APP\_PARAM\_POSITION\_ROTOR}}, \&pos);}
+\DoxyCodeLine{        \mbox{\hyperlink{group___realtime_ga4e21be75a34c6d2862e6d78e6add4c2a}{rr\_read\_cached\_parameter}}(servo, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dad60719b243d4c9abd6c6c2566266fa52}{APP\_PARAM\_CURRENT\_PHASE}}, \&curr);}
+\DoxyCodeLine{        \mbox{\hyperlink{group___realtime_ga4e21be75a34c6d2862e6d78e6add4c2a}{rr\_read\_cached\_parameter}}(servo, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dade3db1d484cf6dd69b115e37ab77051b}{APP\_PARAM\_VELOCITY\_ROTOR}}, \&vel);}
+\DoxyCodeLine{}
+\DoxyCodeLine{        fprintf(f, \textcolor{stringliteral}{"{}\%"{}} PRId64 \textcolor{stringliteral}{"{}, \%f, \%f, \%f\(\backslash\)n"{}}, calcdiff(tnow, tprev), pos, curr, vel);}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keywordflow}{if}(calcdiff(tnow, tstart) >= 60000000)}
+\DoxyCodeLine{        \{}
+\DoxyCodeLine{            \textcolor{keywordflow}{break};}
+\DoxyCodeLine{        \}   }
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+
+\item Close the CSV file you opened at Step 14. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    fclose(f);}
+
+\end{DoxyCodeInclude}
+ As a result, you get two CSV files with measured rotor position ad phase current. Use the files to build dependance curves to evaluate whether current settings of the cogging compensation table have provided the required mitigation effect.
+\item Set the servo to the released state. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group___motion_ga6e7fd0a86c918fd05c5d5351f4998b01}{rr\_release}}(servo);}
+
+\end{DoxyCodeInclude}
+ {\bfseries{ Complete tutorial code\+: }} 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void} \mbox{\hyperlink{calibration__quality_8c_a809d5482fcf075f6536f69f3e8dcc4d7}{enable\_compensation}}(\mbox{\hyperlink{structrr__servo__t}{rr\_servo\_t}} *servo, \textcolor{keywordtype}{bool} en)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    \textcolor{keywordtype}{float} value = en ? 1.0 : 0.0;}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(\mbox{\hyperlink{group___aux_gaa57ed02a9338e34b3f4d78475bd7d295}{rr\_write\_raw\_sdo}}(servo, 0x41ff, 15, (uint8\_t *)\&value, \textcolor{keyword}{sizeof}(value), 1, 100) != \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdca4894234446e2d92068943b3d6d3a0bdc}{RET\_OK}})}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Can't enable cogging map\(\backslash\)n"{}});}
+\DoxyCodeLine{        exit(1);}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(\mbox{\hyperlink{group___aux_gaa57ed02a9338e34b3f4d78475bd7d295}{rr\_write\_raw\_sdo}}(servo, 0x41ff, 16, (uint8\_t *)\&value, \textcolor{keyword}{sizeof}(value), 1, 100) != \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdca4894234446e2d92068943b3d6d3a0bdc}{RET\_OK}})}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Can't enable friction map\(\backslash\)n"{}});}
+\DoxyCodeLine{        exit(1);}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define USEC\_PER\_SEC            1000000}}
+\DoxyCodeLine{}
+\DoxyCodeLine{int64\_t calcdiff(\textcolor{keyword}{struct} timespec t1, \textcolor{keyword}{struct} timespec t2) }
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    int64\_t diff;}
+\DoxyCodeLine{    diff = USEC\_PER\_SEC * (\textcolor{keywordtype}{long} long)((\textcolor{keywordtype}{int}) t1.tv\_sec -\/ (int) t2.tv\_sec);}
+\DoxyCodeLine{    diff += ((int) t1.tv\_nsec -\/ (\textcolor{keywordtype}{int}) t2.tv\_nsec) / 1000;}
+\DoxyCodeLine{    \textcolor{keywordflow}{return} diff;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{\textcolor{keywordtype}{int} \mbox{\hyperlink{calibrate__cogging_8c_a0ddf1224851353fc92bfbff6f499fa97}{main}}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[])}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    uint8\_t id;}
+\DoxyCodeLine{    \textcolor{keyword}{struct }timespec tprev, tnow, tstart;}
+\DoxyCodeLine{    \textcolor{keywordtype}{float} pos, curr, vel;}
+\DoxyCodeLine{    FILE *f;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(argc == 3)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \textcolor{keywordtype}{id} = strtol(argv[2], NULL, 0);}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    \textcolor{keywordflow}{else}}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Wrong format!\(\backslash\)nUsage: \%s interface id\(\backslash\)n"{}}, argv[0]);}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__can__interface__t}{rr\_can\_interface\_t}} *iface = \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\_init\_interface}}(argv[1]);}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!iface)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Interface init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__servo__t}{rr\_servo\_t}} *servo = \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\_init\_servo}}(iface, \textcolor{keywordtype}{id});}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!servo)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Servo init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    \mbox{\hyperlink{group___state_ga0b1d17a317892471c6df1440e92da9d8}{rr\_servo\_set\_state\_operational}}(servo);}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29}{rr\_nmt\_state\_t}} state = 0;}
+\DoxyCodeLine{    \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < 20; i++)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{group___aux_gaeb26028b83635e028ebc901e1cbf33a1}{rr\_sleep\_ms}}(100);}
+\DoxyCodeLine{        \mbox{\hyperlink{group___state_ga1ff7a888f39947e12b8340f43761c072}{rr\_servo\_get\_state}}(servo, \&state);}
+\DoxyCodeLine{        \textcolor{keywordflow}{if}(state == \mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29a57e41d0fd4f218c20acc57061b28f52d}{RR\_NMT\_OPERATIONAL}})}
+\DoxyCodeLine{        \{}
+\DoxyCodeLine{            \textcolor{keywordflow}{break};}
+\DoxyCodeLine{        \}}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(state != \mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29a57e41d0fd4f218c20acc57061b28f52d}{RR\_NMT\_OPERATIONAL}})}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Can't switch tot operational mode\(\backslash\)n"{}});}
+\DoxyCodeLine{        exit(1);}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\_param\_cache\_setup\_entry}} (servo, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276daa8dafaaa373617ef2f8585b3d4177115}{APP\_PARAM\_POSITION\_ROTOR}}, \textcolor{keyword}{true});}
+\DoxyCodeLine{    \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\_param\_cache\_setup\_entry}} (servo, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dad60719b243d4c9abd6c6c2566266fa52}{APP\_PARAM\_CURRENT\_PHASE}}, \textcolor{keyword}{true});}
+\DoxyCodeLine{    \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\_param\_cache\_setup\_entry}} (servo, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dade3db1d484cf6dd69b115e37ab77051b}{APP\_PARAM\_VELOCITY\_ROTOR}}, \textcolor{keyword}{true});}
+\DoxyCodeLine{    \mbox{\hyperlink{calibration__quality_8c_a809d5482fcf075f6536f69f3e8dcc4d7}{enable\_compensation}}(servo, \textcolor{keyword}{false});}
+\DoxyCodeLine{    \mbox{\hyperlink{group___motion_ga1e7436f43eace662979f3a8fc9db5773}{rr\_set\_velocity\_motor}}(servo, 4.0);}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Setting 4 RPM @ motor without cogging comp.\(\backslash\)n"{}});}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Collecting data (\string~60sec) ...\(\backslash\)n"{}});}
+\DoxyCodeLine{    f = fopen(\textcolor{stringliteral}{"{}without\_comp.csv"{}}, \textcolor{stringliteral}{"{}w+"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{    fprintf(f, \textcolor{stringliteral}{"{}time\_us, mpos\_deg, mcurr\_amp\(\backslash\)n"{}});}
+\DoxyCodeLine{    clock\_gettime(CLOCK\_REALTIME, \&tnow);}
+\DoxyCodeLine{    tprev = tnow;}
+\DoxyCodeLine{    tstart = tnow;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keywordflow}{while}(\textcolor{keyword}{true})}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        clock\_gettime(CLOCK\_REALTIME, \&tnow);}
+\DoxyCodeLine{        \mbox{\hyperlink{group___realtime_ga95a1707406a0cb3f665a4ee529d066f5}{rr\_param\_cache\_update}}(servo);}
+\DoxyCodeLine{        \mbox{\hyperlink{group___realtime_ga4e21be75a34c6d2862e6d78e6add4c2a}{rr\_read\_cached\_parameter}}(servo, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276daa8dafaaa373617ef2f8585b3d4177115}{APP\_PARAM\_POSITION\_ROTOR}}, \&pos);}
+\DoxyCodeLine{        \mbox{\hyperlink{group___realtime_ga4e21be75a34c6d2862e6d78e6add4c2a}{rr\_read\_cached\_parameter}}(servo, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dad60719b243d4c9abd6c6c2566266fa52}{APP\_PARAM\_CURRENT\_PHASE}}, \&curr);}
+\DoxyCodeLine{        \mbox{\hyperlink{group___realtime_ga4e21be75a34c6d2862e6d78e6add4c2a}{rr\_read\_cached\_parameter}}(servo, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dade3db1d484cf6dd69b115e37ab77051b}{APP\_PARAM\_VELOCITY\_ROTOR}}, \&vel);}
+\DoxyCodeLine{}
+\DoxyCodeLine{        fprintf(f, \textcolor{stringliteral}{"{}\%"{}} PRId64 \textcolor{stringliteral}{"{}, \%f, \%f, \%f\(\backslash\)n"{}}, calcdiff(tnow, tprev), pos, curr, vel);}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keywordflow}{if}(calcdiff(tnow, tstart) >= 60000000)}
+\DoxyCodeLine{        \{}
+\DoxyCodeLine{            \textcolor{keywordflow}{break};}
+\DoxyCodeLine{        \}}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    fclose(f);}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{calibration__quality_8c_a809d5482fcf075f6536f69f3e8dcc4d7}{enable\_compensation}}(servo, \textcolor{keyword}{true});}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{group___motion_ga1e7436f43eace662979f3a8fc9db5773}{rr\_set\_velocity\_motor}}(servo, -\/4.0);}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Setting -\/4 RPM @ motor with cogging comp.\(\backslash\)n"{}});}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Collecting data (\string~60sec) ...\(\backslash\)n"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{    f = fopen(\textcolor{stringliteral}{"{}with\_comp.csv"{}}, \textcolor{stringliteral}{"{}w+"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{    fprintf(f, \textcolor{stringliteral}{"{}time\_us, mpos\_deg, mcurr\_amp\(\backslash\)n"{}});}
+\DoxyCodeLine{    clock\_gettime(CLOCK\_REALTIME, \&tnow);}
+\DoxyCodeLine{    tprev = tnow;}
+\DoxyCodeLine{    tstart = tnow;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keywordflow}{while}(\textcolor{keyword}{true})}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        clock\_gettime(CLOCK\_REALTIME, \&tnow);}
+\DoxyCodeLine{        \mbox{\hyperlink{group___realtime_ga95a1707406a0cb3f665a4ee529d066f5}{rr\_param\_cache\_update}}(servo);}
+\DoxyCodeLine{        \mbox{\hyperlink{group___realtime_ga4e21be75a34c6d2862e6d78e6add4c2a}{rr\_read\_cached\_parameter}}(servo, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276daa8dafaaa373617ef2f8585b3d4177115}{APP\_PARAM\_POSITION\_ROTOR}}, \&pos);}
+\DoxyCodeLine{        \mbox{\hyperlink{group___realtime_ga4e21be75a34c6d2862e6d78e6add4c2a}{rr\_read\_cached\_parameter}}(servo, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dad60719b243d4c9abd6c6c2566266fa52}{APP\_PARAM\_CURRENT\_PHASE}}, \&curr);}
+\DoxyCodeLine{        \mbox{\hyperlink{group___realtime_ga4e21be75a34c6d2862e6d78e6add4c2a}{rr\_read\_cached\_parameter}}(servo, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dade3db1d484cf6dd69b115e37ab77051b}{APP\_PARAM\_VELOCITY\_ROTOR}}, \&vel);}
+\DoxyCodeLine{}
+\DoxyCodeLine{        fprintf(f, \textcolor{stringliteral}{"{}\%"{}} PRId64 \textcolor{stringliteral}{"{}, \%f, \%f, \%f\(\backslash\)n"{}}, calcdiff(tnow, tprev), pos, curr, vel);}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keywordflow}{if}(calcdiff(tnow, tstart) >= 60000000)}
+\DoxyCodeLine{        \{}
+\DoxyCodeLine{            \textcolor{keywordflow}{break};}
+\DoxyCodeLine{        \}   }
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    fclose(f);}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{group___motion_ga6e7fd0a86c918fd05c5d5351f4998b01}{rr\_release}}(servo);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyEnumerate}

@@ -1,0 +1,126 @@
+\hypertarget{group__tutor__c__read__motion__queue}{}\doxysection{Reading motion queue parameters}
+\label{group__tutor__c__read__motion__queue}\index{Reading motion queue parameters@{Reading motion queue parameters}}
+This tutorial describes how to determine the actual size of a motion queue. In this example, we will read the number of free and occupied PVT points in a motion queue before and after adding PVT (position-\/velocity-\/time) points to the motion queue. {\bfseries{Note\+:}} Currently, the maximum motion queue size is 100 PVT.
+
+
+\begin{DoxyEnumerate}
+\item Initialize the interface. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__can__interface__t}{rr\_can\_interface\_t}} *iface = \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\_init\_interface}}(argv[1]);}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!iface)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Interface init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+
+\item Initialize the servo. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__servo__t}{rr\_servo\_t}} *servo = \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\_init\_servo}}(iface, \textcolor{keywordtype}{id});}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!servo)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Servo init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCodeInclude}
+
+\item Clear the motion queue of the servo. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group___trajectory_ga7b5be2d97da325eefde671c2e65e8055}{rr\_clear\_points\_all}}(servo);}
+
+\end{DoxyCodeInclude}
+ {\bfseries{ Reading the initial motion queue size}}
+\item Create a variable where the function will save the motion queue size values (free and occupied PVT points). 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    uint32\_t num;}
+
+\end{DoxyCodeInclude}
+
+\item Read how many PVT points have been already added to the motion queue. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group___trajectory_ga1a62e45140604aa19ceab615536e787c}{rr\_get\_points\_size}}(servo, \&num);}
+
+\end{DoxyCodeInclude}
+
+\item Read how many more PVT points can be added to the motion queue. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group___trajectory_ga801e9d1c29dbf5898b04cb400a8b2cad}{rr\_get\_points\_free\_space}}(servo, \&num);}
+
+\end{DoxyCodeInclude}
+ {\bfseries{ Reading the motion queue size after adding new PVT points to the motion queue}}
+\item Add PVT point 1 to the motion queue, setting the time parameter to 10000000 ms. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group___trajectory_gacf26f2966a4f2035a128e1fcecd08f58}{rr\_add\_motion\_point}}(servo, pos, 0.0, 100);}
+
+\end{DoxyCodeInclude}
+
+\item Add PVT point 2 to the motion queue, setting the time parameter to 10000000 ms. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group___trajectory_gacf26f2966a4f2035a128e1fcecd08f58}{rr\_add\_motion\_point}}(servo, pos, 0.0, 100);}
+
+\end{DoxyCodeInclude}
+
+\item Read how many PVT points are already in the motion queue. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group___trajectory_ga1a62e45140604aa19ceab615536e787c}{rr\_get\_points\_size}}(servo, \&num);}
+
+\end{DoxyCodeInclude}
+
+\item Read how many more PVT points can be added to the motion queue. 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{group___trajectory_ga801e9d1c29dbf5898b04cb400a8b2cad}{rr\_get\_points\_free\_space}}(servo, \&num);}
+
+\end{DoxyCodeInclude}
+ {\bfseries{ Complete tutorial code\+: }} 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__can__interface__t}{rr\_can\_interface\_t}} *iface = \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\_init\_interface}}(argv[1]);}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!iface)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Interface init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    \mbox{\hyperlink{structrr__servo__t}{rr\_servo\_t}} *servo = \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\_init\_servo}}(iface, \textcolor{keywordtype}{id});}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(!servo)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Servo init error\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(\mbox{\hyperlink{group___state_ga0b1d17a317892471c6df1440e92da9d8}{rr\_servo\_set\_state\_operational}}(servo) != \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdca4894234446e2d92068943b3d6d3a0bdc}{RET\_OK}})}
+\DoxyCodeLine{    \{   }
+\DoxyCodeLine{        \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Can't put servo to operational mode\(\backslash\)n"{}});                                                                        }
+\DoxyCodeLine{        exit(1);                                                                                                                   }
+\DoxyCodeLine{    \}   }
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}========== Tutorial of the \%s ==========\(\backslash\)n"{}}, \textcolor{stringliteral}{"{}reading motion queue parameters"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Clearing points\(\backslash\)n"{}});}
+\DoxyCodeLine{    \mbox{\hyperlink{group___trajectory_ga7b5be2d97da325eefde671c2e65e8055}{rr\_clear\_points\_all}}(servo);}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{    uint32\_t num;}
+\DoxyCodeLine{    \mbox{\hyperlink{group___trajectory_ga1a62e45140604aa19ceab615536e787c}{rr\_get\_points\_size}}(servo, \&num);}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}\(\backslash\)tPoints in the queue before: \%d\(\backslash\)n"{}}, num);}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{group___trajectory_ga801e9d1c29dbf5898b04cb400a8b2cad}{rr\_get\_points\_free\_space}}(servo, \&num);}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}\(\backslash\)tPoints queue free size before: \%d\(\backslash\)n"{}}, num);}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}Appending points\(\backslash\)n"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keywordtype}{float} pos;}
+\DoxyCodeLine{    \mbox{\hyperlink{group___realtime_ga4e21e268034d9564da77bc23004fc56c}{rr\_read\_parameter}}(servo, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dab079617b03cb882ecb48c06ae6603363}{APP\_PARAM\_POSITION}}, \&pos);}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{group___trajectory_gacf26f2966a4f2035a128e1fcecd08f58}{rr\_add\_motion\_point}}(servo, pos, 0.0, 100);}
+\DoxyCodeLine{    \mbox{\hyperlink{group___trajectory_gacf26f2966a4f2035a128e1fcecd08f58}{rr\_add\_motion\_point}}(servo, pos, 0.0, 100);}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{group___trajectory_ga1a62e45140604aa19ceab615536e787c}{rr\_get\_points\_size}}(servo, \&num);}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}\(\backslash\)tPoints in the queue after: \%d\(\backslash\)n"{}}, num);}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \mbox{\hyperlink{group___trajectory_ga801e9d1c29dbf5898b04cb400a8b2cad}{rr\_get\_points\_free\_space}}(servo, \&num);}
+\DoxyCodeLine{    \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\_DEBUG}}(\textcolor{stringliteral}{"{}\(\backslash\)tPoints queue free size after: \%d\(\backslash\)n"{}}, num);}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyEnumerate}

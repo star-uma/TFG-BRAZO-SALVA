@@ -1,0 +1,917 @@
+\hypertarget{api_8h}{}\doxysection{include/api.h File Reference}
+\label{api_8h}\index{include/api.h@{include/api.h}}
+
+
+Rozum Robotics API Header File.  
+
+
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structparam__cache__entry__t}{param\+\_\+cache\+\_\+entry\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Device information source instance. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structemcy__log__entry__t}{emcy\+\_\+log\+\_\+entry\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Emergency (EMCY) log entry structure. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Device instance structure. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Interface instance structure. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{api_8h_a0e4aafa2ca9bd25219713176906b7c40}\label{api_8h_a0e4aafa2ca9bd25219713176906b7c40}} 
+\#define \mbox{\hyperlink{api_8h_a0e4aafa2ca9bd25219713176906b7c40}{API\+\_\+\+DEBUG}}(...)~fprintf(stderr, \+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Standard debug. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{api_8h_adc312160e19d38d99e82afe91cbcdfe5}\label{api_8h_adc312160e19d38d99e82afe91cbcdfe5}} 
+\#define \mbox{\hyperlink{api_8h_adc312160e19d38d99e82afe91cbcdfe5}{STRFY}}(x)~\#x
+\begin{DoxyCompactList}\small\item\em Make a string from the variable. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{api_8h_a7f5d68796972c5216e074d3f276679f5}\label{api_8h_a7f5d68796972c5216e074d3f276679f5}} 
+\#define \mbox{\hyperlink{api_8h_a7f5d68796972c5216e074d3f276679f5}{ARRAY\+\_\+\+ERROR\+\_\+\+BITS\+\_\+\+SIZE}}~(64)
+\begin{DoxyCompactList}\small\item\em Default size of the error bits array. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{api_8h_a1c4c48ab8e0809f703d4272b1443d3f8}\label{api_8h_a1c4c48ab8e0809f703d4272b1443d3f8}} 
+\#define \mbox{\hyperlink{api_8h_a1c4c48ab8e0809f703d4272b1443d3f8}{EMCY\+\_\+\+LOG\+\_\+\+DEPTH}}~1024
+\begin{DoxyCompactList}\small\item\em Size of the emergency (EMCY) log entry. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{api_8h_ad4e46fb36fa8b433b71490d55395177f}\label{api_8h_ad4e46fb36fa8b433b71490d55395177f}} 
+\#define \mbox{\hyperlink{api_8h_ad4e46fb36fa8b433b71490d55395177f}{MAX\+\_\+\+CO\+\_\+\+DEV}}~128
+\begin{DoxyCompactList}\small\item\em Maximal number of Can\+Open devices on bus. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{api_8h_ad1d4a1b1adfefd8145d70bb1254cbe01}\label{api_8h_ad1d4a1b1adfefd8145d70bb1254cbe01}} 
+\#define \mbox{\hyperlink{api_8h_ad1d4a1b1adfefd8145d70bb1254cbe01}{RR\+\_\+\+TIMESTAMP\+\_\+\+INVALID}}~0xffffffffu
+\begin{DoxyCompactList}\small\item\em Invalid timestamp value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef void($\ast$ \mbox{\hyperlink{api_8h_a9307c0f6ed316d6a3384f6e401c529ec}{rr\+\_\+nmt\+\_\+cb\+\_\+t}}) (\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface, int servo\+\_\+id, \mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29}{rr\+\_\+nmt\+\_\+state\+\_\+t}} nmt\+\_\+state)
+\begin{DoxyCompactList}\small\item\em Type of the intiated network management (NMT) callback~\newline
+ \end{DoxyCompactList}\item 
+typedef void($\ast$ \mbox{\hyperlink{api_8h_aee5ef69e1f68701368c5844dd42e7662}{rr\+\_\+com\+\_\+frame\+\_\+cb\+\_\+t}}) (\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface, int cob\+\_\+id, int dlc, uint8\+\_\+t $\ast$data)
+\begin{DoxyCompactList}\small\item\em Type of the CAN frame callback~\newline
+ \end{DoxyCompactList}\item 
+typedef void($\ast$ \mbox{\hyperlink{api_8h_afed2b59273b0911110c06078ff8df3cc}{rr\+\_\+pdo\+\_\+cb\+\_\+t}}) (\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface, int id, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} pdo\+\_\+n, int len, uint8\+\_\+t $\ast$data)
+\begin{DoxyCompactList}\small\item\em Type of the PDO callback~\newline
+ \end{DoxyCompactList}\item 
+typedef void($\ast$ \mbox{\hyperlink{api_8h_ad484da513fb7b765b646ba031b2191e0}{rr\+\_\+emcy\+\_\+cb\+\_\+t}}) (\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface, int servo\+\_\+id, uint16\+\_\+t code, uint8\+\_\+t reg, uint8\+\_\+t bits, uint32\+\_\+t info)
+\begin{DoxyCompactList}\small\item\em Type of the intiated emergency (EMCY) callback~\newline
+ \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \{ \newline
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdca4894234446e2d92068943b3d6d3a0bdc}{RET\+\_\+\+OK}} = 0
+, \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdcae8ed27c1aabd77d519426a8ad340d76c}{RET\+\_\+\+ERROR}}
+, \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdcada2fa397afd6b90ecb1c5b9ca3a2d0ee}{RET\+\_\+\+BAD\+\_\+\+INSTANCE}}
+, \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdcacdd796ae2972988d689257753a05b9dd}{RET\+\_\+\+BUSY}}
+, \newline
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdcadf1d978b055d00c4036019387acfc60c}{RET\+\_\+\+WRONG\+\_\+\+TRAJ}}
+, \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdca2840a6ac495b0fe4b9e8565d9f76e29a}{RET\+\_\+\+LOCKED}}
+, \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdcad456500c4074aeffb3e5e132bf7d996c}{RET\+\_\+\+STOPPED}}
+, \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdcadf2eed18ed159c7517505568b0f261dd}{RET\+\_\+\+TIMEOUT}}
+, \newline
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdcac2c7bf0285c804ae03c6628659ce366e}{RET\+\_\+\+ZERO\+\_\+\+SIZE}}
+, \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdca639f91af3521a375df0778f9cd60d60b}{RET\+\_\+\+SIZE\+\_\+\+MISMATCH}}
+, \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdca6368c40539ccc8fe56a2b433d13370dc}{RET\+\_\+\+WRONG\+\_\+\+ARG}}
+ \}
+\begin{DoxyCompactList}\small\item\em Return codes of the API functions. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{api_8h_a9fe822390fab83439a3f1a28ac31f356}\label{api_8h_a9fe822390fab83439a3f1a28ac31f356}} 
+enum \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} \{ \newline
+{\bfseries RPDO0} = 0
+, {\bfseries RPDO1} = 1
+, {\bfseries RPDO2} = 2
+, {\bfseries RPDO3} = 3
+, \newline
+{\bfseries TPDO0} = 4
+, {\bfseries TPDO1} = 5
+, {\bfseries TPDO2} = 6
+, {\bfseries TPDO3} = 7
+ \}
+\begin{DoxyCompactList}\small\item\em defines pdo numbers \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276d}{rr\+\_\+servo\+\_\+param\+\_\+t}} \{ \newline
+\mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276daf92693e0b44950ce14a0e4c467ca9d08}{APP\+\_\+\+PARAM\+\_\+\+NULL}} = 0
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dab079617b03cb882ecb48c06ae6603363}{APP\+\_\+\+PARAM\+\_\+\+POSITION}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da7c7eb311e57837875791d5e58982661c}{APP\+\_\+\+PARAM\+\_\+\+VELOCITY}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276daa8dafaaa373617ef2f8585b3d4177115}{APP\+\_\+\+PARAM\+\_\+\+POSITION\+\_\+\+ROTOR}}
+, \newline
+\mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dade3db1d484cf6dd69b115e37ab77051b}{APP\+\_\+\+PARAM\+\_\+\+VELOCITY\+\_\+\+ROTOR}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dab8e557b8564d2bf579cc199b343644f2}{APP\+\_\+\+PARAM\+\_\+\+POSITION\+\_\+\+GEAR\+\_\+360}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da27cb6c1302d1ed7545ee8c8ee020b9c1}{APP\+\_\+\+PARAM\+\_\+\+POSITION\+\_\+\+GEAR\+\_\+\+EMULATED}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dafb1be8c565208f94596b980788ac52fe}{APP\+\_\+\+PARAM\+\_\+\+CURRENT\+\_\+\+INPUT}}
+, \newline
+\mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dae8c5d203df5baa3a329b89e4e3c05e31}{APP\+\_\+\+PARAM\+\_\+\+CURRENT\+\_\+\+OUTPUT}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da78bc54701f1fe1ce6b90b70bbfa62483}{APP\+\_\+\+PARAM\+\_\+\+VOLTAGE\+\_\+\+INPUT}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da09d81b3e2fccfa745188ab46c8dd7263}{APP\+\_\+\+PARAM\+\_\+\+VOLTAGE\+\_\+\+OUTPUT}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dad60719b243d4c9abd6c6c2566266fa52}{APP\+\_\+\+PARAM\+\_\+\+CURRENT\+\_\+\+PHASE}}
+, \newline
+\mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da1a3c86ed7fe187d364809094d3c1dc3a}{APP\+\_\+\+PARAM\+\_\+\+TEMPERATURE\+\_\+\+ACTUATOR}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da48d8972dac6ee7ea647431a83dd88143}{APP\+\_\+\+PARAM\+\_\+\+TEMPERATURE\+\_\+\+ELECTRONICS}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da5bc9d6003879b42f41d8db8ee443afbf}{APP\+\_\+\+PARAM\+\_\+\+TORQUE}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dae433fe695af5d074e34503e78802e79c}{APP\+\_\+\+PARAM\+\_\+\+ACCELERATION}}
+, \newline
+\mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da6f9d3e5a018689702d2f070888af6882}{APP\+\_\+\+PARAM\+\_\+\+ACCELERATION\+\_\+\+ROTOR}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dae2db7f59e354f0adf411ebc097be9615}{APP\+\_\+\+PARAM\+\_\+\+CURRENT\+\_\+\+PHASE\+\_\+1}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276daecd1a50b950e607328843d7ab44ef37b}{APP\+\_\+\+PARAM\+\_\+\+CURRENT\+\_\+\+PHASE\+\_\+2}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276daf52784c6a104216ecddc02d08edca79b}{APP\+\_\+\+PARAM\+\_\+\+CURRENT\+\_\+\+PHASE\+\_\+3}}
+, \newline
+\mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da2612f6ba14c9dd0ad30ac7d67c3a9707}{APP\+\_\+\+PARAM\+\_\+\+CURRENT\+\_\+\+RAW}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276daa28d107cc1bfbff653eee6bc0abc9df1}{APP\+\_\+\+PARAM\+\_\+\+CURRENT\+\_\+\+RAW\+\_\+2}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da44c5166f84bc671786688186ca4f34d0}{APP\+\_\+\+PARAM\+\_\+\+CURRENT\+\_\+\+RAW\+\_\+3}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da882f43f6b3595fe0a321f208a41d726e}{APP\+\_\+\+PARAM\+\_\+\+ENCODER\+\_\+\+MASTER\+\_\+\+TRACK}}
+, \newline
+\mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da3facac23b091243602b47fd2576b2823}{APP\+\_\+\+PARAM\+\_\+\+ENCODER\+\_\+\+NONIUS\+\_\+\+TRACK}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da9abecc57566475fa5d0a47a30d3eb7b7}{APP\+\_\+\+PARAM\+\_\+\+ENCODER\+\_\+\+MOTOR\+\_\+\+MASTER\+\_\+\+TRACK}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dad2803d24470187ed238ad95997bfe9be}{APP\+\_\+\+PARAM\+\_\+\+ENCODER\+\_\+\+MOTOR\+\_\+\+NONIUS\+\_\+\+TRACK}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da354f3004c944556f129c2b590b80c629}{APP\+\_\+\+PARAM\+\_\+\+TORQUE\+\_\+\+ELECTRIC\+\_\+\+CALC}}
+, \newline
+\mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dae48e6cfbaff81ae1166e684b004f868d}{APP\+\_\+\+PARAM\+\_\+\+CONTROLLER\+\_\+\+VELOCITY\+\_\+\+ERROR}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da91fd08d4408a3251703cef5153b6006e}{APP\+\_\+\+PARAM\+\_\+\+CONTROLLER\+\_\+\+VELOCITY\+\_\+\+SETPOINT}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da0434a3f113392ee4eefc32a78c61b52b}{APP\+\_\+\+PARAM\+\_\+\+CONTROLLER\+\_\+\+VELOCITY\+\_\+\+FEEDBACK}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da8b6cbe796f36ba0e86a09a21c04c65f5}{APP\+\_\+\+PARAM\+\_\+\+CONTROLLER\+\_\+\+VELOCITY\+\_\+\+OUTPUT}}
+, \newline
+\mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da56a3f7c3f40262a8e771a19ecda28336}{APP\+\_\+\+PARAM\+\_\+\+CONTROLLER\+\_\+\+POSITION\+\_\+\+ERROR}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da25c849d6776790828eec0884f4e1a4ec}{APP\+\_\+\+PARAM\+\_\+\+CONTROLLER\+\_\+\+POSITION\+\_\+\+SETPOINT}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da3020332205840419d9e853fc91a77150}{APP\+\_\+\+PARAM\+\_\+\+CONTROLLER\+\_\+\+POSITION\+\_\+\+FEEDBACK}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da499b7b92c7d38ca32bfad3f774b69bf2}{APP\+\_\+\+PARAM\+\_\+\+CONTROLLER\+\_\+\+POSITION\+\_\+\+OUTPUT}}
+, \newline
+\mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da486101d3961797df2f71d944e09806fc}{APP\+\_\+\+PARAM\+\_\+\+CONTROL\+\_\+\+MODE}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da5d39d5f2d4ec671512f0fb2c3d909cb7}{APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+ANGLE}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dadb088007a4cbbb03059abe3fe7146dd1}{APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+IA}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dad467e8050746e3ee7c4ec2feacc3bd3c}{APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+IB}}
+, \newline
+\mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da01758ca2594861bbda0763f325ca3aca}{APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+IQ\+\_\+\+SET}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da6f42d9552fbac9730024cca43523a242}{APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+ID\+\_\+\+SET}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da73f70b69632299140d13b5c478adc7b4}{APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+IQ}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da319baaf4a82176f75f0a8f8cc087a5d7}{APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+ID}}
+, \newline
+\mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dacdba14f6f1bc732d0ccae9bc815e0bd2}{APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+IQ\+\_\+\+ERROR}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da86ce5142afb8969bc5bc47e4c081d5e3}{APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+ID\+\_\+\+ERROR}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da9fbb32722da1e00d15978c4c7d2e79c2}{APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+UQ}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da6061e4dd81c828196553b88062a62ada}{APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+UD}}
+, \newline
+\mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da7afcc32cc4c18e09d72a7169a9492566}{APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+UA}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da8927f0ebd1b6eb9b4797d2eec7802c01}{APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+UB}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da8711d53dcfb19db3d2433e684196ec12}{APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+U1}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276daaacd65258dd57131fca177ce77e87f90}{APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+U2}}
+, \newline
+\mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da3f34364027e0a438200ae65f5240a977}{APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+U3}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da50b57287acfbd01ee1cc9f81cc5bbae8}{APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+PWM1}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276dae00c758b5a840d5cd3721b24786f6e74}{APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+PWM2}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da1cfe88d23e154013d53d5f9b436441da}{APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+PWM3}}
+, \newline
+\mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276daeac24550704ad65662feab7eff3efb56}{APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+TIMER\+\_\+\+TOP}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da8afb9b113dd0f0716c427764558eb4ba}{APP\+\_\+\+PARAM\+\_\+\+DUTY}}
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276da66c0499537bfd0f2ee1cf870c7448a6a}{APP\+\_\+\+PARAM\+\_\+\+BRAKE\+\_\+\+TEMPERATURE}} = 75
+, \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276daf913094f39a1622c91c85b522ccd4b0e}{APP\+\_\+\+PARAM\+\_\+\+SIZE}} = 80
+ \}
+\begin{DoxyCompactList}\small\item\em Device parameter and source indices. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29}{rr\+\_\+nmt\+\_\+state\+\_\+t}} \{ \newline
+\mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29ac2550cce228ff5512ea417e2b035b665}{RR\+\_\+\+NMT\+\_\+\+INITIALIZING}} = 0
+, \mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29a4b2cf9b28688f7985afff0c25a7da61b}{RR\+\_\+\+NMT\+\_\+\+BOOT}} = 2
+, \mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29ace8deaf0d4ce3230fb48c15de516e474}{RR\+\_\+\+NMT\+\_\+\+PRE\+\_\+\+OPERATIONAL}} = 127
+, \mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29a57e41d0fd4f218c20acc57061b28f52d}{RR\+\_\+\+NMT\+\_\+\+OPERATIONAL}} = 5
+, \newline
+\mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29a0b3bd632c9abf67a54795f902b0cb2f8}{RR\+\_\+\+NMT\+\_\+\+STOPPED}} = 4
+, \mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29af745eff49927034f66cbd67835b2fd26}{RR\+\_\+\+NMT\+\_\+\+HB\+\_\+\+TIMEOUT}} = -\/1
+ \}
+\begin{DoxyCompactList}\small\item\em Network management (NMT) states. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group___aux_gaeb26028b83635e028ebc901e1cbf33a1}{rr\+\_\+sleep\+\_\+ms}} (int ms)
+\begin{DoxyCompactList}\small\item\em The function sets an idle period for the user program (e.\+g., to wait till a servo executes a motion trajectory). Until the period expires, the user program will not execute any further operations. However, the network management, CAN communication, emergency, and Heartbeat functions remain available. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___aux_gaa57ed02a9338e34b3f4d78475bd7d295}{rr\+\_\+write\+\_\+raw\+\_\+sdo}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, uint16\+\_\+t idx, uint8\+\_\+t sidx, uint8\+\_\+t $\ast$data, int sz, int retry, int tout)
+\begin{DoxyCompactList}\small\item\em The function sends an arbitrary SDO write request to the specified servo. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___aux_gaf817b6d93977f93c8274c7cf40d0d568}{rr\+\_\+read\+\_\+raw\+\_\+sdo}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, uint16\+\_\+t idx, uint8\+\_\+t sidx, uint8\+\_\+t $\ast$data, int $\ast$sz, int retry, int tout)
+\begin{DoxyCompactList}\small\item\em The function sends an arbitrary SDO read request to the specified servo. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___dbg_ga74cb6dc4d15701eaf5c6fd84b1325fc9}{rr\+\_\+set\+\_\+debug\+\_\+log\+\_\+stream}} (FILE $\ast$f)
+\begin{DoxyCompactList}\small\item\em The function sets a stream for saving the debugging messages generated by the API library. Subsequently, the user can look through the logs to identify and locate the events associated with certain problems. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___dbg_ga173ee566260b1a2ea3a9aaa4eb47062c}{rr\+\_\+set\+\_\+comm\+\_\+log\+\_\+stream}} (const \mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface, FILE $\ast$f)
+\begin{DoxyCompactList}\small\item\em The function sets a stream for saving CAN communication dump from the specified interface. Subsequently, the user can look through the logs saved to the stream to identify causes of CAN communication failures. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___state_gabf949d14432900a87c6bd1ac9c602d2e}{rr\+\_\+setup\+\_\+nmt\+\_\+callback}} (\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface, \mbox{\hyperlink{api_8h_a9307c0f6ed316d6a3384f6e401c529ec}{rr\+\_\+nmt\+\_\+cb\+\_\+t}} cb)
+\begin{DoxyCompactList}\small\item\em The function sets a user callback to be intiated in connection with with changes of network management (NMT) states (e.\+g., a servo connected to/ disconnected from the CAN bus, the interface/ a servo going to the operational state, etc.). User callbacks are functions to execute specific user-\/defined operations, e.\+g., to display a warning about an NMT state change or stop the program. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___aux_gae984912ec497e2b203f1cf2b3f51d741}{rr\+\_\+setup\+\_\+com\+\_\+frame\+\_\+callback}} (\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface, \mbox{\hyperlink{api_8h_aee5ef69e1f68701368c5844dd42e7662}{rr\+\_\+com\+\_\+frame\+\_\+cb\+\_\+t}} cb)
+\begin{DoxyCompactList}\small\item\em The function sets a user callback for incoming CAN frames. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___cyclic_ga0b456965f5202dbc1c45c26ff53ef958}{rr\+\_\+setup\+\_\+pdo\+\_\+callback}} (\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface, \mbox{\hyperlink{api_8h_afed2b59273b0911110c06078ff8df3cc}{rr\+\_\+pdo\+\_\+cb\+\_\+t}} cb)
+\begin{DoxyCompactList}\small\item\em This function sets a user callback for incoming PDOs. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___aux_gabb168d0d8dd55cc8098c7e318309336d}{rr\+\_\+send\+\_\+com\+\_\+frame}} (const \mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface, uint32\+\_\+t cob\+\_\+id, int dlc, uint8\+\_\+t $\ast$data)
+\begin{DoxyCompactList}\small\item\em This function sends arbitrary CAN frame. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_ga2c1e35b13074caef157fa222ab74cf27}{rr\+\_\+send\+\_\+pdo}} (const \mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface, int id, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} pdo\+\_\+n, int len, uint8\+\_\+t $\ast$data)
+\begin{DoxyCompactList}\small\item\em This function sends specified PDO with specified data and length. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_gad47a606e483eddcf2d37511a24b3ed36}{rr\+\_\+send\+\_\+pdo\+\_\+sync}} (const \mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface)
+\begin{DoxyCompactList}\small\item\em This function sends SYNC frame. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_gaa8e93000fedcca37088b83778c7550d8}{rr\+\_\+pdo\+\_\+disable}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$s, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} n)
+\begin{DoxyCompactList}\small\item\em This function disables specified PDO (it can\textquotesingle{}t be transmitted or received while disabled). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_gaf730241776dea55c70d97afd2386bf46}{rr\+\_\+pdo\+\_\+enable}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$s, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} n)
+\begin{DoxyCompactList}\small\item\em This function enables specified PDO. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_gab6b448cb966170fecd80794043f28dce}{rr\+\_\+pdo\+\_\+set\+\_\+map\+\_\+count}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$s, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} n, uint8\+\_\+t cnt)
+\begin{DoxyCompactList}\small\item\em This function sets the number of objects mapped to specified PDO. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_ga37cd48aeb1d5c84ffdf61579c1039b13}{rr\+\_\+pdo\+\_\+get\+\_\+map\+\_\+count}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$s, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} n, uint8\+\_\+t $\ast$cnt)
+\begin{DoxyCompactList}\small\item\em This function retrieves the number of objects mapped to specified PDO. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_ga58a22a0f79b5e8e05c3a8bcaf72ca7ad}{rr\+\_\+pdo\+\_\+clear\+\_\+map}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$s, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} n)
+\begin{DoxyCompactList}\small\item\em This function clears entire mapping of specified PDO. After that new mapping can be built. Technically this is the same as disabling PDO and setting map objects count to zero. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_gabea549394908872907e51dd8fc008a5c}{rr\+\_\+pdo\+\_\+write\+\_\+map}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$s, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} n, uint8\+\_\+t map\+\_\+entry, uint32\+\_\+t map\+\_\+value)
+\begin{DoxyCompactList}\small\item\em This function writes map data to specified PDO into specified entry. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_gaf29edcbfe45835fcf6e05a7ad5e9a565}{rr\+\_\+pdo\+\_\+read\+\_\+map}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$s, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} n, uint8\+\_\+t map\+\_\+entry, uint32\+\_\+t $\ast$map\+\_\+value)
+\begin{DoxyCompactList}\small\item\em This function reads map data from specified PDO of specified entry. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_ga87c3899ec3e471ac79c63202be8823eb}{rr\+\_\+pdo\+\_\+get\+\_\+byte\+\_\+len}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$s, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} n, int $\ast$len)
+\begin{DoxyCompactList}\small\item\em This function calculates the actual cumulative length of objects mapped to specified PDO in bytes. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_ga9a7b9529f28118033a31ccc7e30d43df}{rr\+\_\+pdo\+\_\+add\+\_\+map}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$s, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} n, uint16\+\_\+t idx, uint8\+\_\+t sidx, uint8\+\_\+t bit\+\_\+len)
+\begin{DoxyCompactList}\small\item\em This function appends a specified object to the list of mapped objects of specified PDO. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_ga2710ebbfb4b18f29edd96c54135b370a}{rr\+\_\+pdo\+\_\+set\+\_\+trans\+\_\+type\+\_\+sync}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$s, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} n, uint8\+\_\+t type)
+\begin{DoxyCompactList}\small\item\em This function sets PDO transmittion type to \textquotesingle{}synchronous\textquotesingle{} along with SYNC decimation factor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_ga641898960c45355ee4c011e570f3c7a2}{rr\+\_\+pdo\+\_\+set\+\_\+trans\+\_\+type\+\_\+async}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$s, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} n)
+\begin{DoxyCompactList}\small\item\em This function sets PDO transmittion type to \textquotesingle{}asynchronous\textquotesingle{}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_ga459379ac46bf1a901c891ec6c9709ec1}{rr\+\_\+pdo\+\_\+set\+\_\+cycle\+\_\+time}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$s, uint32\+\_\+t cycle\+\_\+time\+\_\+us)
+\begin{DoxyCompactList}\small\item\em This function sets nominal cycle time length in microseconds. This is the time the servo waits for the new SYNC frame to come in. If there are no SYNC frames in period of 1.\+5 times of nominal cycle time servo will go to PRE-\/\+OP state. An emergency frame will also be emitted during this transition. Setting cycle time to zero disables SYNC frame monitoring functionality. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___err_ga25e7fad4ae7c58d459e7ea25a4544798}{rr\+\_\+setup\+\_\+emcy\+\_\+callback}} (\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface, \mbox{\hyperlink{api_8h_ad484da513fb7b765b646ba031b2191e0}{rr\+\_\+emcy\+\_\+cb\+\_\+t}} cb)
+\begin{DoxyCompactList}\small\item\em The function sets a user callback to be intiated in connection with emergency (EMCY) events (e.\+g., overcurrent, power outage, etc.). User callbacks are functions to execute specific user-\/defined operations, e.\+g., to display a warning about an EMCY event or stop the program. \end{DoxyCompactList}\item 
+const char $\ast$ \mbox{\hyperlink{group___state_ga91beec8d2ca8ea03583c21a285297861}{rr\+\_\+describe\+\_\+nmt}} (\mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29}{rr\+\_\+nmt\+\_\+state\+\_\+t}} state)
+\begin{DoxyCompactList}\small\item\em The function returns a string describing the NMT state code specified in the \textquotesingle{}state\textquotesingle{} parameter. You can also use the function with \mbox{\hyperlink{group___state_gabf949d14432900a87c6bd1ac9c602d2e}{rr\+\_\+setup\+\_\+nmt\+\_\+callback}}, setting the callback to display a detailed message describing an NMT event. \end{DoxyCompactList}\item 
+const char $\ast$ \mbox{\hyperlink{group___err_ga2a5b7ff5f0e37ae3a856757cff7ced4f}{rr\+\_\+describe\+\_\+emcy\+\_\+code}} (uint16\+\_\+t code)
+\begin{DoxyCompactList}\small\item\em The function returns a string descibing a specific EMCY event based on the error code in the \textquotesingle{}code\textquotesingle{} parameter. The description in the string is a generic type of the occured emergency event (e.\+g., \char`\"{}\+Temperature\char`\"{}). For a more detailed description, use the function together with the \mbox{\hyperlink{group___err_gaa949cec80a64afa06ed9816fe1132888}{rr\+\_\+describe\+\_\+emcy\+\_\+bit}} one. \end{DoxyCompactList}\item 
+const char $\ast$ \mbox{\hyperlink{group___err_gaa949cec80a64afa06ed9816fe1132888}{rr\+\_\+describe\+\_\+emcy\+\_\+bit}} (uint8\+\_\+t bit)
+\begin{DoxyCompactList}\small\item\em The function returns a string describing in detail a specific EMCY event based on the code in the \textquotesingle{}bit\textquotesingle{} parameter (e.\+g., \char`\"{}\+CAN bus warning limit reached\char`\"{}). The function can be used in combination with \mbox{\hyperlink{group___err_ga2a5b7ff5f0e37ae3a856757cff7ced4f}{rr\+\_\+describe\+\_\+emcy\+\_\+code}}. The latter provides a more generic description of an EMCY event. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group___err_ga022d05abbd9e8333481e862419c0be3d}{rr\+\_\+emcy\+\_\+log\+\_\+get\+\_\+size}} (\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface)
+\begin{DoxyCompactList}\small\item\em The function returns the total count of entries in the EMCY logging buffer. Each entry in the buffer contains an EMCY event that have occurred up to the moment on the servo specified in the descriptor. {\bfseries{Note\+:}}When the API library is disabled, no new entries are made in the buffer, irrespective of whether or not any events occur on the servo. ~\newline
+The function is used in combination with the \mbox{\hyperlink{group___err_ga8ea7aedec0dcdfa50dd434f92f3a7f30}{rr\+\_\+emcy\+\_\+log\+\_\+pop}} and \mbox{\hyperlink{group___err_ga0d8aeebd3efa2307024a1a0fe04330b2}{rr\+\_\+emcy\+\_\+log\+\_\+clear}} functions. The typical sequence is as follows\+: \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structemcy__log__entry__t}{emcy\+\_\+log\+\_\+entry\+\_\+t}} $\ast$ \mbox{\hyperlink{group___err_ga8ea7aedec0dcdfa50dd434f92f3a7f30}{rr\+\_\+emcy\+\_\+log\+\_\+pop}} (\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface)
+\begin{DoxyCompactList}\small\item\em The function enables reading entries from the EMCY logging buffer. Reading the entries is according to the \char`\"{}first in-\/first out\char`\"{} principle. Once an EMCY entry is read, the function removes it permenantly from the EMCY logging buffer.~\newline
+ {\bfseries{Note\+:}}Typically, the rr\+\_\+emcy\+\_\+log\+\_\+pop function is used in combination with the \mbox{\hyperlink{group___err_ga022d05abbd9e8333481e862419c0be3d}{rr\+\_\+emcy\+\_\+log\+\_\+get\+\_\+size}} and \mbox{\hyperlink{group___err_ga0d8aeebd3efa2307024a1a0fe04330b2}{rr\+\_\+emcy\+\_\+log\+\_\+clear}} functions. For the sequence of using the functions, see \mbox{\hyperlink{group___err_ga022d05abbd9e8333481e862419c0be3d}{rr\+\_\+emcy\+\_\+log\+\_\+get\+\_\+size}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___err_ga0d8aeebd3efa2307024a1a0fe04330b2}{rr\+\_\+emcy\+\_\+log\+\_\+clear}} (\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface)
+\begin{DoxyCompactList}\small\item\em The function clears the EMCY logging buffer, removing the total of entries from it. It is advisable to use the clearing function in the beginning of a new work session and before applying the \mbox{\hyperlink{group___err_ga022d05abbd9e8333481e862419c0be3d}{rr\+\_\+emcy\+\_\+log\+\_\+get\+\_\+size}} and \mbox{\hyperlink{group___err_ga8ea7aedec0dcdfa50dd434f92f3a7f30}{rr\+\_\+emcy\+\_\+log\+\_\+pop}} functions. For the typical sequence of using the functions, see \mbox{\hyperlink{group___err_ga022d05abbd9e8333481e862419c0be3d}{rr\+\_\+emcy\+\_\+log\+\_\+get\+\_\+size}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$ \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\+\_\+init\+\_\+interface}} (const char $\ast$interface\+\_\+name)
+\begin{DoxyCompactList}\small\item\em The function is the first to call to be able to work with the user API. It opens the COM port where the corresponding CAN-\/\+USB dongle is connected, enabling communication between the user program and the servo motors on the respective CAN bus. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___init_ga21ce47691585633f65af366e8a89edad}{rr\+\_\+deinit\+\_\+interface}} (\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$$\ast$iface)
+\begin{DoxyCompactList}\small\item\em The function closes the COM port where the corresponding CAN-\/\+USB dongle is connected, clearing all data associated with the interface descriptor. It is advisable to call the function every time before quitting the user program. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$ \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} (\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface, const uint8\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em The function determines whether the servo motor with the specified ID is connected to the specified interface. It waits for 2 seconds to receive a Heartbeat message from the servo. When the message arrives within the interval, the servo is identified as successfully connected.~\newline
+ \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___init_gad0fe154cb7865534aa7a8582e5bc681c}{rr\+\_\+deinit\+\_\+servo}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$$\ast$servo)
+\begin{DoxyCompactList}\small\item\em The function deinitializes the servo, clearing all data associated with the servo descriptor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___state_ga269476ab8b2254dfdaceaa68a122eb65}{rr\+\_\+servo\+\_\+reboot}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo)
+\begin{DoxyCompactList}\small\item\em The function reboots the servo specified in the \textquotesingle{}servo\textquotesingle{} parameter of the function, resetting it to the power-\/on state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___state_gaaeff5568459ecc4f34a3944d5e137763}{rr\+\_\+servo\+\_\+reset\+\_\+communication}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo)
+\begin{DoxyCompactList}\small\item\em The function resets communication with the servo specified in the \textquotesingle{}servo\textquotesingle{} parameter without resetting the entire interface. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___state_ga0b1d17a317892471c6df1440e92da9d8}{rr\+\_\+servo\+\_\+set\+\_\+state\+\_\+operational}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo)
+\begin{DoxyCompactList}\small\item\em The function sets the servo specified in the \textquotesingle{}servo\textquotesingle{} parameter to the operational state. In the state, the servo is both available for communication and can execute commands. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___state_ga9d508f48c24ce931f129e7dc0502cc8f}{rr\+\_\+servo\+\_\+set\+\_\+state\+\_\+pre\+\_\+operational}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo)
+\begin{DoxyCompactList}\small\item\em The function sets the servo specified in the \textquotesingle{}servo\textquotesingle{} parameter to the pre-\/operational state. In the state, the servo is available for communication, but cannot execute any commands. ~\newline
+ \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___state_ga747d48ad8c922c8acfc5c807b6e2132d}{rr\+\_\+servo\+\_\+set\+\_\+state\+\_\+stopped}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo)
+\begin{DoxyCompactList}\small\item\em The function sets the servo specified in the \textquotesingle{}servo\textquotesingle{} parameter to the stopped state. In the state, only Heartbeats are available. You can neither communicate with the servo nor make it execute any commands. ~\newline
+ \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___state_ga1ff7a888f39947e12b8340f43761c072}{rr\+\_\+servo\+\_\+get\+\_\+state}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, \mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29}{rr\+\_\+nmt\+\_\+state\+\_\+t}} $\ast$state)
+\begin{DoxyCompactList}\small\item\em The function retrieves the actual NMT state of a specified servo. The state is described as a status code (\mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29}{rr\+\_\+nmt\+\_\+state\+\_\+t}}). ~\newline
+ \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___state_ga2c4434fc046e22181d1cc90ca38ec7cf}{rr\+\_\+servo\+\_\+get\+\_\+hb\+\_\+stat}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, int64\+\_\+t $\ast$min\+\_\+hb\+\_\+ival, int64\+\_\+t $\ast$max\+\_\+hb\+\_\+ival)
+\begin{DoxyCompactList}\small\item\em The function retrieves statistics on minimal and maximal intervals between Heartbeat messages of a servo. The statistics is saved to the variables specified in the param min\+\_\+hb\+\_\+ival and param max\+\_\+hb\+\_\+ival parameters, from where they are available for the user to perform further operations (e.\+g., comparison).~\newline
+ The Heartbeat statistics is helpful in diagnozing and troubleshooting servo failures. For instance, when the Heartbeat interval of a servo is too long, it may mean that the control device sees the servo as being offline.~\newline
+ {\bfseries{Note\+:}} Before using the function, it is advisable to clear Heartbeat statistics with \mbox{\hyperlink{group___state_ga434c557dbef525001f9e850599baa188}{rr\+\_\+servo\+\_\+clear\+\_\+hb\+\_\+stat}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___state_ga434c557dbef525001f9e850599baa188}{rr\+\_\+servo\+\_\+clear\+\_\+hb\+\_\+stat}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo)
+\begin{DoxyCompactList}\small\item\em The function clears statistics on minimal and maximal intervals between Heartbeat messages of a servo. It is advisable to use the function before attempting to get the Heartbeat statistics with the \mbox{\hyperlink{group___state_ga2c4434fc046e22181d1cc90ca38ec7cf}{rr\+\_\+servo\+\_\+get\+\_\+hb\+\_\+stat}} function. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___state_ga2588ee33a2aee67e636d9ba7b37ed860}{rr\+\_\+net\+\_\+reboot}} (const \mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface)
+\begin{DoxyCompactList}\small\item\em The function reboots all servos connected to the interface specified in the \textquotesingle{}interface\textquotesingle{} parameter, resetting them back to the power-\/on state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___state_ga283e0a5ebeee4431370081ed2fcd13d7}{rr\+\_\+net\+\_\+reset\+\_\+communication}} (const \mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface)
+\begin{DoxyCompactList}\small\item\em The function resets communication via the interface specified in the \textquotesingle{}interface\textquotesingle{} parameter. For instance, you may need to use the function when changing settings that require a reset after modification. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___state_ga26e6d7795e5245e8feb747ffa8634c71}{rr\+\_\+net\+\_\+set\+\_\+state\+\_\+operational}} (const \mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface)
+\begin{DoxyCompactList}\small\item\em The function sets all servos connected to the interface (CAN bus) specified in the \textquotesingle{}interface\textquotesingle{} parameter to the operational state. In the state, the servos can both communicate with the user program and execute commands. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___state_ga0bd6abfcc6afa931507fa23d50a6f73e}{rr\+\_\+net\+\_\+set\+\_\+state\+\_\+pre\+\_\+operational}} (const \mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface)
+\begin{DoxyCompactList}\small\item\em The function sets all servos connected to the interface specified in the \textquotesingle{}interface\textquotesingle{} parameter to the pre-\/operational state. ~\newline
+ In the state, the servos are available for communication, but cannot execute commands. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___state_gab8a370d2efd4bc1f2a63758f8d1e730a}{rr\+\_\+net\+\_\+set\+\_\+state\+\_\+stopped}} (const \mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface)
+\begin{DoxyCompactList}\small\item\em The function sets all servos connected to the interface specified in the \textquotesingle{}interface\textquotesingle{} parameter to the stopped state. ~\newline
+ In the state, the servos are neither available for communication nor can execute commands. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___state_ga86b9ac632a3f3f66f057f69a7c1d753e}{rr\+\_\+net\+\_\+get\+\_\+state}} (const \mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface, int id, \mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29}{rr\+\_\+nmt\+\_\+state\+\_\+t}} $\ast$state)
+\begin{DoxyCompactList}\small\item\em The function retrieves the actual NMT state of any device (a servo motor or any other) connected to the specified CAN network. The state is described as a status code (\+:: rr\+\_\+nmt\+\_\+state\+\_\+t). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___motion_ga6e7fd0a86c918fd05c5d5351f4998b01}{rr\+\_\+release}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo)
+\begin{DoxyCompactList}\small\item\em The function sets the specified servo to the released state. The servo is de-\/energized and continues rotating for as long as it is affected by external forces (e.\+g., inertia, gravity). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___motion_gae69ccc1f8747fdce7dd6837032de5714}{rr\+\_\+freeze}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo)
+\begin{DoxyCompactList}\small\item\em The function sets the specified servo to the freeze state. The servo stops, retaining its last position. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___motion_ga67284ebdeadb0b4a2e283e5ff37b8013}{rr\+\_\+brake\+\_\+engage}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const bool en)
+\begin{DoxyCompactList}\small\item\em The function applies or releases the servo\textquotesingle{}s built-\/in brake. If a servo is supplied without a brake, the function will not work. In this case, to stop a servo, use either the \mbox{\hyperlink{group___motion_gae69ccc1f8747fdce7dd6837032de5714}{rr\+\_\+freeze()}} or \mbox{\hyperlink{group___motion_ga6e7fd0a86c918fd05c5d5351f4998b01}{rr\+\_\+release()}} function. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___motion_ga1d963f00e544819350750fae4ba684dd}{rr\+\_\+set\+\_\+current}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const float current\+\_\+a)
+\begin{DoxyCompactList}\small\item\em The function sets the current supplied to the stator of the servo specified in the \textquotesingle{}servo\textquotesingle{} parameter. Changing the \textquotesingle{}current\+\_\+a parameter\textquotesingle{} value, it is possible to adjust the servo\textquotesingle{}s torque (Torque = stator current$\ast$\+Kt). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___motion_ga9842cddb12cb8da6ca65a4106ba78473}{rr\+\_\+set\+\_\+velocity}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const float velocity\+\_\+deg\+\_\+per\+\_\+sec)
+\begin{DoxyCompactList}\small\item\em The function sets the output shaft velocity with which the specified servo should move at its maximum current. The maximum current is in accordance with the servo motor specification. When you need to set a lower current limit, use the \mbox{\hyperlink{group___motion_ga95263ea708d42d21f94cddaa8a43286e}{rr\+\_\+set\+\_\+velocity\+\_\+with\+\_\+limits}} function. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___motion_ga1e7436f43eace662979f3a8fc9db5773}{rr\+\_\+set\+\_\+velocity\+\_\+motor}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const float velocity\+\_\+rpm)
+\begin{DoxyCompactList}\small\item\em The function sets the velocity with which the motor of the specified servo should move at its maximum current. The maximum current is in accordance with the servo motor specification. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___motion_ga60472dfd9b2feb9c1959ac534dac1c12}{rr\+\_\+set\+\_\+velocity\+\_\+rate}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const float velocity\+\_\+rate\+\_\+rpm\+\_\+per\+\_\+sec)
+\begin{DoxyCompactList}\small\item\em The function changes velocity rate limiter acceleration value,. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___motion_ga85e6e6a1f9256ff4bfb169f99762b1a4}{rr\+\_\+get\+\_\+velocity\+\_\+rate}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, float $\ast$const velocity\+\_\+rate\+\_\+rpm\+\_\+per\+\_\+sec)
+\begin{DoxyCompactList}\small\item\em The function reads velocity rate limiter acceleration value,. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___motion_gab7c78ac3d124f04010812a81c8b6ec09}{rr\+\_\+set\+\_\+position}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const float position\+\_\+deg)
+\begin{DoxyCompactList}\small\item\em The function sets the position that the specified servo should reach as a result of executing the command. The velocity and current are maximum values in accordance with the servo motor specifications. For setting lower velocity and current limits, use the \mbox{\hyperlink{group___motion_ga0242e01b5abae886866ff8d174e64575}{rr\+\_\+set\+\_\+position\+\_\+with\+\_\+limits}} function. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___motion_ga95263ea708d42d21f94cddaa8a43286e}{rr\+\_\+set\+\_\+velocity\+\_\+with\+\_\+limits}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const float velocity\+\_\+deg\+\_\+per\+\_\+sec, const float current\+\_\+a)
+\begin{DoxyCompactList}\small\item\em Function is deprecated!. Use \mbox{\hyperlink{group___motion_ga85e6e6a1f9256ff4bfb169f99762b1a4}{rr\+\_\+get\+\_\+velocity\+\_\+rate}} and \mbox{\hyperlink{group___motion_ga60472dfd9b2feb9c1959ac534dac1c12}{rr\+\_\+set\+\_\+velocity\+\_\+rate}} to get or set velocity rate limiter acceleration value. The function commands the specified servo to rotate at the specified velocity, while setting the maximum limit for the servo current (below the servo motor specifications). The velocity value is the velocity of the servo’s output shaft. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___motion_ga0242e01b5abae886866ff8d174e64575}{rr\+\_\+set\+\_\+position\+\_\+with\+\_\+limits}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const float position\+\_\+deg, const float velocity\+\_\+deg\+\_\+per\+\_\+sec, const float accel\+\_\+deg\+\_\+per\+\_\+sec\+\_\+sq, uint32\+\_\+t $\ast$time\+\_\+ms)
+\begin{DoxyCompactList}\small\item\em The function sets the position that the servo should reach with velocity and acceleration limits on generated trajectory. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___motion_ga271af72696dc3fb5ea8bc65fcb1f63d2}{rr\+\_\+set\+\_\+duty}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, float duty\+\_\+percent)
+\begin{DoxyCompactList}\small\item\em The function limits the input voltage supplied to the servo, enabling to adjust its motion velocity. For instance, when the input voltage is 20V, setting the duty\+\_\+percent parameter to 40\% will result in 8V supplied to the servo. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___trajectory_gacf26f2966a4f2035a128e1fcecd08f58}{rr\+\_\+add\+\_\+motion\+\_\+point}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const float position\+\_\+deg, const float velocity\+\_\+deg, const uint32\+\_\+t time\+\_\+ms)
+\begin{DoxyCompactList}\small\item\em The function enables creating PVT (position-\/velocity-\/time) points to set the motion trajectory of the servo specified in the \textquotesingle{}servo\textquotesingle{} parameter. PVT points define the following\+:~\newline
+ \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___trajectory_ga87e6fb37af644934fad2195a7d168ca2}{rr\+\_\+add\+\_\+motion\+\_\+point\+\_\+pvat}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const float position\+\_\+deg, const float velocity\+\_\+deg\+\_\+per\+\_\+sec, const float accel\+\_\+deg\+\_\+per\+\_\+sec2, const uint32\+\_\+t time\+\_\+ms)
+\begin{DoxyCompactList}\small\item\em The function enables creating PVAT (position-\/velocity-\/acceleration-\/time) points to set the motion trajectory of the servo specified in the \textquotesingle{}servo\textquotesingle{} parameter. PVAT points define the following\+:~\newline
+ \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___trajectory_ga639ef9f16dd649cbedfd65daca35ee18}{rr\+\_\+start\+\_\+motion}} (\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface, uint32\+\_\+t timestamp\+\_\+ms)
+\begin{DoxyCompactList}\small\item\em The function commands all servos connected to the specified interface (CAN bus) to move simultaneously through a number of preset PVT points (see \mbox{\hyperlink{group___trajectory_gacf26f2966a4f2035a128e1fcecd08f58}{rr\+\_\+add\+\_\+motion\+\_\+point}}).~\newline
+ \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___err_ga62c37a4c7c13756d1fc612992edc48c7}{rr\+\_\+read\+\_\+error\+\_\+status}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, uint32\+\_\+t $\ast$const error\+\_\+count, uint8\+\_\+t $\ast$const error\+\_\+array)
+\begin{DoxyCompactList}\small\item\em The functions enables reading the total actual count of servo hardware errors (e.\+g., no Heartbeats/overcurrent, etc.). In addition, the function returns the codes of all the detected errors as a single array. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___realtime_ga95a1707406a0cb3f665a4ee529d066f5}{rr\+\_\+param\+\_\+cache\+\_\+update}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo)
+\begin{DoxyCompactList}\small\item\em The function is always used in combination with the \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\+\_\+param\+\_\+cache\+\_\+setup\+\_\+entry}} function. It retreives from the servo the array of parameters that was set up using \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\+\_\+param\+\_\+cache\+\_\+setup\+\_\+entry}} function and saves the array to the program cache. You can subsequently read the parameters from the program cache with the \mbox{\hyperlink{group___realtime_ga4e21be75a34c6d2862e6d78e6add4c2a}{rr\+\_\+read\+\_\+cached\+\_\+parameter}} function. For more information, see \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\+\_\+param\+\_\+cache\+\_\+setup\+\_\+entry}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___realtime_gaf070f53f5fb1597821794840746cd897}{rr\+\_\+param\+\_\+cache\+\_\+update\+\_\+with\+\_\+timestamp}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo)
+\begin{DoxyCompactList}\small\item\em Same as \mbox{\hyperlink{group___realtime_ga95a1707406a0cb3f665a4ee529d066f5}{rr\+\_\+param\+\_\+cache\+\_\+update}} but with timestamp functionality. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\+\_\+param\+\_\+cache\+\_\+setup\+\_\+entry}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276d}{rr\+\_\+servo\+\_\+param\+\_\+t}} param, bool enabled)
+\begin{DoxyCompactList}\small\item\em The function is the fist one in the API call sequence that enables reading multiple servo paramaters (e.\+g., velocity, voltage, and position) as a data array. Using the sequence is advisable when you need to read {\bfseries{more than one parameter at a time}}. The user can set up the array to include up to 50 parameters. In all, the sequence comprises the following functions\+: \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___realtime_ga4e21e268034d9564da77bc23004fc56c}{rr\+\_\+read\+\_\+parameter}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276d}{rr\+\_\+servo\+\_\+param\+\_\+t}} param, float $\ast$value)
+\begin{DoxyCompactList}\small\item\em The function enables reading a single parameter directly from the servo specified in the \textquotesingle{}servo\textquotesingle{} parameter of the function. The function returns the current value of the parameter. Additionally, the parameter is saved to the program cache, irrespective of whether it was enabled/ disabled with the \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\+\_\+param\+\_\+cache\+\_\+setup\+\_\+entry}} function. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___realtime_ga582ec862f311c55bab380830eae5d3bc}{rr\+\_\+read\+\_\+parameter\+\_\+with\+\_\+timestamp}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276d}{rr\+\_\+servo\+\_\+param\+\_\+t}} param, float $\ast$value, uint32\+\_\+t $\ast$timestamp)
+\begin{DoxyCompactList}\small\item\em Same \mbox{\hyperlink{group___realtime_ga4e21e268034d9564da77bc23004fc56c}{rr\+\_\+read\+\_\+parameter}} but with timestamp functionality. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___realtime_ga4e21be75a34c6d2862e6d78e6add4c2a}{rr\+\_\+read\+\_\+cached\+\_\+parameter}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276d}{rr\+\_\+servo\+\_\+param\+\_\+t}} param, float $\ast$value)
+\begin{DoxyCompactList}\small\item\em The function is always used in combination with the \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\+\_\+param\+\_\+cache\+\_\+setup\+\_\+entry}} and the \mbox{\hyperlink{group___realtime_ga95a1707406a0cb3f665a4ee529d066f5}{rr\+\_\+param\+\_\+cache\+\_\+update}} functions. For more information, see \mbox{\hyperlink{group___realtime_ga49c6107db464d0ece3dbc9d590942f54}{rr\+\_\+param\+\_\+cache\+\_\+setup\+\_\+entry}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___realtime_gaca9055c4e8d07427a28d45e8fc870d5a}{rr\+\_\+read\+\_\+cached\+\_\+parameter\+\_\+with\+\_\+timestamp}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276d}{rr\+\_\+servo\+\_\+param\+\_\+t}} param, float $\ast$value, uint32\+\_\+t $\ast$timestamp)
+\begin{DoxyCompactList}\small\item\em Same as \mbox{\hyperlink{group___realtime_ga4e21be75a34c6d2862e6d78e6add4c2a}{rr\+\_\+read\+\_\+cached\+\_\+parameter}} but with timestamp functionality. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___trajectory_ga7b5be2d97da325eefde671c2e65e8055}{rr\+\_\+clear\+\_\+points\+\_\+all}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo)
+\begin{DoxyCompactList}\small\item\em The function clears the entire motion queue of the servo specified in the \textquotesingle{}servo\textquotesingle{} parameter of the function. If you call the function while the servo is executing a motion point command, the servo stops without completing the motion. All the remaining motion points, including the one where the servo has been moving, are removed from the queue. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___trajectory_ga7a35cda046b564b51f035a81329e6906}{rr\+\_\+clear\+\_\+points}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const uint32\+\_\+t num\+\_\+to\+\_\+clear)
+\begin{DoxyCompactList}\small\item\em The function removes the number of PVT points indicated in the \textquotesingle{}num\+\_\+to\+\_\+clear\textquotesingle{} parameter from the tail of the motion queue preset for the specified servo. {\bfseries{Note\+:}} In case the indicated number of PVT points to be removed exceeds the actual remaining number of PVT points in the queue, the effect of applying the function is similar to that of applying \mbox{\hyperlink{group___trajectory_ga7b5be2d97da325eefde671c2e65e8055}{rr\+\_\+clear\+\_\+points\+\_\+all}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___trajectory_ga1a62e45140604aa19ceab615536e787c}{rr\+\_\+get\+\_\+points\+\_\+size}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, uint32\+\_\+t $\ast$num)
+\begin{DoxyCompactList}\small\item\em The function returns the actual motion queue size of the specified servo. The return value indicates how many PVT points have already been added to the motion queue. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___trajectory_ga801e9d1c29dbf5898b04cb400a8b2cad}{rr\+\_\+get\+\_\+points\+\_\+free\+\_\+space}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, uint32\+\_\+t $\ast$num)
+\begin{DoxyCompactList}\small\item\em The function returns how many more PVT points the user can add to the motion queue of the servo specified in the \textquotesingle{}servo\textquotesingle{} parameter. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___trajectory_gaff774ce46f1685654a914b83cd04d7f1}{rr\+\_\+invoke\+\_\+time\+\_\+calculation}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const float start\+\_\+position\+\_\+deg, const float start\+\_\+velocity\+\_\+deg, const float start\+\_\+acceleration\+\_\+deg\+\_\+per\+\_\+sec2, const uint32\+\_\+t start\+\_\+time\+\_\+ms, const float end\+\_\+position\+\_\+deg, const float end\+\_\+velocity\+\_\+deg, const float end\+\_\+acceleration\+\_\+deg\+\_\+per\+\_\+sec2, const uint32\+\_\+t end\+\_\+time\+\_\+ms, uint32\+\_\+t $\ast$time\+\_\+ms)
+\begin{DoxyCompactList}\small\item\em The function enables calculating the time it will take for the specified servo to get from one position to another at the specified motion parameters (e.\+g., velocity, acceleration). {\bfseries{Note\+:}}The function is executed without the servo moving.~\newline
+ \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___config_gad266a0b3e3e349bbb40e5791d35093be}{rr\+\_\+set\+\_\+zero\+\_\+position}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const float position\+\_\+deg)
+\begin{DoxyCompactList}\small\item\em The function enables setting the current position (in degrees) of the servo with the specified descriptor to any value defined by the user. For instance, when the current servo position is 101 degrees and the \textquotesingle{}position\+\_\+deg\textquotesingle{} parameter is set to 25 degrees, the servo is assumed to be positioned at 25 degrees. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___config_ga16d3d1e2d5e973706f1735b4b55d6b9c}{rr\+\_\+set\+\_\+zero\+\_\+position\+\_\+and\+\_\+save}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const float position\+\_\+deg)
+\begin{DoxyCompactList}\small\item\em The function enables setting the current position (in degrees) of the servo with the specified descriptor to any value defined by the user and saving it to the FLASH memory. If you don\textquotesingle{}t want to save the newly set position, use the \mbox{\hyperlink{group___config_gad266a0b3e3e349bbb40e5791d35093be}{rr\+\_\+set\+\_\+zero\+\_\+position}} function.~\newline
+ \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___config_ga3fbab9a19159bdcd53d7a4b061848c2b}{rr\+\_\+get\+\_\+max\+\_\+velocity}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, float $\ast$velocity\+\_\+deg\+\_\+per\+\_\+sec)
+\begin{DoxyCompactList}\small\item\em The function reads the maximum velocity of the servo at the current moment. It returns the smallest of the three values—the user-\/defined maximum velocity limit (\mbox{\hyperlink{group___config_ga52736c105da7440077f2dcb67388dc47}{rr\+\_\+set\+\_\+max\+\_\+velocity}}), the maximum velocity value based on the servo specifications, or the calculated maximum velocity based on the supply voltage. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___config_ga52736c105da7440077f2dcb67388dc47}{rr\+\_\+set\+\_\+max\+\_\+velocity}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, const float max\+\_\+velocity\+\_\+deg\+\_\+per\+\_\+sec)
+\begin{DoxyCompactList}\small\item\em The function sets the maximum velocity limit for the servo specified in the \textquotesingle{}servo\textquotesingle{} parameter. The setting is volatile\+: after a reset or a power outage, it is no longer valid. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___aux_gaf5cf9b482485997c41f018a76402c152}{rr\+\_\+change\+\_\+id\+\_\+and\+\_\+save}} (\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface, \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$$\ast$servo, uint8\+\_\+t new\+\_\+can\+\_\+id)
+\begin{DoxyCompactList}\small\item\em The function enables changing the default CAN identifier (ID) of the specified servo to avoid collisions on a bus line. {\bfseries{Important!}} Each servo connected to a CAN bus must have {\bfseries{a unique ID}}.~\newline
+ \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{api_8h_a54b0250a895954c12ec8080dd1af1b49}{rr\+\_\+clear\+\_\+errors}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo)
+\begin{DoxyCompactList}\small\item\em Clears the error bits in the servo. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{api_8h_a4ddf9b6f8c00d3a2134b00a499e9ab0d}{rr\+\_\+get\+\_\+hardware\+\_\+version}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, char $\ast$version\+\_\+string, int $\ast$version\+\_\+string\+\_\+size)
+\begin{DoxyCompactList}\small\item\em The function reads the hardware version of a servo (unique ID of the MCU + hardware type + hardware revision). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{api_8h_a0f1e6cf42c43ab3ace4e81b1b02a267e}{rr\+\_\+get\+\_\+software\+\_\+version}} (const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$servo, char $\ast$version\+\_\+string, int $\ast$version\+\_\+string\+\_\+size)
+\begin{DoxyCompactList}\small\item\em The function reads the software version of a servo (minor + major + firmware build date). \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{api_8h_a54a489e7c2900705848c52acde7213a0}{rr\+\_\+check\+\_\+point}} (const float velocity\+\_\+limit\+\_\+deg\+\_\+per\+\_\+sec, float $\ast$velocity\+\_\+max\+\_\+calc\+\_\+deg\+\_\+per\+\_\+sec, const float position\+\_\+deg\+\_\+start, const float velocity\+\_\+deg\+\_\+per\+\_\+sec\+\_\+start, const float position\+\_\+deg\+\_\+end, const float velocity\+\_\+deg\+\_\+per\+\_\+sec\+\_\+end, const uint32\+\_\+t time\+\_\+ms)
+\begin{DoxyCompactList}\small\item\em The function enables verifying validity (reachability) of a trajectory point without actually initializing an interface or a servo. To verify, the maximum velocity limit is compared against the calculation output of the function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Rozum Robotics API Header File. 
+
+\begin{DoxyAuthor}{Author}
+Rozum 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2018-\/06-\/01 
+\end{DoxyDate}
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{api_8h_aee5ef69e1f68701368c5844dd42e7662}\label{api_8h_aee5ef69e1f68701368c5844dd42e7662}} 
+\index{api.h@{api.h}!rr\_com\_frame\_cb\_t@{rr\_com\_frame\_cb\_t}}
+\index{rr\_com\_frame\_cb\_t@{rr\_com\_frame\_cb\_t}!api.h@{api.h}}
+\doxysubsubsection{\texorpdfstring{rr\_com\_frame\_cb\_t}{rr\_com\_frame\_cb\_t}}
+{\footnotesize\ttfamily typedef void($\ast$ rr\+\_\+com\+\_\+frame\+\_\+cb\+\_\+t) (\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface, int cob\+\_\+id, int dlc, uint8\+\_\+t $\ast$data)}
+
+
+
+Type of the CAN frame callback~\newline
+ 
+
+
+\begin{DoxyParams}{Parameters}
+{\em iface} & Descriptor of the interface (see \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\+\_\+init\+\_\+interface}}) where the NMT event occured \\
+\hline
+{\em cob\+\_\+id} & ID of CAN frame \\
+\hline
+{\em dlc} & Data Length Code (length of data field) \\
+\hline
+{\em data} & pointer to data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{api_8h_ad484da513fb7b765b646ba031b2191e0}\label{api_8h_ad484da513fb7b765b646ba031b2191e0}} 
+\index{api.h@{api.h}!rr\_emcy\_cb\_t@{rr\_emcy\_cb\_t}}
+\index{rr\_emcy\_cb\_t@{rr\_emcy\_cb\_t}!api.h@{api.h}}
+\doxysubsubsection{\texorpdfstring{rr\_emcy\_cb\_t}{rr\_emcy\_cb\_t}}
+{\footnotesize\ttfamily typedef void($\ast$ rr\+\_\+emcy\+\_\+cb\+\_\+t) (\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface, int servo\+\_\+id, uint16\+\_\+t code, uint8\+\_\+t reg, uint8\+\_\+t bits, uint32\+\_\+t info)}
+
+
+
+Type of the intiated emergency (EMCY) callback~\newline
+ 
+
+
+\begin{DoxyParams}{Parameters}
+{\em iface} & Descriptor of the interface (see \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\+\_\+init\+\_\+interface}}) where the EMCY event occured \\
+\hline
+{\em servo\+\_\+id} & Descriptor of the servo (see \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}}) where the EMCY event occured \\
+\hline
+{\em code} & Error code \\
+\hline
+{\em reg} & Register field of the EMCY message (see Can\+Open documentation) \\
+\hline
+{\em bits} & Bits field of the EMCY message (see Can\+Open documentation) \\
+\hline
+{\em info} & Additional field (see Can\+Open documentation) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{api_8h_a9307c0f6ed316d6a3384f6e401c529ec}\label{api_8h_a9307c0f6ed316d6a3384f6e401c529ec}} 
+\index{api.h@{api.h}!rr\_nmt\_cb\_t@{rr\_nmt\_cb\_t}}
+\index{rr\_nmt\_cb\_t@{rr\_nmt\_cb\_t}!api.h@{api.h}}
+\doxysubsubsection{\texorpdfstring{rr\_nmt\_cb\_t}{rr\_nmt\_cb\_t}}
+{\footnotesize\ttfamily typedef void($\ast$ rr\+\_\+nmt\+\_\+cb\+\_\+t) (\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface, int servo\+\_\+id, \mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29}{rr\+\_\+nmt\+\_\+state\+\_\+t}} nmt\+\_\+state)}
+
+
+
+Type of the intiated network management (NMT) callback~\newline
+ 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ifcae} & Descriptor of the interface (see \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\+\_\+init\+\_\+interface}}) where the NMT event occured \\
+\hline
+{\em servo\+\_\+id} & Descriptor of the servo (see \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}}) where the NMT event occured \\
+\hline
+{\em nmt\+\_\+state} & Network management state (\mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29}{rr\+\_\+nmt\+\_\+state\+\_\+t}}) that the servo entered \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{api_8h_afed2b59273b0911110c06078ff8df3cc}\label{api_8h_afed2b59273b0911110c06078ff8df3cc}} 
+\index{api.h@{api.h}!rr\_pdo\_cb\_t@{rr\_pdo\_cb\_t}}
+\index{rr\_pdo\_cb\_t@{rr\_pdo\_cb\_t}!api.h@{api.h}}
+\doxysubsubsection{\texorpdfstring{rr\_pdo\_cb\_t}{rr\_pdo\_cb\_t}}
+{\footnotesize\ttfamily typedef void($\ast$ rr\+\_\+pdo\+\_\+cb\+\_\+t) (\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface, int id, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} pdo\+\_\+n, int len, uint8\+\_\+t $\ast$data)}
+
+
+
+Type of the PDO callback~\newline
+ 
+
+
+\begin{DoxyParams}{Parameters}
+{\em iface} & Descriptor of the interface (see \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\+\_\+init\+\_\+interface}}) where the NMT event occured \\
+\hline
+{\em cob\+\_\+id} & ID of CAN frame \\
+\hline
+{\em dlc} & Data Length Code (length of data field) \\
+\hline
+{\em data} & pointer to data \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{api_8h_afaf255d20b35be64a488b42e11feab29}\label{api_8h_afaf255d20b35be64a488b42e11feab29}} 
+\index{api.h@{api.h}!rr\_nmt\_state\_t@{rr\_nmt\_state\_t}}
+\index{rr\_nmt\_state\_t@{rr\_nmt\_state\_t}!api.h@{api.h}}
+\doxysubsubsection{\texorpdfstring{rr\_nmt\_state\_t}{rr\_nmt\_state\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{api_8h_afaf255d20b35be64a488b42e11feab29}{rr\+\_\+nmt\+\_\+state\+\_\+t}}}
+
+
+
+Network management (NMT) states. 
+
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{nmt_states.png}}
+\end{DoxyImageNoCaption}
+ \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RR\_NMT\_INITIALIZING@{RR\_NMT\_INITIALIZING}!api.h@{api.h}}\index{api.h@{api.h}!RR\_NMT\_INITIALIZING@{RR\_NMT\_INITIALIZING}}}\mbox{\Hypertarget{api_8h_afaf255d20b35be64a488b42e11feab29ac2550cce228ff5512ea417e2b035b665}\label{api_8h_afaf255d20b35be64a488b42e11feab29ac2550cce228ff5512ea417e2b035b665}} 
+RR\+\_\+\+NMT\+\_\+\+INITIALIZING&Device is initializing \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RR\_NMT\_BOOT@{RR\_NMT\_BOOT}!api.h@{api.h}}\index{api.h@{api.h}!RR\_NMT\_BOOT@{RR\_NMT\_BOOT}}}\mbox{\Hypertarget{api_8h_afaf255d20b35be64a488b42e11feab29a4b2cf9b28688f7985afff0c25a7da61b}\label{api_8h_afaf255d20b35be64a488b42e11feab29a4b2cf9b28688f7985afff0c25a7da61b}} 
+RR\+\_\+\+NMT\+\_\+\+BOOT&Device is executing a bootloader application \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RR\_NMT\_PRE\_OPERATIONAL@{RR\_NMT\_PRE\_OPERATIONAL}!api.h@{api.h}}\index{api.h@{api.h}!RR\_NMT\_PRE\_OPERATIONAL@{RR\_NMT\_PRE\_OPERATIONAL}}}\mbox{\Hypertarget{api_8h_afaf255d20b35be64a488b42e11feab29ace8deaf0d4ce3230fb48c15de516e474}\label{api_8h_afaf255d20b35be64a488b42e11feab29ace8deaf0d4ce3230fb48c15de516e474}} 
+RR\+\_\+\+NMT\+\_\+\+PRE\+\_\+\+OPERATIONAL&Device is in the pre-\/operational state \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RR\_NMT\_OPERATIONAL@{RR\_NMT\_OPERATIONAL}!api.h@{api.h}}\index{api.h@{api.h}!RR\_NMT\_OPERATIONAL@{RR\_NMT\_OPERATIONAL}}}\mbox{\Hypertarget{api_8h_afaf255d20b35be64a488b42e11feab29a57e41d0fd4f218c20acc57061b28f52d}\label{api_8h_afaf255d20b35be64a488b42e11feab29a57e41d0fd4f218c20acc57061b28f52d}} 
+RR\+\_\+\+NMT\+\_\+\+OPERATIONAL&Device is in the operational state \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RR\_NMT\_STOPPED@{RR\_NMT\_STOPPED}!api.h@{api.h}}\index{api.h@{api.h}!RR\_NMT\_STOPPED@{RR\_NMT\_STOPPED}}}\mbox{\Hypertarget{api_8h_afaf255d20b35be64a488b42e11feab29a0b3bd632c9abf67a54795f902b0cb2f8}\label{api_8h_afaf255d20b35be64a488b42e11feab29a0b3bd632c9abf67a54795f902b0cb2f8}} 
+RR\+\_\+\+NMT\+\_\+\+STOPPED&Device is in the stopped state \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RR\_NMT\_HB\_TIMEOUT@{RR\_NMT\_HB\_TIMEOUT}!api.h@{api.h}}\index{api.h@{api.h}!RR\_NMT\_HB\_TIMEOUT@{RR\_NMT\_HB\_TIMEOUT}}}\mbox{\Hypertarget{api_8h_afaf255d20b35be64a488b42e11feab29af745eff49927034f66cbd67835b2fd26}\label{api_8h_afaf255d20b35be64a488b42e11feab29af745eff49927034f66cbd67835b2fd26}} 
+RR\+\_\+\+NMT\+\_\+\+HB\+\_\+\+TIMEOUT&Device Heartbeat timeout (device disappeared from the bus) \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{api_8h_a92d5be5038abcf89837faf85a08debdc}\label{api_8h_a92d5be5038abcf89837faf85a08debdc}} 
+\index{api.h@{api.h}!rr\_ret\_status\_t@{rr\_ret\_status\_t}}
+\index{rr\_ret\_status\_t@{rr\_ret\_status\_t}!api.h@{api.h}}
+\doxysubsubsection{\texorpdfstring{rr\_ret\_status\_t}{rr\_ret\_status\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}}
+
+
+
+Return codes of the API functions. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RET\_OK@{RET\_OK}!api.h@{api.h}}\index{api.h@{api.h}!RET\_OK@{RET\_OK}}}\mbox{\Hypertarget{api_8h_a92d5be5038abcf89837faf85a08debdca4894234446e2d92068943b3d6d3a0bdc}\label{api_8h_a92d5be5038abcf89837faf85a08debdca4894234446e2d92068943b3d6d3a0bdc}} 
+RET\+\_\+\+OK&Status OK. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RET\_ERROR@{RET\_ERROR}!api.h@{api.h}}\index{api.h@{api.h}!RET\_ERROR@{RET\_ERROR}}}\mbox{\Hypertarget{api_8h_a92d5be5038abcf89837faf85a08debdcae8ed27c1aabd77d519426a8ad340d76c}\label{api_8h_a92d5be5038abcf89837faf85a08debdcae8ed27c1aabd77d519426a8ad340d76c}} 
+RET\+\_\+\+ERROR&Generic error. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RET\_BAD\_INSTANCE@{RET\_BAD\_INSTANCE}!api.h@{api.h}}\index{api.h@{api.h}!RET\_BAD\_INSTANCE@{RET\_BAD\_INSTANCE}}}\mbox{\Hypertarget{api_8h_a92d5be5038abcf89837faf85a08debdcada2fa397afd6b90ecb1c5b9ca3a2d0ee}\label{api_8h_a92d5be5038abcf89837faf85a08debdcada2fa397afd6b90ecb1c5b9ca3a2d0ee}} 
+RET\+\_\+\+BAD\+\_\+\+INSTANCE&Bad interface or servo instance (null) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RET\_BUSY@{RET\_BUSY}!api.h@{api.h}}\index{api.h@{api.h}!RET\_BUSY@{RET\_BUSY}}}\mbox{\Hypertarget{api_8h_a92d5be5038abcf89837faf85a08debdcacdd796ae2972988d689257753a05b9dd}\label{api_8h_a92d5be5038abcf89837faf85a08debdcacdd796ae2972988d689257753a05b9dd}} 
+RET\+\_\+\+BUSY&Device is busy. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RET\_WRONG\_TRAJ@{RET\_WRONG\_TRAJ}!api.h@{api.h}}\index{api.h@{api.h}!RET\_WRONG\_TRAJ@{RET\_WRONG\_TRAJ}}}\mbox{\Hypertarget{api_8h_a92d5be5038abcf89837faf85a08debdcadf1d978b055d00c4036019387acfc60c}\label{api_8h_a92d5be5038abcf89837faf85a08debdcadf1d978b055d00c4036019387acfc60c}} 
+RET\+\_\+\+WRONG\+\_\+\+TRAJ&Wrong trajectory. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RET\_LOCKED@{RET\_LOCKED}!api.h@{api.h}}\index{api.h@{api.h}!RET\_LOCKED@{RET\_LOCKED}}}\mbox{\Hypertarget{api_8h_a92d5be5038abcf89837faf85a08debdca2840a6ac495b0fe4b9e8565d9f76e29a}\label{api_8h_a92d5be5038abcf89837faf85a08debdca2840a6ac495b0fe4b9e8565d9f76e29a}} 
+RET\+\_\+\+LOCKED&Device is locked. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RET\_STOPPED@{RET\_STOPPED}!api.h@{api.h}}\index{api.h@{api.h}!RET\_STOPPED@{RET\_STOPPED}}}\mbox{\Hypertarget{api_8h_a92d5be5038abcf89837faf85a08debdcad456500c4074aeffb3e5e132bf7d996c}\label{api_8h_a92d5be5038abcf89837faf85a08debdcad456500c4074aeffb3e5e132bf7d996c}} 
+RET\+\_\+\+STOPPED&Device is in the STOPPED state. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RET\_TIMEOUT@{RET\_TIMEOUT}!api.h@{api.h}}\index{api.h@{api.h}!RET\_TIMEOUT@{RET\_TIMEOUT}}}\mbox{\Hypertarget{api_8h_a92d5be5038abcf89837faf85a08debdcadf2eed18ed159c7517505568b0f261dd}\label{api_8h_a92d5be5038abcf89837faf85a08debdcadf2eed18ed159c7517505568b0f261dd}} 
+RET\+\_\+\+TIMEOUT&CAN communication timeout. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RET\_ZERO\_SIZE@{RET\_ZERO\_SIZE}!api.h@{api.h}}\index{api.h@{api.h}!RET\_ZERO\_SIZE@{RET\_ZERO\_SIZE}}}\mbox{\Hypertarget{api_8h_a92d5be5038abcf89837faf85a08debdcac2c7bf0285c804ae03c6628659ce366e}\label{api_8h_a92d5be5038abcf89837faf85a08debdcac2c7bf0285c804ae03c6628659ce366e}} 
+RET\+\_\+\+ZERO\+\_\+\+SIZE&Zero data size. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RET\_SIZE\_MISMATCH@{RET\_SIZE\_MISMATCH}!api.h@{api.h}}\index{api.h@{api.h}!RET\_SIZE\_MISMATCH@{RET\_SIZE\_MISMATCH}}}\mbox{\Hypertarget{api_8h_a92d5be5038abcf89837faf85a08debdca639f91af3521a375df0778f9cd60d60b}\label{api_8h_a92d5be5038abcf89837faf85a08debdca639f91af3521a375df0778f9cd60d60b}} 
+RET\+\_\+\+SIZE\+\_\+\+MISMATCH&Mismatch of received and target data size. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RET\_WRONG\_ARG@{RET\_WRONG\_ARG}!api.h@{api.h}}\index{api.h@{api.h}!RET\_WRONG\_ARG@{RET\_WRONG\_ARG}}}\mbox{\Hypertarget{api_8h_a92d5be5038abcf89837faf85a08debdca6368c40539ccc8fe56a2b433d13370dc}\label{api_8h_a92d5be5038abcf89837faf85a08debdca6368c40539ccc8fe56a2b433d13370dc}} 
+RET\+\_\+\+WRONG\+\_\+\+ARG&Wrong function argument. \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276d}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276d}} 
+\index{api.h@{api.h}!rr\_servo\_param\_t@{rr\_servo\_param\_t}}
+\index{rr\_servo\_param\_t@{rr\_servo\_param\_t}!api.h@{api.h}}
+\doxysubsubsection{\texorpdfstring{rr\_servo\_param\_t}{rr\_servo\_param\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{api_8h_aa1f58887fab4642cf49f6f453c1d276d}{rr\+\_\+servo\+\_\+param\+\_\+t}}}
+
+
+
+Device parameter and source indices. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_NULL@{APP\_PARAM\_NULL}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_NULL@{APP\_PARAM\_NULL}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276daf92693e0b44950ce14a0e4c467ca9d08}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276daf92693e0b44950ce14a0e4c467ca9d08}} 
+APP\+\_\+\+PARAM\+\_\+\+NULL&Not used. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_POSITION@{APP\_PARAM\_POSITION}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_POSITION@{APP\_PARAM\_POSITION}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276dab079617b03cb882ecb48c06ae6603363}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276dab079617b03cb882ecb48c06ae6603363}} 
+APP\+\_\+\+PARAM\+\_\+\+POSITION&Actual multi-\/turn position of the output shaft (degrees) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_VELOCITY@{APP\_PARAM\_VELOCITY}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_VELOCITY@{APP\_PARAM\_VELOCITY}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da7c7eb311e57837875791d5e58982661c}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da7c7eb311e57837875791d5e58982661c}} 
+APP\+\_\+\+PARAM\+\_\+\+VELOCITY&Actual velocity of the output shaft (degrees per second) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_POSITION\_ROTOR@{APP\_PARAM\_POSITION\_ROTOR}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_POSITION\_ROTOR@{APP\_PARAM\_POSITION\_ROTOR}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276daa8dafaaa373617ef2f8585b3d4177115}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276daa8dafaaa373617ef2f8585b3d4177115}} 
+APP\+\_\+\+PARAM\+\_\+\+POSITION\+\_\+\+ROTOR&Actual position of the motor shaft (degrees) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_VELOCITY\_ROTOR@{APP\_PARAM\_VELOCITY\_ROTOR}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_VELOCITY\_ROTOR@{APP\_PARAM\_VELOCITY\_ROTOR}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276dade3db1d484cf6dd69b115e37ab77051b}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276dade3db1d484cf6dd69b115e37ab77051b}} 
+APP\+\_\+\+PARAM\+\_\+\+VELOCITY\+\_\+\+ROTOR&Actual velocity of the motor shaft (degrees per second) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_POSITION\_GEAR\_360@{APP\_PARAM\_POSITION\_GEAR\_360}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_POSITION\_GEAR\_360@{APP\_PARAM\_POSITION\_GEAR\_360}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276dab8e557b8564d2bf579cc199b343644f2}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276dab8e557b8564d2bf579cc199b343644f2}} 
+APP\+\_\+\+PARAM\+\_\+\+POSITION\+\_\+\+GEAR\+\_\+360&Actual single-\/turn position of the output shaft (from 0 to 360 degrees) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_POSITION\_GEAR\_EMULATED@{APP\_PARAM\_POSITION\_GEAR\_EMULATED}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_POSITION\_GEAR\_EMULATED@{APP\_PARAM\_POSITION\_GEAR\_EMULATED}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da27cb6c1302d1ed7545ee8c8ee020b9c1}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da27cb6c1302d1ed7545ee8c8ee020b9c1}} 
+APP\+\_\+\+PARAM\+\_\+\+POSITION\+\_\+\+GEAR\+\_\+\+EMULATED&Actual multi-\/turn position of the motor shaft multiplied by gear ratio (degrees) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_CURRENT\_INPUT@{APP\_PARAM\_CURRENT\_INPUT}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_CURRENT\_INPUT@{APP\_PARAM\_CURRENT\_INPUT}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276dafb1be8c565208f94596b980788ac52fe}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276dafb1be8c565208f94596b980788ac52fe}} 
+APP\+\_\+\+PARAM\+\_\+\+CURRENT\+\_\+\+INPUT&Actual DC current (Amperes) in the servo\textquotesingle{}s supply circuit. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_CURRENT\_OUTPUT@{APP\_PARAM\_CURRENT\_OUTPUT}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_CURRENT\_OUTPUT@{APP\_PARAM\_CURRENT\_OUTPUT}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276dae8c5d203df5baa3a329b89e4e3c05e31}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276dae8c5d203df5baa3a329b89e4e3c05e31}} 
+APP\+\_\+\+PARAM\+\_\+\+CURRENT\+\_\+\+OUTPUT&Not used. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_VOLTAGE\_INPUT@{APP\_PARAM\_VOLTAGE\_INPUT}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_VOLTAGE\_INPUT@{APP\_PARAM\_VOLTAGE\_INPUT}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da78bc54701f1fe1ce6b90b70bbfa62483}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da78bc54701f1fe1ce6b90b70bbfa62483}} 
+APP\+\_\+\+PARAM\+\_\+\+VOLTAGE\+\_\+\+INPUT&Actual DC voltage (Volts) supplied to the servo. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_VOLTAGE\_OUTPUT@{APP\_PARAM\_VOLTAGE\_OUTPUT}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_VOLTAGE\_OUTPUT@{APP\_PARAM\_VOLTAGE\_OUTPUT}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da09d81b3e2fccfa745188ab46c8dd7263}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da09d81b3e2fccfa745188ab46c8dd7263}} 
+APP\+\_\+\+PARAM\+\_\+\+VOLTAGE\+\_\+\+OUTPUT&Not used. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_CURRENT\_PHASE@{APP\_PARAM\_CURRENT\_PHASE}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_CURRENT\_PHASE@{APP\_PARAM\_CURRENT\_PHASE}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276dad60719b243d4c9abd6c6c2566266fa52}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276dad60719b243d4c9abd6c6c2566266fa52}} 
+APP\+\_\+\+PARAM\+\_\+\+CURRENT\+\_\+\+PHASE&Actual magnitude of AC current (Amperes) on the motor. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_TEMPERATURE\_ACTUATOR@{APP\_PARAM\_TEMPERATURE\_ACTUATOR}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_TEMPERATURE\_ACTUATOR@{APP\_PARAM\_TEMPERATURE\_ACTUATOR}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da1a3c86ed7fe187d364809094d3c1dc3a}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da1a3c86ed7fe187d364809094d3c1dc3a}} 
+APP\+\_\+\+PARAM\+\_\+\+TEMPERATURE\+\_\+\+ACTUATOR&Not used. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_TEMPERATURE\_ELECTRONICS@{APP\_PARAM\_TEMPERATURE\_ELECTRONICS}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_TEMPERATURE\_ELECTRONICS@{APP\_PARAM\_TEMPERATURE\_ELECTRONICS}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da48d8972dac6ee7ea647431a83dd88143}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da48d8972dac6ee7ea647431a83dd88143}} 
+APP\+\_\+\+PARAM\+\_\+\+TEMPERATURE\+\_\+\+ELECTRONICS&Actual temperature of the motor controller. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_TORQUE@{APP\_PARAM\_TORQUE}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_TORQUE@{APP\_PARAM\_TORQUE}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da5bc9d6003879b42f41d8db8ee443afbf}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da5bc9d6003879b42f41d8db8ee443afbf}} 
+APP\+\_\+\+PARAM\+\_\+\+TORQUE&Not used. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_ACCELERATION@{APP\_PARAM\_ACCELERATION}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_ACCELERATION@{APP\_PARAM\_ACCELERATION}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276dae433fe695af5d074e34503e78802e79c}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276dae433fe695af5d074e34503e78802e79c}} 
+APP\+\_\+\+PARAM\+\_\+\+ACCELERATION&Not used. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_ACCELERATION\_ROTOR@{APP\_PARAM\_ACCELERATION\_ROTOR}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_ACCELERATION\_ROTOR@{APP\_PARAM\_ACCELERATION\_ROTOR}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da6f9d3e5a018689702d2f070888af6882}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da6f9d3e5a018689702d2f070888af6882}} 
+APP\+\_\+\+PARAM\+\_\+\+ACCELERATION\+\_\+\+ROTOR&Not used. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_CURRENT\_PHASE\_1@{APP\_PARAM\_CURRENT\_PHASE\_1}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_CURRENT\_PHASE\_1@{APP\_PARAM\_CURRENT\_PHASE\_1}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276dae2db7f59e354f0adf411ebc097be9615}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276dae2db7f59e354f0adf411ebc097be9615}} 
+APP\+\_\+\+PARAM\+\_\+\+CURRENT\+\_\+\+PHASE\+\_\+1&Actual phase 1 current to the motor. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_CURRENT\_PHASE\_2@{APP\_PARAM\_CURRENT\_PHASE\_2}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_CURRENT\_PHASE\_2@{APP\_PARAM\_CURRENT\_PHASE\_2}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276daecd1a50b950e607328843d7ab44ef37b}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276daecd1a50b950e607328843d7ab44ef37b}} 
+APP\+\_\+\+PARAM\+\_\+\+CURRENT\+\_\+\+PHASE\+\_\+2&Actual phase 2 current to the motor. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_CURRENT\_PHASE\_3@{APP\_PARAM\_CURRENT\_PHASE\_3}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_CURRENT\_PHASE\_3@{APP\_PARAM\_CURRENT\_PHASE\_3}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276daf52784c6a104216ecddc02d08edca79b}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276daf52784c6a104216ecddc02d08edca79b}} 
+APP\+\_\+\+PARAM\+\_\+\+CURRENT\+\_\+\+PHASE\+\_\+3&Actual phase 3 current to the motor. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_CURRENT\_RAW@{APP\_PARAM\_CURRENT\_RAW}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_CURRENT\_RAW@{APP\_PARAM\_CURRENT\_RAW}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da2612f6ba14c9dd0ad30ac7d67c3a9707}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da2612f6ba14c9dd0ad30ac7d67c3a9707}} 
+APP\+\_\+\+PARAM\+\_\+\+CURRENT\+\_\+\+RAW&Not used. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_CURRENT\_RAW\_2@{APP\_PARAM\_CURRENT\_RAW\_2}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_CURRENT\_RAW\_2@{APP\_PARAM\_CURRENT\_RAW\_2}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276daa28d107cc1bfbff653eee6bc0abc9df1}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276daa28d107cc1bfbff653eee6bc0abc9df1}} 
+APP\+\_\+\+PARAM\+\_\+\+CURRENT\+\_\+\+RAW\+\_\+2&Not used. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_CURRENT\_RAW\_3@{APP\_PARAM\_CURRENT\_RAW\_3}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_CURRENT\_RAW\_3@{APP\_PARAM\_CURRENT\_RAW\_3}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da44c5166f84bc671786688186ca4f34d0}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da44c5166f84bc671786688186ca4f34d0}} 
+APP\+\_\+\+PARAM\+\_\+\+CURRENT\+\_\+\+RAW\+\_\+3&Not used. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_ENCODER\_MASTER\_TRACK@{APP\_PARAM\_ENCODER\_MASTER\_TRACK}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_ENCODER\_MASTER\_TRACK@{APP\_PARAM\_ENCODER\_MASTER\_TRACK}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da882f43f6b3595fe0a321f208a41d726e}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da882f43f6b3595fe0a321f208a41d726e}} 
+APP\+\_\+\+PARAM\+\_\+\+ENCODER\+\_\+\+MASTER\+\_\+\+TRACK&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_ENCODER\_NONIUS\_TRACK@{APP\_PARAM\_ENCODER\_NONIUS\_TRACK}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_ENCODER\_NONIUS\_TRACK@{APP\_PARAM\_ENCODER\_NONIUS\_TRACK}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da3facac23b091243602b47fd2576b2823}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da3facac23b091243602b47fd2576b2823}} 
+APP\+\_\+\+PARAM\+\_\+\+ENCODER\+\_\+\+NONIUS\+\_\+\+TRACK&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_ENCODER\_MOTOR\_MASTER\_TRACK@{APP\_PARAM\_ENCODER\_MOTOR\_MASTER\_TRACK}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_ENCODER\_MOTOR\_MASTER\_TRACK@{APP\_PARAM\_ENCODER\_MOTOR\_MASTER\_TRACK}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da9abecc57566475fa5d0a47a30d3eb7b7}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da9abecc57566475fa5d0a47a30d3eb7b7}} 
+APP\+\_\+\+PARAM\+\_\+\+ENCODER\+\_\+\+MOTOR\+\_\+\+MASTER\+\_\+\+TRACK&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_ENCODER\_MOTOR\_NONIUS\_TRACK@{APP\_PARAM\_ENCODER\_MOTOR\_NONIUS\_TRACK}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_ENCODER\_MOTOR\_NONIUS\_TRACK@{APP\_PARAM\_ENCODER\_MOTOR\_NONIUS\_TRACK}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276dad2803d24470187ed238ad95997bfe9be}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276dad2803d24470187ed238ad95997bfe9be}} 
+APP\+\_\+\+PARAM\+\_\+\+ENCODER\+\_\+\+MOTOR\+\_\+\+NONIUS\+\_\+\+TRACK&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_TORQUE\_ELECTRIC\_CALC@{APP\_PARAM\_TORQUE\_ELECTRIC\_CALC}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_TORQUE\_ELECTRIC\_CALC@{APP\_PARAM\_TORQUE\_ELECTRIC\_CALC}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da354f3004c944556f129c2b590b80c629}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da354f3004c944556f129c2b590b80c629}} 
+APP\+\_\+\+PARAM\+\_\+\+TORQUE\+\_\+\+ELECTRIC\+\_\+\+CALC&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_CONTROLLER\_VELOCITY\_ERROR@{APP\_PARAM\_CONTROLLER\_VELOCITY\_ERROR}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_CONTROLLER\_VELOCITY\_ERROR@{APP\_PARAM\_CONTROLLER\_VELOCITY\_ERROR}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276dae48e6cfbaff81ae1166e684b004f868d}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276dae48e6cfbaff81ae1166e684b004f868d}} 
+APP\+\_\+\+PARAM\+\_\+\+CONTROLLER\+\_\+\+VELOCITY\+\_\+\+ERROR&Velocity following error (difference in degrees per second between the setpoint and feedback velocities) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_CONTROLLER\_VELOCITY\_SETPOINT@{APP\_PARAM\_CONTROLLER\_VELOCITY\_SETPOINT}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_CONTROLLER\_VELOCITY\_SETPOINT@{APP\_PARAM\_CONTROLLER\_VELOCITY\_SETPOINT}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da91fd08d4408a3251703cef5153b6006e}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da91fd08d4408a3251703cef5153b6006e}} 
+APP\+\_\+\+PARAM\+\_\+\+CONTROLLER\+\_\+\+VELOCITY\+\_\+\+SETPOINT&Velocity target (degrees per second) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_CONTROLLER\_VELOCITY\_FEEDBACK@{APP\_PARAM\_CONTROLLER\_VELOCITY\_FEEDBACK}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_CONTROLLER\_VELOCITY\_FEEDBACK@{APP\_PARAM\_CONTROLLER\_VELOCITY\_FEEDBACK}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da0434a3f113392ee4eefc32a78c61b52b}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da0434a3f113392ee4eefc32a78c61b52b}} 
+APP\+\_\+\+PARAM\+\_\+\+CONTROLLER\+\_\+\+VELOCITY\+\_\+\+FEEDBACK&Actual velocity (degrees per second) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_CONTROLLER\_VELOCITY\_OUTPUT@{APP\_PARAM\_CONTROLLER\_VELOCITY\_OUTPUT}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_CONTROLLER\_VELOCITY\_OUTPUT@{APP\_PARAM\_CONTROLLER\_VELOCITY\_OUTPUT}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da8b6cbe796f36ba0e86a09a21c04c65f5}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da8b6cbe796f36ba0e86a09a21c04c65f5}} 
+APP\+\_\+\+PARAM\+\_\+\+CONTROLLER\+\_\+\+VELOCITY\+\_\+\+OUTPUT&Not used. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_CONTROLLER\_POSITION\_ERROR@{APP\_PARAM\_CONTROLLER\_POSITION\_ERROR}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_CONTROLLER\_POSITION\_ERROR@{APP\_PARAM\_CONTROLLER\_POSITION\_ERROR}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da56a3f7c3f40262a8e771a19ecda28336}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da56a3f7c3f40262a8e771a19ecda28336}} 
+APP\+\_\+\+PARAM\+\_\+\+CONTROLLER\+\_\+\+POSITION\+\_\+\+ERROR&Position following error (difference in degrees per second between the setpoint and feedback velocities) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_CONTROLLER\_POSITION\_SETPOINT@{APP\_PARAM\_CONTROLLER\_POSITION\_SETPOINT}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_CONTROLLER\_POSITION\_SETPOINT@{APP\_PARAM\_CONTROLLER\_POSITION\_SETPOINT}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da25c849d6776790828eec0884f4e1a4ec}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da25c849d6776790828eec0884f4e1a4ec}} 
+APP\+\_\+\+PARAM\+\_\+\+CONTROLLER\+\_\+\+POSITION\+\_\+\+SETPOINT&Position target (degrees) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_CONTROLLER\_POSITION\_FEEDBACK@{APP\_PARAM\_CONTROLLER\_POSITION\_FEEDBACK}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_CONTROLLER\_POSITION\_FEEDBACK@{APP\_PARAM\_CONTROLLER\_POSITION\_FEEDBACK}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da3020332205840419d9e853fc91a77150}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da3020332205840419d9e853fc91a77150}} 
+APP\+\_\+\+PARAM\+\_\+\+CONTROLLER\+\_\+\+POSITION\+\_\+\+FEEDBACK&Actual position (degrees) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_CONTROLLER\_POSITION\_OUTPUT@{APP\_PARAM\_CONTROLLER\_POSITION\_OUTPUT}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_CONTROLLER\_POSITION\_OUTPUT@{APP\_PARAM\_CONTROLLER\_POSITION\_OUTPUT}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da499b7b92c7d38ca32bfad3f774b69bf2}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da499b7b92c7d38ca32bfad3f774b69bf2}} 
+APP\+\_\+\+PARAM\+\_\+\+CONTROLLER\+\_\+\+POSITION\+\_\+\+OUTPUT&Not used. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_CONTROL\_MODE@{APP\_PARAM\_CONTROL\_MODE}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_CONTROL\_MODE@{APP\_PARAM\_CONTROL\_MODE}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da486101d3961797df2f71d944e09806fc}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da486101d3961797df2f71d944e09806fc}} 
+APP\+\_\+\+PARAM\+\_\+\+CONTROL\+\_\+\+MODE&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_FOC\_ANGLE@{APP\_PARAM\_FOC\_ANGLE}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_FOC\_ANGLE@{APP\_PARAM\_FOC\_ANGLE}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da5d39d5f2d4ec671512f0fb2c3d909cb7}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da5d39d5f2d4ec671512f0fb2c3d909cb7}} 
+APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+ANGLE&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_FOC\_IA@{APP\_PARAM\_FOC\_IA}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_FOC\_IA@{APP\_PARAM\_FOC\_IA}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276dadb088007a4cbbb03059abe3fe7146dd1}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276dadb088007a4cbbb03059abe3fe7146dd1}} 
+APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+IA&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_FOC\_IB@{APP\_PARAM\_FOC\_IB}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_FOC\_IB@{APP\_PARAM\_FOC\_IB}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276dad467e8050746e3ee7c4ec2feacc3bd3c}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276dad467e8050746e3ee7c4ec2feacc3bd3c}} 
+APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+IB&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_FOC\_IQ\_SET@{APP\_PARAM\_FOC\_IQ\_SET}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_FOC\_IQ\_SET@{APP\_PARAM\_FOC\_IQ\_SET}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da01758ca2594861bbda0763f325ca3aca}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da01758ca2594861bbda0763f325ca3aca}} 
+APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+IQ\+\_\+\+SET&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_FOC\_ID\_SET@{APP\_PARAM\_FOC\_ID\_SET}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_FOC\_ID\_SET@{APP\_PARAM\_FOC\_ID\_SET}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da6f42d9552fbac9730024cca43523a242}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da6f42d9552fbac9730024cca43523a242}} 
+APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+ID\+\_\+\+SET&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_FOC\_IQ@{APP\_PARAM\_FOC\_IQ}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_FOC\_IQ@{APP\_PARAM\_FOC\_IQ}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da73f70b69632299140d13b5c478adc7b4}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da73f70b69632299140d13b5c478adc7b4}} 
+APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+IQ&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_FOC\_ID@{APP\_PARAM\_FOC\_ID}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_FOC\_ID@{APP\_PARAM\_FOC\_ID}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da319baaf4a82176f75f0a8f8cc087a5d7}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da319baaf4a82176f75f0a8f8cc087a5d7}} 
+APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+ID&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_FOC\_IQ\_ERROR@{APP\_PARAM\_FOC\_IQ\_ERROR}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_FOC\_IQ\_ERROR@{APP\_PARAM\_FOC\_IQ\_ERROR}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276dacdba14f6f1bc732d0ccae9bc815e0bd2}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276dacdba14f6f1bc732d0ccae9bc815e0bd2}} 
+APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+IQ\+\_\+\+ERROR&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_FOC\_ID\_ERROR@{APP\_PARAM\_FOC\_ID\_ERROR}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_FOC\_ID\_ERROR@{APP\_PARAM\_FOC\_ID\_ERROR}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da86ce5142afb8969bc5bc47e4c081d5e3}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da86ce5142afb8969bc5bc47e4c081d5e3}} 
+APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+ID\+\_\+\+ERROR&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_FOC\_UQ@{APP\_PARAM\_FOC\_UQ}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_FOC\_UQ@{APP\_PARAM\_FOC\_UQ}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da9fbb32722da1e00d15978c4c7d2e79c2}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da9fbb32722da1e00d15978c4c7d2e79c2}} 
+APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+UQ&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_FOC\_UD@{APP\_PARAM\_FOC\_UD}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_FOC\_UD@{APP\_PARAM\_FOC\_UD}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da6061e4dd81c828196553b88062a62ada}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da6061e4dd81c828196553b88062a62ada}} 
+APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+UD&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_FOC\_UA@{APP\_PARAM\_FOC\_UA}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_FOC\_UA@{APP\_PARAM\_FOC\_UA}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da7afcc32cc4c18e09d72a7169a9492566}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da7afcc32cc4c18e09d72a7169a9492566}} 
+APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+UA&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_FOC\_UB@{APP\_PARAM\_FOC\_UB}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_FOC\_UB@{APP\_PARAM\_FOC\_UB}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da8927f0ebd1b6eb9b4797d2eec7802c01}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da8927f0ebd1b6eb9b4797d2eec7802c01}} 
+APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+UB&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_FOC\_U1@{APP\_PARAM\_FOC\_U1}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_FOC\_U1@{APP\_PARAM\_FOC\_U1}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da8711d53dcfb19db3d2433e684196ec12}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da8711d53dcfb19db3d2433e684196ec12}} 
+APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+U1&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_FOC\_U2@{APP\_PARAM\_FOC\_U2}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_FOC\_U2@{APP\_PARAM\_FOC\_U2}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276daaacd65258dd57131fca177ce77e87f90}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276daaacd65258dd57131fca177ce77e87f90}} 
+APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+U2&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_FOC\_U3@{APP\_PARAM\_FOC\_U3}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_FOC\_U3@{APP\_PARAM\_FOC\_U3}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da3f34364027e0a438200ae65f5240a977}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da3f34364027e0a438200ae65f5240a977}} 
+APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+U3&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_FOC\_PWM1@{APP\_PARAM\_FOC\_PWM1}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_FOC\_PWM1@{APP\_PARAM\_FOC\_PWM1}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da50b57287acfbd01ee1cc9f81cc5bbae8}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da50b57287acfbd01ee1cc9f81cc5bbae8}} 
+APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+PWM1&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_FOC\_PWM2@{APP\_PARAM\_FOC\_PWM2}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_FOC\_PWM2@{APP\_PARAM\_FOC\_PWM2}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276dae00c758b5a840d5cd3721b24786f6e74}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276dae00c758b5a840d5cd3721b24786f6e74}} 
+APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+PWM2&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_FOC\_PWM3@{APP\_PARAM\_FOC\_PWM3}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_FOC\_PWM3@{APP\_PARAM\_FOC\_PWM3}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da1cfe88d23e154013d53d5f9b436441da}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da1cfe88d23e154013d53d5f9b436441da}} 
+APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+PWM3&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_FOC\_TIMER\_TOP@{APP\_PARAM\_FOC\_TIMER\_TOP}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_FOC\_TIMER\_TOP@{APP\_PARAM\_FOC\_TIMER\_TOP}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276daeac24550704ad65662feab7eff3efb56}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276daeac24550704ad65662feab7eff3efb56}} 
+APP\+\_\+\+PARAM\+\_\+\+FOC\+\_\+\+TIMER\+\_\+\+TOP&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_DUTY@{APP\_PARAM\_DUTY}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_DUTY@{APP\_PARAM\_DUTY}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da8afb9b113dd0f0716c427764558eb4ba}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da8afb9b113dd0f0716c427764558eb4ba}} 
+APP\+\_\+\+PARAM\+\_\+\+DUTY&Internal use only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_BRAKE\_TEMPERATURE@{APP\_PARAM\_BRAKE\_TEMPERATURE}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_BRAKE\_TEMPERATURE@{APP\_PARAM\_BRAKE\_TEMPERATURE}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276da66c0499537bfd0f2ee1cf870c7448a6a}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276da66c0499537bfd0f2ee1cf870c7448a6a}} 
+APP\+\_\+\+PARAM\+\_\+\+BRAKE\+\_\+\+TEMPERATURE&Brake coil temperature. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APP\_PARAM\_SIZE@{APP\_PARAM\_SIZE}!api.h@{api.h}}\index{api.h@{api.h}!APP\_PARAM\_SIZE@{APP\_PARAM\_SIZE}}}\mbox{\Hypertarget{api_8h_aa1f58887fab4642cf49f6f453c1d276daf913094f39a1622c91c85b522ccd4b0e}\label{api_8h_aa1f58887fab4642cf49f6f453c1d276daf913094f39a1622c91c85b522ccd4b0e}} 
+APP\+\_\+\+PARAM\+\_\+\+SIZE&Use to define the total parameter array size. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{api_8h_a54a489e7c2900705848c52acde7213a0}\label{api_8h_a54a489e7c2900705848c52acde7213a0}} 
+\index{api.h@{api.h}!rr\_check\_point@{rr\_check\_point}}
+\index{rr\_check\_point@{rr\_check\_point}!api.h@{api.h}}
+\doxysubsubsection{\texorpdfstring{rr\_check\_point()}{rr\_check\_point()}}
+{\footnotesize\ttfamily bool rr\+\_\+check\+\_\+point (\begin{DoxyParamCaption}\item[{const float}]{velocity\+\_\+limit\+\_\+deg\+\_\+per\+\_\+sec,  }\item[{float $\ast$}]{velocity\+\_\+max\+\_\+calc\+\_\+deg\+\_\+per\+\_\+sec,  }\item[{const float}]{position\+\_\+deg\+\_\+start,  }\item[{const float}]{velocity\+\_\+deg\+\_\+per\+\_\+sec\+\_\+start,  }\item[{const float}]{position\+\_\+deg\+\_\+end,  }\item[{const float}]{velocity\+\_\+deg\+\_\+per\+\_\+sec\+\_\+end,  }\item[{const uint32\+\_\+t}]{time\+\_\+ms }\end{DoxyParamCaption})}
+
+
+
+The function enables verifying validity (reachability) of a trajectory point without actually initializing an interface or a servo. To verify, the maximum velocity limit is compared against the calculation output of the function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em velocity\+\_\+limit\+\_\+deg\+\_\+per\+\_\+sec} & Velocity limit (in degrees/sec) \\
+\hline
+{\em velocity\+\_\+max\+\_\+calc\+\_\+deg\+\_\+per\+\_\+sec} & Pointer to the maximum velocity calculated for the point (in degrees/sec) \\
+\hline
+{\em position\+\_\+deg\+\_\+start} & Start position preset for the point (in degrees) \\
+\hline
+{\em velocity\+\_\+deg\+\_\+per\+\_\+sec\+\_\+start} & Start velocity preset for the point (in degrees/sec) \\
+\hline
+{\em position\+\_\+deg\+\_\+end} & End position preset for the point (in degrees) \\
+\hline
+{\em velocity\+\_\+deg\+\_\+per\+\_\+sec\+\_\+end} & End velocity preset for the point (in degrees/sec) \\
+\hline
+{\em time\+\_\+ms} & Time (in milliseconds) it should take the servo to move from the previous position (PVT point in a motion trajectory or an initial point) to the commanded one. The maximum admissible value is (2$^\wedge$32-\/1)/10 (roughly equivalent to 4.\+9 days) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true If the maximum calculated velocity at the point is greater than the velocity limit 
+
+false If the maximum calculated velocity at the point is equal or lower than the velocity limit 
+\end{DoxyReturn}
+\mbox{\Hypertarget{api_8h_a54b0250a895954c12ec8080dd1af1b49}\label{api_8h_a54b0250a895954c12ec8080dd1af1b49}} 
+\index{api.h@{api.h}!rr\_clear\_errors@{rr\_clear\_errors}}
+\index{rr\_clear\_errors@{rr\_clear\_errors}!api.h@{api.h}}
+\doxysubsubsection{\texorpdfstring{rr\_clear\_errors()}{rr\_clear\_errors()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+clear\+\_\+errors (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{servo }\end{DoxyParamCaption})}
+
+
+
+Clears the error bits in the servo. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{api_8h_a4ddf9b6f8c00d3a2134b00a499e9ab0d}\label{api_8h_a4ddf9b6f8c00d3a2134b00a499e9ab0d}} 
+\index{api.h@{api.h}!rr\_get\_hardware\_version@{rr\_get\_hardware\_version}}
+\index{rr\_get\_hardware\_version@{rr\_get\_hardware\_version}!api.h@{api.h}}
+\doxysubsubsection{\texorpdfstring{rr\_get\_hardware\_version()}{rr\_get\_hardware\_version()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+get\+\_\+hardware\+\_\+version (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{servo,  }\item[{char $\ast$}]{version\+\_\+string,  }\item[{int $\ast$}]{version\+\_\+string\+\_\+size }\end{DoxyParamCaption})}
+
+
+
+The function reads the hardware version of a servo (unique ID of the MCU + hardware type + hardware revision). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function. \\
+\hline
+{\em version\+\_\+string} & Pointer to the ASCII string to read \\
+\hline
+{\em version\+\_\+string\+\_\+size} & Input\+: size of the version\+\_\+string, Output\+: size of the read string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{api_8h_a0f1e6cf42c43ab3ace4e81b1b02a267e}\label{api_8h_a0f1e6cf42c43ab3ace4e81b1b02a267e}} 
+\index{api.h@{api.h}!rr\_get\_software\_version@{rr\_get\_software\_version}}
+\index{rr\_get\_software\_version@{rr\_get\_software\_version}!api.h@{api.h}}
+\doxysubsubsection{\texorpdfstring{rr\_get\_software\_version()}{rr\_get\_software\_version()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+get\+\_\+software\+\_\+version (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{servo,  }\item[{char $\ast$}]{version\+\_\+string,  }\item[{int $\ast$}]{version\+\_\+string\+\_\+size }\end{DoxyParamCaption})}
+
+
+
+The function reads the software version of a servo (minor + major + firmware build date). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em servo} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function. \\
+\hline
+{\em version\+\_\+string} & Pointer to the ASCII string to read \\
+\hline
+{\em version\+\_\+string\+\_\+size} & Input\+: size of the version\+\_\+string, Output\+: size of the read string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}

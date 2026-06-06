@@ -1,0 +1,367 @@
+\hypertarget{group___cyclic}{}\doxysection{Cyclic control}
+\label{group___cyclic}\index{Cyclic control@{Cyclic control}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_ga2c1e35b13074caef157fa222ab74cf27}{rr\+\_\+send\+\_\+pdo}} (const \mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface, int id, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} pdo\+\_\+n, int len, uint8\+\_\+t $\ast$data)
+\begin{DoxyCompactList}\small\item\em This function sends specified PDO with specified data and length. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_gad47a606e483eddcf2d37511a24b3ed36}{rr\+\_\+send\+\_\+pdo\+\_\+sync}} (const \mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface)
+\begin{DoxyCompactList}\small\item\em This function sends SYNC frame. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___cyclic_ga0b456965f5202dbc1c45c26ff53ef958}{rr\+\_\+setup\+\_\+pdo\+\_\+callback}} (\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$iface, \mbox{\hyperlink{api_8h_afed2b59273b0911110c06078ff8df3cc}{rr\+\_\+pdo\+\_\+cb\+\_\+t}} cb)
+\begin{DoxyCompactList}\small\item\em This function sets a user callback for incoming PDOs. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_gaa8e93000fedcca37088b83778c7550d8}{rr\+\_\+pdo\+\_\+disable}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$s, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} n)
+\begin{DoxyCompactList}\small\item\em This function disables specified PDO (it can\textquotesingle{}t be transmitted or received while disabled). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_gaf730241776dea55c70d97afd2386bf46}{rr\+\_\+pdo\+\_\+enable}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$s, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} n)
+\begin{DoxyCompactList}\small\item\em This function enables specified PDO. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_ga2710ebbfb4b18f29edd96c54135b370a}{rr\+\_\+pdo\+\_\+set\+\_\+trans\+\_\+type\+\_\+sync}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$s, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} n, uint8\+\_\+t type)
+\begin{DoxyCompactList}\small\item\em This function sets PDO transmittion type to \textquotesingle{}synchronous\textquotesingle{} along with SYNC decimation factor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_ga641898960c45355ee4c011e570f3c7a2}{rr\+\_\+pdo\+\_\+set\+\_\+trans\+\_\+type\+\_\+async}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$s, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} n)
+\begin{DoxyCompactList}\small\item\em This function sets PDO transmittion type to \textquotesingle{}asynchronous\textquotesingle{}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_gab6b448cb966170fecd80794043f28dce}{rr\+\_\+pdo\+\_\+set\+\_\+map\+\_\+count}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$s, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} n, uint8\+\_\+t cnt)
+\begin{DoxyCompactList}\small\item\em This function sets the number of objects mapped to specified PDO. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_ga37cd48aeb1d5c84ffdf61579c1039b13}{rr\+\_\+pdo\+\_\+get\+\_\+map\+\_\+count}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$s, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} n, uint8\+\_\+t $\ast$cnt)
+\begin{DoxyCompactList}\small\item\em This function retrieves the number of objects mapped to specified PDO. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_ga58a22a0f79b5e8e05c3a8bcaf72ca7ad}{rr\+\_\+pdo\+\_\+clear\+\_\+map}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$s, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} n)
+\begin{DoxyCompactList}\small\item\em This function clears entire mapping of specified PDO. After that new mapping can be built. Technically this is the same as disabling PDO and setting map objects count to zero. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_gabea549394908872907e51dd8fc008a5c}{rr\+\_\+pdo\+\_\+write\+\_\+map}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$s, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} n, uint8\+\_\+t map\+\_\+entry, uint32\+\_\+t map\+\_\+value)
+\begin{DoxyCompactList}\small\item\em This function writes map data to specified PDO into specified entry. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_gaf29edcbfe45835fcf6e05a7ad5e9a565}{rr\+\_\+pdo\+\_\+read\+\_\+map}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$s, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} n, uint8\+\_\+t map\+\_\+entry, uint32\+\_\+t $\ast$map\+\_\+value)
+\begin{DoxyCompactList}\small\item\em This function reads map data from specified PDO of specified entry. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_ga87c3899ec3e471ac79c63202be8823eb}{rr\+\_\+pdo\+\_\+get\+\_\+byte\+\_\+len}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$s, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} n, int $\ast$len)
+\begin{DoxyCompactList}\small\item\em This function calculates the actual cumulative length of objects mapped to specified PDO in bytes. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_ga9a7b9529f28118033a31ccc7e30d43df}{rr\+\_\+pdo\+\_\+add\+\_\+map}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$s, \mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}} n, uint16\+\_\+t idx, uint8\+\_\+t sidx, uint8\+\_\+t bit\+\_\+len)
+\begin{DoxyCompactList}\small\item\em This function appends a specified object to the list of mapped objects of specified PDO. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} \mbox{\hyperlink{group___cyclic_ga459379ac46bf1a901c891ec6c9709ec1}{rr\+\_\+pdo\+\_\+set\+\_\+cycle\+\_\+time}} (\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$s, uint32\+\_\+t cycle\+\_\+time\+\_\+us)
+\begin{DoxyCompactList}\small\item\em This function sets nominal cycle time length in microseconds. This is the time the servo waits for the new SYNC frame to come in. If there are no SYNC frames in period of 1.\+5 times of nominal cycle time servo will go to PRE-\/\+OP state. An emergency frame will also be emitted during this transition. Setting cycle time to zero disables SYNC frame monitoring functionality. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group___cyclic_ga9a7b9529f28118033a31ccc7e30d43df}\label{group___cyclic_ga9a7b9529f28118033a31ccc7e30d43df}} 
+\index{Cyclic control@{Cyclic control}!rr\_pdo\_add\_map@{rr\_pdo\_add\_map}}
+\index{rr\_pdo\_add\_map@{rr\_pdo\_add\_map}!Cyclic control@{Cyclic control}}
+\doxysubsubsection{\texorpdfstring{rr\_pdo\_add\_map()}{rr\_pdo\_add\_map()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+pdo\+\_\+add\+\_\+map (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{s,  }\item[{\mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}}}]{n,  }\item[{uint16\+\_\+t}]{idx,  }\item[{uint8\+\_\+t}]{sidx,  }\item[{uint8\+\_\+t}]{bit\+\_\+len }\end{DoxyParamCaption})}
+
+
+
+This function appends a specified object to the list of mapped objects of specified PDO. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em n} & (\mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}}) PDO number \\
+\hline
+{\em idx} & index of the object \\
+\hline
+{\em sidx} & sub-\/index of the object \\
+\hline
+{\em bit\+\_\+len} & length of the object in bits (should be multiple of 8) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+RET\+\_\+\+OK on success, RET\+\_\+\+ERROR otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___cyclic_ga58a22a0f79b5e8e05c3a8bcaf72ca7ad}\label{group___cyclic_ga58a22a0f79b5e8e05c3a8bcaf72ca7ad}} 
+\index{Cyclic control@{Cyclic control}!rr\_pdo\_clear\_map@{rr\_pdo\_clear\_map}}
+\index{rr\_pdo\_clear\_map@{rr\_pdo\_clear\_map}!Cyclic control@{Cyclic control}}
+\doxysubsubsection{\texorpdfstring{rr\_pdo\_clear\_map()}{rr\_pdo\_clear\_map()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+pdo\+\_\+clear\+\_\+map (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{s,  }\item[{\mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}}}]{n }\end{DoxyParamCaption})}
+
+
+
+This function clears entire mapping of specified PDO. After that new mapping can be built. Technically this is the same as disabling PDO and setting map objects count to zero. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em n} & (\mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}}) PDO number \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+RET\+\_\+\+OK on success, RET\+\_\+\+ERROR otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___cyclic_gaa8e93000fedcca37088b83778c7550d8}\label{group___cyclic_gaa8e93000fedcca37088b83778c7550d8}} 
+\index{Cyclic control@{Cyclic control}!rr\_pdo\_disable@{rr\_pdo\_disable}}
+\index{rr\_pdo\_disable@{rr\_pdo\_disable}!Cyclic control@{Cyclic control}}
+\doxysubsubsection{\texorpdfstring{rr\_pdo\_disable()}{rr\_pdo\_disable()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+pdo\+\_\+disable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{s,  }\item[{\mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}}}]{n }\end{DoxyParamCaption})}
+
+
+
+This function disables specified PDO (it can\textquotesingle{}t be transmitted or received while disabled). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em n} & (\mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}}) PDO number \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+RET\+\_\+\+OK on success, RET\+\_\+\+ERROR otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___cyclic_gaf730241776dea55c70d97afd2386bf46}\label{group___cyclic_gaf730241776dea55c70d97afd2386bf46}} 
+\index{Cyclic control@{Cyclic control}!rr\_pdo\_enable@{rr\_pdo\_enable}}
+\index{rr\_pdo\_enable@{rr\_pdo\_enable}!Cyclic control@{Cyclic control}}
+\doxysubsubsection{\texorpdfstring{rr\_pdo\_enable()}{rr\_pdo\_enable()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+pdo\+\_\+enable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{s,  }\item[{\mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}}}]{n }\end{DoxyParamCaption})}
+
+
+
+This function enables specified PDO. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em n} & (\mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}}) PDO number \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+RET\+\_\+\+OK on success, RET\+\_\+\+ERROR otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___cyclic_ga87c3899ec3e471ac79c63202be8823eb}\label{group___cyclic_ga87c3899ec3e471ac79c63202be8823eb}} 
+\index{Cyclic control@{Cyclic control}!rr\_pdo\_get\_byte\_len@{rr\_pdo\_get\_byte\_len}}
+\index{rr\_pdo\_get\_byte\_len@{rr\_pdo\_get\_byte\_len}!Cyclic control@{Cyclic control}}
+\doxysubsubsection{\texorpdfstring{rr\_pdo\_get\_byte\_len()}{rr\_pdo\_get\_byte\_len()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+pdo\+\_\+get\+\_\+byte\+\_\+len (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{s,  }\item[{\mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}}}]{n,  }\item[{int $\ast$}]{len }\end{DoxyParamCaption})}
+
+
+
+This function calculates the actual cumulative length of objects mapped to specified PDO in bytes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em n} & (\mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}}) PDO number \\
+\hline
+{\em len} & pointer to the variable to receive length \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+RET\+\_\+\+OK on success, RET\+\_\+\+ERROR otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___cyclic_ga37cd48aeb1d5c84ffdf61579c1039b13}\label{group___cyclic_ga37cd48aeb1d5c84ffdf61579c1039b13}} 
+\index{Cyclic control@{Cyclic control}!rr\_pdo\_get\_map\_count@{rr\_pdo\_get\_map\_count}}
+\index{rr\_pdo\_get\_map\_count@{rr\_pdo\_get\_map\_count}!Cyclic control@{Cyclic control}}
+\doxysubsubsection{\texorpdfstring{rr\_pdo\_get\_map\_count()}{rr\_pdo\_get\_map\_count()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+pdo\+\_\+get\+\_\+map\+\_\+count (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{s,  }\item[{\mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}}}]{n,  }\item[{uint8\+\_\+t $\ast$}]{cnt }\end{DoxyParamCaption})}
+
+
+
+This function retrieves the number of objects mapped to specified PDO. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em n} & (\mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}}) PDO number \\
+\hline
+{\em cnt} & pointer to variable to receive object count \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+RET\+\_\+\+OK on success, RET\+\_\+\+ERROR otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___cyclic_gaf29edcbfe45835fcf6e05a7ad5e9a565}\label{group___cyclic_gaf29edcbfe45835fcf6e05a7ad5e9a565}} 
+\index{Cyclic control@{Cyclic control}!rr\_pdo\_read\_map@{rr\_pdo\_read\_map}}
+\index{rr\_pdo\_read\_map@{rr\_pdo\_read\_map}!Cyclic control@{Cyclic control}}
+\doxysubsubsection{\texorpdfstring{rr\_pdo\_read\_map()}{rr\_pdo\_read\_map()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+pdo\+\_\+read\+\_\+map (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{s,  }\item[{\mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}}}]{n,  }\item[{uint8\+\_\+t}]{map\+\_\+entry,  }\item[{uint32\+\_\+t $\ast$}]{map\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+This function reads map data from specified PDO of specified entry. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em n} & (\mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}}) PDO number \\
+\hline
+{\em map\+\_\+entry} & map entry number \\
+\hline
+{\em map\+\_\+value} & pointer to the variable to receive value of the map entry \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+RET\+\_\+\+OK on success, RET\+\_\+\+ERROR otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___cyclic_ga459379ac46bf1a901c891ec6c9709ec1}\label{group___cyclic_ga459379ac46bf1a901c891ec6c9709ec1}} 
+\index{Cyclic control@{Cyclic control}!rr\_pdo\_set\_cycle\_time@{rr\_pdo\_set\_cycle\_time}}
+\index{rr\_pdo\_set\_cycle\_time@{rr\_pdo\_set\_cycle\_time}!Cyclic control@{Cyclic control}}
+\doxysubsubsection{\texorpdfstring{rr\_pdo\_set\_cycle\_time()}{rr\_pdo\_set\_cycle\_time()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+pdo\+\_\+set\+\_\+cycle\+\_\+time (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{s,  }\item[{uint32\+\_\+t}]{cycle\+\_\+time\+\_\+us }\end{DoxyParamCaption})}
+
+
+
+This function sets nominal cycle time length in microseconds. This is the time the servo waits for the new SYNC frame to come in. If there are no SYNC frames in period of 1.\+5 times of nominal cycle time servo will go to PRE-\/\+OP state. An emergency frame will also be emitted during this transition. Setting cycle time to zero disables SYNC frame monitoring functionality. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em cycle\+\_\+time\+\_\+us} & nominal cycle time in microseconds \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+RET\+\_\+\+OK on success, RET\+\_\+\+ERROR otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___cyclic_gab6b448cb966170fecd80794043f28dce}\label{group___cyclic_gab6b448cb966170fecd80794043f28dce}} 
+\index{Cyclic control@{Cyclic control}!rr\_pdo\_set\_map\_count@{rr\_pdo\_set\_map\_count}}
+\index{rr\_pdo\_set\_map\_count@{rr\_pdo\_set\_map\_count}!Cyclic control@{Cyclic control}}
+\doxysubsubsection{\texorpdfstring{rr\_pdo\_set\_map\_count()}{rr\_pdo\_set\_map\_count()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+pdo\+\_\+set\+\_\+map\+\_\+count (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{s,  }\item[{\mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}}}]{n,  }\item[{uint8\+\_\+t}]{cnt }\end{DoxyParamCaption})}
+
+
+
+This function sets the number of objects mapped to specified PDO. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em n} & (\mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}}) PDO number \\
+\hline
+{\em cnt} & number of objects mapped to PDO \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+RET\+\_\+\+OK on success, RET\+\_\+\+ERROR otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___cyclic_ga641898960c45355ee4c011e570f3c7a2}\label{group___cyclic_ga641898960c45355ee4c011e570f3c7a2}} 
+\index{Cyclic control@{Cyclic control}!rr\_pdo\_set\_trans\_type\_async@{rr\_pdo\_set\_trans\_type\_async}}
+\index{rr\_pdo\_set\_trans\_type\_async@{rr\_pdo\_set\_trans\_type\_async}!Cyclic control@{Cyclic control}}
+\doxysubsubsection{\texorpdfstring{rr\_pdo\_set\_trans\_type\_async()}{rr\_pdo\_set\_trans\_type\_async()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+pdo\+\_\+set\+\_\+trans\+\_\+type\+\_\+async (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{s,  }\item[{\mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}}}]{n }\end{DoxyParamCaption})}
+
+
+
+This function sets PDO transmittion type to \textquotesingle{}asynchronous\textquotesingle{}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em n} & (\mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}}) PDO number \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+RET\+\_\+\+OK on success, RET\+\_\+\+ERROR otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___cyclic_ga2710ebbfb4b18f29edd96c54135b370a}\label{group___cyclic_ga2710ebbfb4b18f29edd96c54135b370a}} 
+\index{Cyclic control@{Cyclic control}!rr\_pdo\_set\_trans\_type\_sync@{rr\_pdo\_set\_trans\_type\_sync}}
+\index{rr\_pdo\_set\_trans\_type\_sync@{rr\_pdo\_set\_trans\_type\_sync}!Cyclic control@{Cyclic control}}
+\doxysubsubsection{\texorpdfstring{rr\_pdo\_set\_trans\_type\_sync()}{rr\_pdo\_set\_trans\_type\_sync()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+pdo\+\_\+set\+\_\+trans\+\_\+type\+\_\+sync (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{s,  }\item[{\mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}}}]{n,  }\item[{uint8\+\_\+t}]{type }\end{DoxyParamCaption})}
+
+
+
+This function sets PDO transmittion type to \textquotesingle{}synchronous\textquotesingle{} along with SYNC decimation factor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em n} & (\mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}}) PDO number \\
+\hline
+{\em type} & specifies the number of SYNC frames to pass between PDO transmittion/reception \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+RET\+\_\+\+OK on success, RET\+\_\+\+ERROR otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___cyclic_gabea549394908872907e51dd8fc008a5c}\label{group___cyclic_gabea549394908872907e51dd8fc008a5c}} 
+\index{Cyclic control@{Cyclic control}!rr\_pdo\_write\_map@{rr\_pdo\_write\_map}}
+\index{rr\_pdo\_write\_map@{rr\_pdo\_write\_map}!Cyclic control@{Cyclic control}}
+\doxysubsubsection{\texorpdfstring{rr\_pdo\_write\_map()}{rr\_pdo\_write\_map()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+pdo\+\_\+write\+\_\+map (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__servo__t}{rr\+\_\+servo\+\_\+t}} $\ast$}]{s,  }\item[{\mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}}}]{n,  }\item[{uint8\+\_\+t}]{map\+\_\+entry,  }\item[{uint32\+\_\+t}]{map\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+This function writes map data to specified PDO into specified entry. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & Servo descriptor returned by the \mbox{\hyperlink{group___init_ga88467da814964fd147ab9c7c7af0ed21}{rr\+\_\+init\+\_\+servo}} function \\
+\hline
+{\em n} & (\mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}}) PDO number \\
+\hline
+{\em map\+\_\+entry} & map entry number \\
+\hline
+{\em map\+\_\+value} & value of the map entry \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+RET\+\_\+\+OK on success, RET\+\_\+\+ERROR otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___cyclic_ga2c1e35b13074caef157fa222ab74cf27}\label{group___cyclic_ga2c1e35b13074caef157fa222ab74cf27}} 
+\index{Cyclic control@{Cyclic control}!rr\_send\_pdo@{rr\_send\_pdo}}
+\index{rr\_send\_pdo@{rr\_send\_pdo}!Cyclic control@{Cyclic control}}
+\doxysubsubsection{\texorpdfstring{rr\_send\_pdo()}{rr\_send\_pdo()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+send\+\_\+pdo (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$}]{iface,  }\item[{int}]{id,  }\item[{\mbox{\hyperlink{api_8h_a9fe822390fab83439a3f1a28ac31f356}{rr\+\_\+pdo\+\_\+n\+\_\+t}}}]{pdo\+\_\+n,  }\item[{int}]{len,  }\item[{uint8\+\_\+t $\ast$}]{data }\end{DoxyParamCaption})}
+
+
+
+This function sends specified PDO with specified data and length. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em iface} & Descriptor of the interface (as returned by the \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\+\_\+init\+\_\+interface}} function) \\
+\hline
+{\em id} & device ID \\
+\hline
+{\em pdo\+\_\+n} & PDO number (valid are RPDO0 to RPDO3) \\
+\hline
+{\em len} & Data Length Code (length of data field in bytes) \\
+\hline
+{\em data} & pointer to data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___cyclic_gad47a606e483eddcf2d37511a24b3ed36}\label{group___cyclic_gad47a606e483eddcf2d37511a24b3ed36}} 
+\index{Cyclic control@{Cyclic control}!rr\_send\_pdo\_sync@{rr\_send\_pdo\_sync}}
+\index{rr\_send\_pdo\_sync@{rr\_send\_pdo\_sync}!Cyclic control@{Cyclic control}}
+\doxysubsubsection{\texorpdfstring{rr\_send\_pdo\_sync()}{rr\_send\_pdo\_sync()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}} rr\+\_\+send\+\_\+pdo\+\_\+sync (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$}]{iface }\end{DoxyParamCaption})}
+
+
+
+This function sends SYNC frame. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em iface} & Descriptor of the interface (as returned by the \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\+\_\+init\+\_\+interface}} function) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code (\mbox{\hyperlink{api_8h_a92d5be5038abcf89837faf85a08debdc}{rr\+\_\+ret\+\_\+status\+\_\+t}}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___cyclic_ga0b456965f5202dbc1c45c26ff53ef958}\label{group___cyclic_ga0b456965f5202dbc1c45c26ff53ef958}} 
+\index{Cyclic control@{Cyclic control}!rr\_setup\_pdo\_callback@{rr\_setup\_pdo\_callback}}
+\index{rr\_setup\_pdo\_callback@{rr\_setup\_pdo\_callback}!Cyclic control@{Cyclic control}}
+\doxysubsubsection{\texorpdfstring{rr\_setup\_pdo\_callback()}{rr\_setup\_pdo\_callback()}}
+{\footnotesize\ttfamily void rr\+\_\+setup\+\_\+pdo\+\_\+callback (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrr__can__interface__t}{rr\+\_\+can\+\_\+interface\+\_\+t}} $\ast$}]{iface,  }\item[{\mbox{\hyperlink{api_8h_afed2b59273b0911110c06078ff8df3cc}{rr\+\_\+pdo\+\_\+cb\+\_\+t}}}]{cb }\end{DoxyParamCaption})}
+
+
+
+This function sets a user callback for incoming PDOs. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em iface} & Descriptor of the interface (as returned by the \mbox{\hyperlink{group___init_ga472a4890dcc7d7a13123c56a06946d91}{rr\+\_\+init\+\_\+interface}} function) \\
+\hline
+{\em cb} & (\mbox{\hyperlink{api_8h_aee5ef69e1f68701368c5844dd42e7662}{rr\+\_\+com\+\_\+frame\+\_\+cb\+\_\+t}}) callback function \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
