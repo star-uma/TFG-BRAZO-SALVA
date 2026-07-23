@@ -73,8 +73,8 @@ Dispositivos necesarios:
   sudo apt install ros-humble-launch-param-builder
 
 - También hay que pegar los archivos (contenidos en la carpeta "Añadidos") en la carpeta correspondiente:
-  1. Pegar "libservo_api.so"  en la dirección: Equipo/usr/local/lib
-  2. Pegar la carpeta "servo_api" en la dirección: Equipo/usr/local/include
+  1. Pegar "libservo_api.so"  en la dirección: Equipo / usr / local / lib
+  2. Pegar la carpeta "servo_api" en la dirección: Equipo / usr / local / include
 
   Seguramente tendrás que hacerlo con la terminal porque te pedirá derechos de admin.
 
