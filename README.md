@@ -29,6 +29,50 @@ Dispositivos necesarios:
   colcon build
   source install/setup.bash
 
+  - Instalar paquetes:
+    sudo apt update
+    sudo apt install -y \
+    ros-humble-ros2-control \
+    ros-humble-ros2-controllers \
+    ros-humble-controller-manager \
+    ros-humble-hardware-interface \
+    ros-humble-realtime-tools \
+    ros-humble-joint-state-broadcaster \
+    ros-humble-joint-trajectory-controller \
+    ros-humble-position-controllers \
+    ros-humble-effort-controllers \
+    ros-humble-velocity-controllers \
+    ros-humble-forward-command-controller \
+    ros-humble-std-msgs \
+    ros-humble-std-srvs \
+    ros-humble-sensor-msgs \
+    ros-humble-trajectory-msgs \
+    ros-humble-geometry-msgs \
+    ros-humble-tf2 \
+    ros-humble-tf2-ros \
+    ros-humble-tf2-msgs \
+    ros-humble-tf2-geometry-msgs \
+    ros-humble-robot-state-publisher \
+    ros-humble-urdf \
+    ros-humble-xacro \
+    ros-humble-urdf-parser-plugin \
+    ros-humble-kdl-parser \
+    ros-humble-joy \
+    ros-humble-joint-state-publisher \
+    ros-humble-joint-state-publisher-gui \
+    ros-humble-launch \
+    ros-humble-launch-ros \
+    ros-humble-launch-xml \
+    ros-humble-launch-yaml \
+    ros-humble-pluginlib \
+    ros-humble-dynamixel-sdk
+    sudo apt install ros-humble-dynamixel-ros2
+    sudo apt install ros-humble-dynamixel-sdk
+    sudo apt install ros-humble-launch-param-builder
+
+  - También hay que pegar los archivos (contenidos en la carpeta "Añadidos") en la carpeta correspondiente:
+    
+
 ## Uso
 
 Lanzar el sistema con:
