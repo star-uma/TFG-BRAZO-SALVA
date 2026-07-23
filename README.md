@@ -74,7 +74,7 @@ Dispositivos necesarios:
 
 - También hay que pegar los archivos (contenidos en la carpeta "Añadidos") en la carpeta correspondiente:
   1. Pegar "libservo_api.so"  en la dirección: Equipo / usr / local / lib
-  2. Pegar la carpeta "servo_api" en la dirección: Equipo / usr / local / include
+  2. Crear en la ruta: Equipo / usr / local / include la carpeta "servo_api" y pegar dentro de la carpeta el archivo api.h 
 
   Seguramente tendrás que hacerlo con la terminal porque te pedirá derechos de admin.
 
